@@ -1,0 +1,23 @@
+{
+    "name": "YorHa - ISPEP",
+    "short_name": "YorHa",
+    "description": "Plataforma de simulación astronómica en tiempo real - Estación Terrestre La Serena",
+    "start_url": "/ispep/index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#c5a358",
+    "orientation": "landscape",
+    "icons": [
+        {
+            "src": "img/logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "img/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["education", "science"]
+}

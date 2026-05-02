@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /php/
+Disallow: /logs/
+Disallow: /_backup/
+Disallow: /data/
+
+Sitemap: https://ispep.cl/sitemap.xml

@@ -1,0 +1,835 @@
+/* ═══════════════════════════════════════════════════════
+   YorHa — style.css (Consolidated Design System)
+   Reemplaza TailwindCSS CDN con utilidades vanilla.
+   ═══════════════════════════════════════════════════════ */
+
+/* ── 1. Font Imports ── */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Cinzel:wght@400;700;900&family=Inter:wght@200;300;400;500;600&display=swap');
+
+/* ── 2. Reset & Base ── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── 3. Font Utilities ── */
+.font-serif {
+    font-family: 'Cinzel', serif;
+}
+
+.font-display {
+    font-family: 'Bodoni Moda', serif;
+}
+
+/* ── 4. Accessibility ── */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #c5a358;
+    color: #000;
+    padding: 0.8rem 2rem;
+    z-index: 10000;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    border-radius: 0 0 8px 8px;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Focus-visible for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid #c5a358;
+    outline-offset: 3px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid #c5a358;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(197, 163, 88, 0.15);
+}
+
+/* ── 5. Body Variants ── */
+.yorha-body {
+    background: #000;
+    overflow: hidden;
+}
+
+.login-body {
+    background: #050505;
+    overflow: hidden;
+}
+
+/* ── 6. Layout Utilities (replacing Tailwind) ── */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-end { justify-content: end; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.relative { position: relative; }
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.overflow-hidden { overflow: hidden; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-10 { margin-bottom: 2.5rem; }
+.mb-16 { margin-bottom: 4rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-10 { margin-top: 2.5rem; }
+.mt-20 { margin-top: 5rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.ml-auto { margin-left: auto; }
+.p-4 { padding: 1rem; }
+.p-12 { padding: 3rem; }
+.p-24 { padding: 6rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-10 { padding-left: 2.5rem; padding-right: 2.5rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.py-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+.pt-2 { padding-top: 0.5rem; }
+.max-w-md { max-width: 28rem; }
+.max-w-2xl { max-width: 42rem; }
+.max-w-4xl { max-width: 56rem; }
+.flex-1 { flex: 1; }
+.hidden { display: none; }
+.space-y-10 > * + * { margin-top: 2.5rem; }
+
+/* ── 7. Custom Cursor (Overlay — NO reemplaza el nativo) ── */
+#custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid rgba(197, 163, 88, 0.7);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, border-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+}
+
+#custom-cursor.hovering {
+    width: 45px;
+    height: 45px;
+    border-color: #c5a358;
+    background: rgba(197, 163, 88, 0.08);
+}
+
+/* ── 8. Vignette Cinematográfico ── */
+.vignette::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    box-shadow:
+        inset 0 0 250px rgba(0, 0, 0, 0.95),
+        inset 0 0 100px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* ── 9. Scanlines CRT ── */
+.scanlines::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.12) 2px,
+            rgba(0, 0, 0, 0.12) 4px),
+        linear-gradient(90deg,
+            rgba(255, 0, 0, 0.02),
+            rgba(0, 255, 0, 0.01),
+            rgba(0, 0, 255, 0.02));
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+    z-index: 55;
+    opacity: 0.12;
+}
+
+/* ── 10. Shimmer Text Animation ── */
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+.shimmer-text {
+    background: linear-gradient(90deg,
+            #ffffff 0%, #ffffff 30%, #c5a358 45%,
+            #fcd34d 50%, #c5a358 55%, #ffffff 70%, #ffffff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s linear infinite;
+}
+
+/* ── 11. Gradient Flow Animation ── */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.gradient-flow {
+    background: linear-gradient(90deg, #6b7280, #9ca3af, #c5a358, #9ca3af, #6b7280);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientFlow 6s ease infinite;
+}
+
+/* ── 12. Staggered Reveal Animation ── */
+@keyframes revealUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+        filter: blur(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
+.stagger { opacity: 0; }
+.stagger-1 { animation: revealUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+.stagger-2 { animation: revealUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+.stagger-3 { animation: revealUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards; }
+.stagger-4 { animation: revealUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards; }
+
+/* ── 13. Button Glow Animations ── */
+@keyframes borderGlow {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(197, 163, 88, 0.15), inset 0 0 8px rgba(197, 163, 88, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(197, 163, 88, 0.35), inset 0 0 15px rgba(197, 163, 88, 0.1);
+    }
+}
+
+.glow-btn {
+    animation: borderGlow 3s ease-in-out infinite;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-btn:hover {
+    animation: none;
+    box-shadow: 0 0 40px rgba(197, 163, 88, 0.5), inset 0 0 20px rgba(197, 163, 88, 0.15);
+    transform: translateY(-2px);
+}
+
+@keyframes borderGlowWhite {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.05), inset 0 0 8px rgba(255, 255, 255, 0.02);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.12), inset 0 0 12px rgba(255, 255, 255, 0.05);
+    }
+}
+
+.glow-btn-white {
+    animation: borderGlowWhite 3.5s ease-in-out infinite;
+    animation-delay: 1s;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-btn-white:hover {
+    animation: none;
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+/* ── 14. Particles Canvas ── */
+#particles-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* ── 15. Decorative Divider ── */
+.divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c5a358, transparent);
+    margin: 0 auto;
+    opacity: 0.5;
+}
+
+/* ── 16. Subtle Pulse ── */
+@keyframes subtlePulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* ══ INDEX.HTML — Hero Layout (replaces Tailwind classes) ══ */
+.bg-video {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+.hero-main {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+}
+
+.hero-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 56rem;
+}
+
+.hero-subtitle {
+    color: #c5a358;
+    font-style: italic;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.15em;
+}
+
+.hero-title {
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+}
+
+.hero-desc {
+    color: #9ca3af;
+    max-width: 28rem;
+    margin-bottom: 2.5rem;
+    font-weight: 200;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ── YorHa Button Styles ── */
+.yorha-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    transition: all 0.5s ease;
+    letter-spacing: 0.3em;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.yorha-btn-gold {
+    border: 1px solid #c5a358;
+    color: #c5a358;
+    background: transparent;
+}
+
+.yorha-btn-gold:hover {
+    background: #c5a358;
+    color: #000;
+}
+
+.yorha-btn-ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.yorha-btn-ghost:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* ══ LOGIN.HTML — Layout ══ */
+.login-main {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    min-height: 100vh;
+}
+
+.login-video-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    transition: opacity 1s ease;
+}
+
+.login-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: linear-gradient(to top right, #000, transparent, rgba(0, 0, 0, 0.1));
+}
+
+.login-panel {
+    width: 100%;
+    max-width: 550px;
+    min-height: 100vh;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-right: 1px solid rgba(197, 163, 88, 0.2);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 50px 0 100px rgba(0, 0, 0, 0.5);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.login-header h1 {
+    font-family: 'Cinzel', serif;
+    color: #c5a358;
+    font-size: 2.25rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.login-header h2 {
+    color: #6b7280;
+    font-size: 0.625rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+/* Form Groups */
+.form-group {
+    position: relative;
+}
+
+.form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 0;
+    color: #fff;
+    font-size: 0.875rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    border-bottom-color: #c5a358;
+    box-shadow: 0 10px 15px -3px rgba(197, 163, 88, 0.1);
+}
+
+.form-label {
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    color: #6b7280;
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.form-input:focus ~ .form-label,
+.form-input:not(:placeholder-shown) ~ .form-label {
+    top: -1rem;
+    color: #c5a358;
+    font-size: 0.5rem;
+}
+
+/* Submit Button */
+.login-submit {
+    position: relative;
+    width: 100%;
+    padding: 1.25rem;
+    border: 1px solid rgba(197, 163, 88, 0.4);
+    background: transparent;
+    color: #c5a358;
+    font-weight: 700;
+    font-size: 0.625rem;
+    letter-spacing: 0.6em;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+}
+
+.login-submit:hover {
+    box-shadow: 0 0 30px rgba(197, 163, 88, 0.2);
+}
+
+.login-submit .btn-text {
+    position: relative;
+    z-index: 10;
+    transition: color 0.5s ease;
+}
+
+.login-submit:hover .btn-text {
+    color: #000;
+}
+
+.login-submit .btn-fill {
+    position: absolute;
+    inset: 0;
+    background: #c5a358;
+    transform: translateY(100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.login-submit:hover .btn-fill {
+    transform: translateY(0);
+}
+
+/* Toggle link */
+.toggle-link {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 0.625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: color 0.3s ease;
+}
+
+.toggle-link:hover {
+    color: #c5a358;
+}
+
+/* Social Divider */
+.social-divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.social-divider .line {
+    height: 1px;
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.social-divider span {
+    padding: 0 1rem;
+    font-size: 0.5rem;
+    color: #4b5563;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+/* GitHub Button */
+.github-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    background: #24292e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    color: #fff;
+}
+
+.github-btn:hover {
+    background: #2f363d;
+}
+
+.github-btn svg {
+    width: 1rem;
+    height: 1rem;
+    fill: #fff;
+}
+
+.github-btn span {
+    font-size: 0.5625rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Google Auth Container */
+.google-auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+    height: 50px;
+    margin-bottom: 0.5rem;
+    background: #24292e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+}
+
+.google-auth-container:hover {
+    background: #2f363d;
+}
+
+.google-auth-container:focus-within {
+    outline: 2px solid #c5a358;
+    outline-offset: 2px;
+}
+
+/* Login Footer */
+.login-footer {
+    margin-top: 5rem;
+    text-align: center;
+}
+
+.login-footer p {
+    font-size: 0.625rem;
+    color: #374151;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Dato Estelar Section */
+.dato-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 6rem;
+    text-align: right;
+}
+
+.dato-label {
+    font-family: 'Bodoni Moda', serif;
+    color: #c5a358;
+    font-size: 0.875rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.dato-text {
+    font-family: 'Bodoni Moda', serif;
+    font-style: italic;
+    font-size: 3rem;
+    max-width: 42rem;
+    margin-left: auto;
+    line-height: 1.2;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+#dato-estelar-texto {
+    background-image: linear-gradient(to right, #ffffff, #c5a358, #ffffff, #c5a358);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent !important;
+    display: inline-block;
+    animation: breathe-and-shine 6s ease-in-out infinite;
+    transition: opacity 0.8s ease, filter 0.8s ease;
+}
+
+@keyframes breathe-and-shine {
+    0% {
+        background-position: 0% 50%;
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(197, 163, 88, 0.2));
+    }
+    50% {
+        background-position: 100% 50%;
+        transform: scale(1.02);
+        filter: drop-shadow(0 0 15px rgba(197, 163, 88, 0.5));
+    }
+    100% {
+        background-position: 0% 50%;
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(197, 163, 88, 0.2));
+    }
+}
+
+.dato-footer {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: end;
+}
+
+.dato-footer span {
+    color: #6b7280;
+    font-size: 0.625rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.dato-footer .dato-line {
+    height: 1px;
+    width: 5rem;
+    background: rgba(197, 163, 88, 0.5);
+}
+
+/* Login Entrance Animation */
+@keyframes entrance {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px);
+    }
+}
+
+.animate-entrance {
+    animation: entrance 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Error Display */
+.error-banner {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    color: #ef4444;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+/* ══ RESPONSIVE (Básico) ══ */
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .yorha-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 10vw, 3.5rem);
+    }
+
+    .login-panel {
+        max-width: 100%;
+        border-right: none;
+    }
+
+    .dato-section {
+        display: none;
+    }
+
+    .dato-text {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .hero-desc {
+        font-size: 0.7rem;
+    }
+
+    .login-panel {
+        padding: 1.5rem;
+    }
+
+    .login-header {
+        margin-bottom: 2rem;
+    }
+}
+
+/* SweetAlert2 YorHa Theme */
+.yorha-swal-popup {
+    border: 1px solid rgba(197, 163, 88, 0.3) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) !important;
+}
+.yorha-swal-title {
+    font-family: 'Cinzel', serif !important;
+    letter-spacing: 0.1em !important;
+    color: #c5a358 !important;
+}
+.swal2-confirm {
+    font-family: 'Inter', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+}

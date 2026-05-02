@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión — YorHa Project</title>
+    <meta name="description" content="Accede a tu cuenta en YorHa Project. Autenticación segura con correo, Google o GitHub para explorar la simulación astronómica.">
+    <link rel="canonical" href="https://ispep.cl/login.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Iniciar Sesión — YorHa Project">
+    <meta property="og:description" content="Accede a tu cuenta para explorar el sistema solar en tiempo real.">
+    <meta property="og:image" content="https://ispep.cl/img/logo.png">
+    <meta property="og:url" content="https://ispep.cl/login.html">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Iniciar Sesión — YorHa Project">
+    <meta name="twitter:description" content="Accede a tu cuenta para explorar el sistema solar en tiempo real.">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#c5a358">
+    <link rel="icon" type="image/png" href="img/logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;300;400;500;600&family=Bodoni+Moda:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Styles (SIN Tailwind CDN) -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+    <!-- Accesibilidad: Skip link -->
+    <a href="#login-form" class="skip-link">Saltar al formulario</a>
+
+    <video id="bg-video-saturn" loop autoplay muted playsinline class="login-video-bg" aria-hidden="true">
+        <source src="img/saturn2.mp4" type="video/mp4">
+    </video>
+
+    <div class="login-overlay" aria-hidden="true"></div>
+
+    <main class="login-main" role="main">
+
+        <section class="animate-entrance login-panel">
+            <header class="login-header">
+                <h1 class="font-serif">ISPEP</h1>
+                <h2 id="form-subtitle">Autenticación de Usuario</h2>
+            </header>
+
+            <div id="forms-container" class="relative">
+                <!-- Formulario de Login -->
+                <form action="php/login_process.php" method="POST" class="space-y-10" id="login-form" aria-label="Formulario de inicio de sesión">
+                    <!-- CSRF Token (inyectado por JS ya que es HTML estático) -->
+                    <input type="hidden" name="csrf_token" id="csrf-login" value="">
+
+                    <div class="form-group">
+                        <input type="email" name="email" required placeholder=" " id="login-email"
+                            class="form-input" autocomplete="email"
+                            aria-label="Correo electrónico institucional">
+                        <label for="login-email" class="form-label">Correo Institucional</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" required placeholder=" " id="login-password"
+                            class="form-input" autocomplete="current-password"
+                            aria-label="Contraseña">
+                        <label for="login-password" class="form-label">Contraseña</label>
+                    </div>
+
+                    <button type="submit" class="login-submit" aria-label="Iniciar sesión">
+                        <span class="btn-text">Autenticar</span>
+                        <div class="btn-fill" aria-hidden="true"></div>
+                    </button>
+
+                    <div class="text-center mt-3 pt-2">
+                        <button type="button" onclick="toggleForms()" class="toggle-link"
+                            aria-label="Cambiar al formulario de registro">
+                            ¿No tienes cuenta? Crear una aquí
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Formulario de Registro -->
+                <form action="php/register_process.php" method="POST" class="space-y-10 hidden" id="register-form" aria-label="Formulario de registro">
+                    <input type="hidden" name="csrf_token" id="csrf-register" value="">
+
+                    <div class="form-group">
+                        <input type="text" name="nombre" required placeholder=" " id="reg-nombre"
+                            class="form-input" autocomplete="name"
+                            aria-label="Nombre completo">
+                        <label for="reg-nombre" class="form-label">Nombre Completo</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" required placeholder=" " id="reg-email"
+                            class="form-input" autocomplete="email"
+                            aria-label="Correo electrónico">
+                        <label for="reg-email" class="form-label">Correo Electrónico</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" required placeholder=" " id="reg-password"
+                            class="form-input" autocomplete="new-password" minlength="6"
+                            aria-label="Contraseña (mínimo 6 caracteres)">
+                        <label for="reg-password" class="form-label">Contraseña</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password_confirm" required placeholder=" " id="reg-password-confirm"
+                            class="form-input" autocomplete="new-password" minlength="6"
+                            aria-label="Confirmar Contraseña">
+                        <label for="reg-password-confirm" class="form-label">Confirmar Contraseña</label>
+                    </div>
+                    <p id="password-error" style="color: #ef4444; font-size: 0.625rem; display: none;">Las contraseñas no coinciden.</p>
+
+                    <button type="submit" class="login-submit" aria-label="Registrar nueva cuenta">
+                        <span class="btn-text">Registrar Usuario</span>
+                        <div class="btn-fill" aria-hidden="true"></div>
+                    </button>
+
+                    <div class="text-center mt-4 pt-2">
+                        <button type="button" onclick="toggleForms()" class="toggle-link"
+                            aria-label="Cambiar al formulario de inicio de sesión">
+                            ¿Ya tienes cuenta? Iniciar Sesión
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Opciones Sociales -->
+            <div class="social-divider" role="separator">
+                <div class="line" aria-hidden="true"></div>
+                <span>O continuar con</span>
+                <div class="line" aria-hidden="true"></div>
+            </div>
+
+            <!-- Google Auth -->
+            <div id="google-auth-btn-container" class="google-auth-container"
+                aria-label="Iniciar sesión con Google"></div>
+
+            <!-- GitHub Auth -->
+            <a href="https://github.com/login/oauth/authorize?client_id=Ov23lih8qMJVovBZZYbC&scope=user"
+                class="github-btn" aria-label="Iniciar sesión con GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                        d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                </svg>
+                <span>GitHub Account</span>
+            </a>
+
+            <footer class="login-footer" role="contentinfo">
+                <p>ISPEP ♱ zoroikami 2026</p>
+            </footer>
+        </section>
+
+        <section class="dato-section animate-entrance" aria-label="Dato estelar del día">
+            <div>
+                <h3 class="dato-label">Dato Estelar</h3>
+
+                <p id="dato-estelar-texto" class="dato-text" aria-live="polite" aria-atomic="true">
+                    "En Saturno llueven diamantes y sus vientos alcanzan los 1.800 km/h."
+                </p>
+
+                <div class="dato-footer" aria-hidden="true">
+                    <span>Laurel</span>
+                    <div class="dato-line"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        // ══ Google OAuth ══
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "977516655506-vr13tt7l77ghiie2kbff4cqjo7645vb1.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+
+            const googleBtnContainer = document.getElementById('google-auth-btn-container');
+            if (googleBtnContainer) {
+                google.accounts.id.renderButton(
+                    googleBtnContainer,
+                    { theme: "filled_black", size: "large", type: "standard", width: 450, text: "continue_with" }
+                );
+            }
+
+            // Cargar CSRF token via AJAX para formularios estáticos
+            fetchCsrfToken();
+        }
+
+        function handleCredentialResponse(response) {
+            window.location.href = "php/auth_google.php?token=" + response.credential;
+        }
+
+        // ══ CSRF Token Fetch ══
+        async function fetchCsrfToken() {
+            try {
+                const response = await fetch('php/csrf_token.php');
+                const data = await response.json();
+                document.getElementById('csrf-login').value = data.token;
+                document.getElementById('csrf-register').value = data.token;
+            } catch (e) {
+                // Fallback: continuar sin CSRF en dev local
+                console.warn('CSRF token fetch failed (dev mode)');
+            }
+        }
+
+        // ══ Rotación de Datos Estelares ══
+        const datosEstelares = [
+            "\"En Saturno llueven diamantes y sus vientos alcanzan los 1.800 km/h.\"",
+            "\"Los anillos de Saturno podrían ser restos de una luna desaparecida llamada Chrysalis.\"",
+            "\"El cometa 3I/ATLAS es casi tan antiguo como nuestra propia galaxia.\"",
+            "\"La Tierra se ha vuelto un 16% más brillante de noche desde el año 2014.\"",
+            "\"El rover Perseverance ya ha recolectado muestras clave en el cráter Jezero de Marte.\""
+        ];
+
+        let indice = 0;
+        const elementoDato = document.getElementById('dato-estelar-texto');
+
+        function rotarDatos() {
+            elementoDato.style.opacity = "0";
+            elementoDato.style.transform = "translateY(15px)";
+
+            setTimeout(() => {
+                indice = (indice + 1) % datosEstelares.length;
+                elementoDato.textContent = datosEstelares[indice];
+
+                // Forzar repintado para no perder el degradado
+                elementoDato.style.display = 'none';
+                elementoDato.offsetHeight;
+                elementoDato.style.display = 'block';
+
+                elementoDato.style.opacity = "1";
+                elementoDato.style.transform = "translateY(0)";
+            }, 1000);
+        }
+
+        setInterval(rotarDatos, 8000);
+
+        // ══ Toggle Login / Register ══
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const formSubtitle = document.getElementById('form-subtitle');
+
+            if (loginForm.classList.contains('hidden')) {
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                formSubtitle.textContent = "Autenticación de Usuario";
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                formSubtitle.textContent = "Crear Nueva Cuenta";
+            }
+        }
+
+        // ══ Register Validation ══
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            const pass = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-password-confirm').value;
+            const err = document.getElementById('password-error');
+
+            if (pass !== confirm) {
+                e.preventDefault();
+                err.style.display = 'block';
+            } else {
+                err.style.display = 'none';
+            }
+        });
+
+        // ══ Error Messages via URL ══
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+
+            if (error) {
+                const mensajes = {
+                    'email_exists': "El correo ya está registrado. Intenta iniciar sesión.",
+                    'invalid_credentials': "Credenciales incorrectas o usuario no encontrado.",
+                    'use_social': "Iniciaste sesión antes con Google o GitHub. Usa ese botón.",
+                    'acceso_denegado': "Debes iniciar sesión para ver tus datos.",
+                    'sesion_expirada': "Tu sesión expiró por inactividad.",
+                    'csrf_failed': "Error de seguridad. Recarga la página e intenta de nuevo."
+                };
+
+                const mensaje = mensajes[error] || "Ocurrió un error en la autenticación.";
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Fallo de Enlace',
+                    text: mensaje,
+                    background: 'rgba(10, 10, 12, 0.95)',
+                    color: '#fff',
+                    confirmButtonColor: '#c5a358',
+                    confirmButtonText: 'ENTENDIDO',
+                    customClass: {
+                        popup: 'yorha-swal-popup',
+                        title: 'yorha-swal-title',
+                        confirmButton: 'swal2-confirm'
+                    }
+                });
+            }
+
+            const success = urlParams.get('success');
+            if (success === 'registered') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro Exitoso',
+                    text: 'Usuario registrado correctamente en la red YoRHa. Ahora puedes iniciar sesión.',
+                    background: 'rgba(10, 10, 12, 0.95)',
+                    color: '#fff',
+                    confirmButtonColor: '#c5a358',
+                    confirmButtonText: 'INICIAR SESIÓN',
+                    customClass: {
+                        popup: 'yorha-swal-popup',
+                        title: 'yorha-swal-title',
+                        confirmButton: 'swal2-confirm'
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

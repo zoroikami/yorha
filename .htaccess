@@ -1,0 +1,24 @@
+ErrorDocument 404 /ispep/404.html
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Block access to sensitive directories
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block direct access to PHP config files
+    RewriteRule ^php/config\.php$ - [F,L]
+    RewriteRule ^php/db\.php$ - [F,L]
+    
+    # Block access to logs
+    RewriteRule ^logs/ - [F,L]
+    
+    # Block access to backups
+    RewriteRule ^_backup/ - [F,L]
+</IfModule>

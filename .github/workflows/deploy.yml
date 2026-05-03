@@ -20,6 +20,7 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: ./htdocs/
         # Excluir archivos que no deben ir al servidor público
         exclude: |
           **/.git*

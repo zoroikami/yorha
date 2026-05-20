@@ -1,6 +1,6 @@
 {
-    "name": "YorHa - ISPEP",
-    "short_name": "YorHa",
+    "name": "Vynas - ISPEP",
+    "short_name": "Vynas",
     "description": "Plataforma de simulación astronómica en tiempo real - Estación Terrestre La Serena",
     "start_url": "/ispep/index.html",
     "display": "standalone",

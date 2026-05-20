@@ -97,7 +97,7 @@ export function buildConstellations(constellationsData, scene) {
             scene.add(pickMesh);
             activeMeshes.push(pickMesh);
         } catch (e) {
-            console.warn('[YoRHa] Constellation error:', k, e);
+            console.warn('[Vynas] Constellation error:', k, e);
         }
     }
 
@@ -112,3 +112,4 @@ export function animateConstellations(constels, timescale = 1.0) {
         c.b.rotation.y += 0.01;
     });
 }
+

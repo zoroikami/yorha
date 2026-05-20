@@ -1,5 +1,5 @@
 /* ==========================================================================
-   YorHa OS — Profile CSS
+   Vynas OS — Profile CSS
    ========================================================================== */
 
 :root {
@@ -345,13 +345,13 @@ body {
 }
 
 /* ── SweetAlert2 Theming (Reused) ── */
-.yorha-swal-popup {
+.Vynas-swal-popup {
     border: 1px solid rgba(197, 163, 88, 0.3) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.8) !important;
 }
-.yorha-swal-title {
+.Vynas-swal-title {
     font-family: 'Cinzel', serif !important;
     letter-spacing: 0.1em !important;
     color: #c5a358 !important;
@@ -363,3 +363,4 @@ body {
     font-weight: 600 !important;
     border-radius: 4px !important;
 }
+

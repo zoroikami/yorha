@@ -1,0 +1,68 @@
+[2026-05-10 13:24:05,391] INFO — ══ Iniciando procesamiento de imágenes ══
+[2026-05-10 13:24:05,391] INFO —   Buscando fotos de curiosity...
+[2026-05-10 13:24:08,269] WARNING —   Error buscando fotos para 2026-05-10: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-10&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:10,851] WARNING —   Error buscando fotos para 2026-05-09: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-09&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:13,550] WARNING —   Error buscando fotos para 2026-05-08: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-08&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:16,271] WARNING —   Error buscando fotos para 2026-05-07: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-07&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:19,334] WARNING —   Error buscando fotos para 2026-05-06: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-06&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:21,925] WARNING —   Error buscando fotos para 2026-05-05: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-05&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:24,762] WARNING —   Error buscando fotos para 2026-05-04: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-04&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:27,512] WARNING —   Error buscando fotos para 2026-05-03: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-03&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:30,103] WARNING —   Error buscando fotos para 2026-05-02: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-02&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:32,659] WARNING —   Error buscando fotos para 2026-05-01: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-01&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:35,285] WARNING —   Error buscando fotos para 2026-04-30: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-30&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:39,155] WARNING —   Error buscando fotos para 2026-04-29: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-29&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:43,771] WARNING —   Error buscando fotos para 2026-04-28: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-28&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:48,239] WARNING —   Error buscando fotos para 2026-04-27: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-27&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:53,521] WARNING —   Error buscando fotos para 2026-04-26: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-26&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:24:58,662] WARNING —   Error buscando fotos para 2026-04-25: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-25&api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s&page=1
+[2026-05-10 13:25:56,366] INFO — ══ Iniciando procesamiento de imágenes ══
+[2026-05-10 13:25:56,367] INFO —   Buscando fotos de curiosity...
+[2026-05-10 13:26:01,843] WARNING —   latest_photos fallback: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s
+[2026-05-10 13:26:56,881] WARNING —   ✗ No se encontraron fotos de curiosity
+[2026-05-10 13:26:56,883] INFO —   Buscando fotos de perseverance...
+[2026-05-10 13:27:00,979] WARNING —   latest_photos fallback: 404 Client Error: Not Found for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?api_key=3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s
+[2026-05-10 13:27:28,976] WARNING —   ✗ No se encontraron fotos de perseverance
+[2026-05-10 13:27:28,981] INFO —   ✓ Mars metadata → C:\wamp64\www\ispep\data\processed\mars_latest.json
+[2026-05-10 13:27:28,982] INFO —   Buscando imágenes EPIC...
+[2026-05-10 13:27:39,198] INFO —   ✓ 22 imágenes EPIC para 2026-05-08
+[2026-05-10 13:27:43,768] INFO —     → epic_epic_1b_20260508002713.jpg (48KB, -98%)
+[2026-05-10 13:27:48,345] INFO —     → epic_epic_1b_20260508034334.jpg (47KB, -98%)
+[2026-05-10 13:27:52,440] INFO —     → epic_epic_1b_20260508065956.jpg (47KB, -98%)
+[2026-05-10 13:27:56,195] INFO —     → epic_epic_1b_20260508101618.jpg (48KB, -98%)
+[2026-05-10 13:28:00,225] INFO —     → epic_epic_1b_20260508133239.jpg (48KB, -98%)
+[2026-05-10 13:28:04,105] INFO —     → epic_epic_1b_20260508164901.jpg (48KB, -98%)
+[2026-05-10 13:28:04,110] INFO —   ✓ EPIC metadata → C:\wamp64\www\ispep\data\processed\epic_latest.json
+[2026-05-10 13:28:04,110] INFO — ══ Procesamiento de imágenes completado ══
+[2026-05-10 13:33:32,326] INFO — ══ Iniciando procesamiento de imágenes ══
+[2026-05-10 13:33:32,326] INFO —   Buscando fotos de curiosity...
+[2026-05-10 13:33:35,120] INFO —   ✓ 8 fotos de curiosity encontradas
+[2026-05-10 13:33:38,009] INFO —     → curiosity_PIA26695.jpg (80KB, -46%)
+[2026-05-10 13:33:40,534] INFO —     → curiosity_PIA26245.jpg (65KB, --20%)
+[2026-05-10 13:33:43,125] INFO —     → curiosity_PIA26516.jpg (63KB, -34%)
+[2026-05-10 13:33:45,742] INFO —     → curiosity_PIA26553.jpg (90KB, -25%)
+[2026-05-10 13:33:48,175] INFO —     → curiosity_PIA26302.jpg (58KB, --22%)
+[2026-05-10 13:33:50,760] INFO —     → curiosity_PIA26362.jpg (14KB, -62%)
+[2026-05-10 13:33:53,388] INFO —     → curiosity_PIA26047.jpg (63KB, -32%)
+[2026-05-10 13:33:56,105] INFO —     → curiosity_PIA25914.jpg (160KB, -35%)
+[2026-05-10 13:33:56,109] INFO —   Buscando fotos de perseverance...
+[2026-05-10 13:33:58,533] INFO —   ✓ 8 fotos de perseverance encontradas
+[2026-05-10 13:34:01,166] INFO —     → perseverance_PIA25799.jpg (100KB, -28%)
+[2026-05-10 13:34:03,901] INFO —     → perseverance_PIA26071.jpg (72KB, -26%)
+[2026-05-10 13:34:06,552] INFO —     → perseverance_PIA25685.jpg (78KB, -32%)
+[2026-05-10 13:34:09,194] INFO —     → perseverance_PIA25738.jpg (119KB, -31%)
+[2026-05-10 13:34:11,722] INFO —     → perseverance_PIA26514.jpg (51KB, -27%)
+[2026-05-10 13:34:14,365] INFO —     → perseverance_PIA26313.jpg (129KB, --32%)
+[2026-05-10 13:34:17,025] INFO —     → perseverance_PIA25688.jpg (110KB, -28%)
+[2026-05-10 13:34:19,604] INFO —     → perseverance_PIA26072.jpg (53KB, -29%)
+[2026-05-10 13:34:19,608] INFO —   ✓ Mars metadata → C:\wamp64\www\ispep\data\processed\mars_latest.json
+[2026-05-10 13:34:19,608] INFO —   Buscando imágenes EPIC...
+[2026-05-10 13:34:29,200] INFO —   ✓ 22 imágenes EPIC para 2026-05-08
+[2026-05-10 13:34:32,722] INFO —     → epic_epic_1b_20260508002713.jpg (48KB, -98%)
+[2026-05-10 13:34:36,164] INFO —     → epic_epic_1b_20260508034334.jpg (47KB, -98%)
+[2026-05-10 13:34:39,908] INFO —     → epic_epic_1b_20260508065956.jpg (47KB, -98%)
+[2026-05-10 13:34:43,266] INFO —     → epic_epic_1b_20260508101618.jpg (48KB, -98%)
+[2026-05-10 13:34:46,681] INFO —     → epic_epic_1b_20260508133239.jpg (48KB, -98%)
+[2026-05-10 13:34:50,060] INFO —     → epic_epic_1b_20260508164901.jpg (48KB, -98%)
+[2026-05-10 13:34:50,064] INFO —   ✓ EPIC metadata → C:\wamp64\www\ispep\data\processed\epic_latest.json
+[2026-05-10 13:34:50,064] INFO — ══ Procesamiento de imágenes completado ══

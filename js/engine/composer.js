@@ -53,10 +53,11 @@ export function createComposer(renderer, scene, camera) {
     bloom.renderToScreen = false;
     composer.addPass(bloom);
 
-    // 3. Film grain cinematográfico YoRHa
-    const filmPass = new THREE.ShaderPass(FilmShader);
-    filmPass.renderToScreen = false;
-    composer.addPass(filmPass);
+    // 3. Film grain cinematográfico YoRHa - DESACTIVADO
+    // const filmPass = new THREE.ShaderPass(FilmShader);
+    // filmPass.renderToScreen = false;
+    // composer.addPass(filmPass);
+    const filmPass = null;
 
     // 4. Vignette + Chromatic Aberration (final)
     const vignettePass = createVignetteChromaticPass();

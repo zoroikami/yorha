@@ -1,0 +1,256 @@
+{
+  "_metadata": {
+    "generated": "2026-05-10T17:34:19.607741Z",
+    "script": "process_images.py"
+  },
+  "curiosity": {
+    "count": 8,
+    "photos": [
+      {
+        "id": "PIA26695",
+        "sol": null,
+        "earth_date": "2026-01-27",
+        "camera": {
+          "name": "NASA/JPL-Caltech/MSSS",
+          "full_name": "Curiosity Lights Up ‘Nevado Sajama’ at Night"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26695/PIA26695~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26695.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26695_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 80.3
+      },
+      {
+        "id": "PIA26245",
+        "sol": null,
+        "earth_date": "2024-02-29",
+        "camera": {
+          "name": "NASA/JPL-Caltech/University of Arizona",
+          "full_name": "HiRISE Spots Curiosity Driving Toward Upper Gediz Vallis"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26245/PIA26245~small.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26245.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26245_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 65.7
+      },
+      {
+        "id": "PIA26516",
+        "sol": null,
+        "earth_date": "2024-12-19",
+        "camera": {
+          "name": "NASA/JPL-Caltech/MSSS",
+          "full_name": "MARDI Peeks Under Curiosity"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26516/PIA26516~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26516.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26516_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 63.0
+      },
+      {
+        "id": "PIA26553",
+        "sol": null,
+        "earth_date": "2025-04-24",
+        "camera": {
+          "name": "NASA/JPL-Caltech/University of Arizona",
+          "full_name": "HiRISE Views Curiosity During a Drive"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26553/PIA26553~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26553.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26553_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 90.9
+      },
+      {
+        "id": "PIA26302",
+        "sol": null,
+        "earth_date": "2024-06-10",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Curiosity Sees Streaks and Specks During 2024 Solar Storm"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26302/PIA26302~small.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26302.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26302_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 58.7
+      },
+      {
+        "id": "PIA26362",
+        "sol": null,
+        "earth_date": "2024-09-13",
+        "camera": {
+          "name": "NASA/JPL-Caltech/MSSS",
+          "full_name": "Curiosity Views Earth Setting, Phobos Rising"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26362/PIA26362~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26362.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26362_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 14.7
+      },
+      {
+        "id": "PIA26047",
+        "sol": null,
+        "earth_date": "2023-11-06",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Curiosity's Navcams View the Area Around 'Sequoia'"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26047/PIA26047~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26047.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA26047_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 63.2
+      },
+      {
+        "id": "PIA25914",
+        "sol": null,
+        "earth_date": "2023-06-08",
+        "camera": {
+          "name": "NASA/JPL-Caltech/USGS-Flagstaff/University of Arizona",
+          "full_name": "Curiosity's Quadrant Themes"
+        },
+        "rover": "curiosity",
+        "original_url": "https://images-assets.nasa.gov/image/PIA25914/PIA25914~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA25914.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\curiosity_PIA25914_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 160.7
+      }
+    ]
+  },
+  "perseverance": {
+    "count": 8,
+    "photos": [
+      {
+        "id": "PIA25799",
+        "sol": null,
+        "earth_date": "2023-02-17",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Front Left Hazcam – Two Year Movie"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA25799/PIA25799~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25799.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25799_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 100.9
+      },
+      {
+        "id": "PIA26071",
+        "sol": null,
+        "earth_date": "2023-09-21",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Perseverance's AutoNav Leads the Way"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26071/PIA26071~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26071.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26071_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 72.2
+      },
+      {
+        "id": "PIA25685",
+        "sol": null,
+        "earth_date": "2023-03-01",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Perseverance's Navcam Captures Ingenuity"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA25685/PIA25685~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25685.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25685_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 78.6
+      },
+      {
+        "id": "PIA25738",
+        "sol": null,
+        "earth_date": "2023-02-14",
+        "camera": {
+          "name": "NASA/JPL-Caltech/MSSS",
+          "full_name": "WATSON's Photomontage of Mars Sample Depot"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA25738/PIA25738~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25738.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25738_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 119.4
+      },
+      {
+        "id": "PIA26514",
+        "sol": null,
+        "earth_date": "2024-12-12",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "View of Rover Driving Software During a Slippery Drive"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26514/PIA26514~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26514.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26514_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 51.1
+      },
+      {
+        "id": "PIA26313",
+        "sol": null,
+        "earth_date": "2024-04-03",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Perseverance's 'Bunsen Peak' Sample"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26313/PIA26313~small.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26313.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26313_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 129.8
+      },
+      {
+        "id": "PIA25688",
+        "sol": null,
+        "earth_date": "2023-03-31",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Perseverance Samples 'Berea'"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA25688/PIA25688~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25688.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA25688_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 110.7
+      },
+      {
+        "id": "PIA26072",
+        "sol": null,
+        "earth_date": "2023-09-21",
+        "camera": {
+          "name": "NASA/JPL-Caltech",
+          "full_name": "Perseverance Makes Tracks in Boulder Field"
+        },
+        "rover": "perseverance",
+        "original_url": "https://images-assets.nasa.gov/image/PIA26072/PIA26072~medium.jpg",
+        "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26072.jpg",
+        "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\mars\\perseverance_PIA26072_thumb.jpg",
+        "processed": true,
+        "file_size_kb": 53.7
+      }
+    ]
+  }
+}

@@ -1,0 +1,437 @@
+{
+  "_metadata": {
+    "generated": "2026-05-10T17:05:12.055038Z",
+    "epoch": "2026-May-10 17:05 UTC",
+    "source": "NASA JPL Horizons System",
+    "source_url": "https://ssd.jpl.nasa.gov/horizons/",
+    "reference_frame": "ICRF/Ecliptic J2000",
+    "center": "Sun (heliocentric)",
+    "units": {
+      "position": "km",
+      "velocity": "km/s",
+      "distance": "km and AU",
+      "threejs_scale": "1 AU = 55 Three.js units (factor: 3.6765229172e-07)"
+    },
+    "script": "fetch_jpl_horizons.py",
+    "bodies_queried": 16,
+    "bodies_resolved": 16
+  },
+  "ephemeris": {
+    "mercurio": {
+      "name": "Mercury",
+      "naif_id": "199",
+      "astronomy_json_key": "mercurio",
+      "position_km": [
+        41857428.638,
+        24719760.675,
+        -1818875.943
+      ],
+      "velocity_km_s": [
+        -34.29569,
+        44.07727,
+        6.747653
+      ],
+      "distance_sun_km": 48645855.01,
+      "distance_sun_au": 0.325177,
+      "orbital_velocity_km_s": 56.2542,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        15.38898,
+        9.088277,
+        -0.668714
+      ]
+    },
+    "venus": {
+      "name": "Venus",
+      "naif_id": "299",
+      "astronomy_json_key": "venus",
+      "position_km": [
+        -60478831.788,
+        88724408.018,
+        4708545.477
+      ],
+      "velocity_km_s": [
+        -29.058489,
+        -19.91802,
+        1.403008
+      ],
+      "distance_sun_km": 107479672.837,
+      "distance_sun_au": 0.718457,
+      "orbital_velocity_km_s": 35.2575,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -22.235181,
+        32.619732,
+        1.731108
+      ]
+    },
+    "tierra": {
+      "name": "Earth",
+      "naif_id": "399",
+      "astronomy_json_key": "tierra",
+      "position_km": [
+        -97733836.376,
+        -115184893.293,
+        7506.436
+      ],
+      "velocity_km_s": [
+        22.225664,
+        -19.394366,
+        -3.5e-05
+      ],
+      "distance_sun_km": 151061121.642,
+      "distance_sun_au": 1.009781,
+      "orbital_velocity_km_s": 29.4978,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -35.932069,
+        -42.34799,
+        0.00276
+      ]
+    },
+    "luna": {
+      "name": "Moon",
+      "naif_id": "301",
+      "astronomy_json_key": "luna",
+      "position_km": [
+        -97399387.968,
+        -115383352.993,
+        3821.503
+      ],
+      "velocity_km_s": [
+        22.680519,
+        -18.500489,
+        0.088536
+      ],
+      "distance_sun_km": 150996552.739,
+      "distance_sun_au": 1.00935,
+      "orbital_velocity_km_s": 29.2691,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -35.809108,
+        -42.420954,
+        0.001405
+      ]
+    },
+    "marte": {
+      "name": "Mars",
+      "naif_id": "499",
+      "astronomy_json_key": "marte",
+      "position_km": [
+        208045763.032,
+        17273609.795,
+        -4739439.273
+      ],
+      "velocity_km_s": [
+        -1.074391,
+        26.217624,
+        0.575779
+      ],
+      "distance_sun_km": 208815419.439,
+      "distance_sun_au": 1.395845,
+      "orbital_velocity_km_s": 26.2459,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        76.488502,
+        6.350682,
+        -1.742466
+      ]
+    },
+    "fobos": {
+      "name": "Phobos",
+      "naif_id": "401",
+      "astronomy_json_key": "fobos",
+      "position_km": [
+        208038077.318,
+        17277388.061,
+        -4735363.813
+      ],
+      "velocity_km_s": [
+        -1.878234,
+        24.277722,
+        0.811205
+      ],
+      "distance_sun_km": 208807982.182,
+      "distance_sun_au": 1.395795,
+      "orbital_velocity_km_s": 24.3638,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        76.485676,
+        6.352071,
+        -1.740967
+      ]
+    },
+    "deimos": {
+      "name": "Deimos",
+      "naif_id": "402",
+      "astronomy_json_key": "deimos",
+      "position_km": [
+        208064054.636,
+        17261908.151,
+        -4748325.332
+      ],
+      "velocity_km_s": [
+        -0.428039,
+        27.385706,
+        0.368545
+      ],
+      "distance_sun_km": 208832877.915,
+      "distance_sun_au": 1.395962,
+      "orbital_velocity_km_s": 27.3915,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        76.495227,
+        6.34638,
+        -1.745733
+      ]
+    },
+    "jupiter": {
+      "name": "Jupiter",
+      "naif_id": "599",
+      "astronomy_json_key": "jupiter",
+      "position_km": [
+        -388509090.275,
+        683981086.448,
+        5851070.198
+      ],
+      "velocity_km_s": [
+        -11.521322,
+        -5.84929,
+        0.28209
+      ],
+      "distance_sun_km": 786640753.373,
+      "distance_sun_au": 5.258369,
+      "orbital_velocity_km_s": 12.9242,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -142.836257,
+        251.467214,
+        2.151159
+      ]
+    },
+    "io": {
+      "name": "Io",
+      "naif_id": "501",
+      "astronomy_json_key": "io",
+      "position_km": [
+        -388477498.094,
+        684400109.682,
+        5866613.419
+      ],
+      "velocity_km_s": [
+        -28.863307,
+        -4.583023,
+        0.081717
+      ],
+      "distance_sun_km": 786989640.219,
+      "distance_sun_au": 5.260701,
+      "orbital_velocity_km_s": 29.225,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -142.824642,
+        251.621269,
+        2.156874
+      ]
+    },
+    "europa": {
+      "name": "Europa",
+      "naif_id": "502",
+      "astronomy_json_key": "europa",
+      "position_km": [
+        -388714137.604,
+        684626142.594,
+        5866571.714
+      ],
+      "velocity_km_s": [
+        -24.513598,
+        -9.920159,
+        -0.11115
+      ],
+      "distance_sun_km": 787303024.61,
+      "distance_sun_au": 5.262796,
+      "orbital_velocity_km_s": 26.445,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -142.911644,
+        251.70437,
+        2.156859
+      ]
+    },
+    "ganymede": {
+      "name": "Ganymede",
+      "naif_id": "503",
+      "astronomy_json_key": "ganymede",
+      "position_km": [
+        -387566142.729,
+        684483647.553,
+        5883991.399
+      ],
+      "velocity_km_s": [
+        -16.642307,
+        3.763375,
+        0.574933
+      ],
+      "distance_sun_km": 786612992.59,
+      "distance_sun_au": 5.258183,
+      "orbital_velocity_km_s": 17.0722,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -142.489581,
+        251.651982,
+        2.163263
+      ]
+    },
+    "callisto": {
+      "name": "Callisto",
+      "naif_id": "504",
+      "astronomy_json_key": "callisto",
+      "position_km": [
+        -386653175.446,
+        684203152.393,
+        5883031.855
+      ],
+      "velocity_km_s": [
+        -12.511866,
+        2.350789,
+        0.525485
+      ],
+      "distance_sun_km": 785919360.934,
+      "distance_sun_au": 5.253546,
+      "orbital_velocity_km_s": 12.7416,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        -142.153926,
+        251.548857,
+        2.16291
+      ]
+    },
+    "saturno": {
+      "name": "Saturn",
+      "naif_id": "699",
+      "astronomy_json_key": "saturno",
+      "position_km": [
+        1409181121.499,
+        146309705.46,
+        -58641704.198
+      ],
+      "velocity_km_s": [
+        -1.535037,
+        9.583847,
+        -0.105331
+      ],
+      "distance_sun_km": 1417969256.568,
+      "distance_sun_au": 9.478539,
+      "orbital_velocity_km_s": 9.7066,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        518.088669,
+        53.791099,
+        -21.559757
+      ]
+    },
+    "titan": {
+      "name": "Titan",
+      "naif_id": "606",
+      "astronomy_json_key": "titan",
+      "position_km": [
+        1410199198.425,
+        146819883.277,
+        -59006083.329
+      ],
+      "velocity_km_s": [
+        -4.384842,
+        14.07443,
+        -2.137439
+      ],
+      "distance_sun_km": 1419048827.642,
+      "distance_sun_au": 9.485756,
+      "orbital_velocity_km_s": 14.8958,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        518.462967,
+        53.978667,
+        -21.693722
+      ]
+    },
+    "urano": {
+      "name": "Uranus",
+      "naif_id": "799",
+      "astronomy_json_key": "urano",
+      "position_km": [
+        1411097899.821,
+        2547512177.024,
+        -8835608.455
+      ],
+      "velocity_km_s": [
+        -6.018886,
+        2.980021,
+        0.089166
+      ],
+      "distance_sun_km": 2912231728.922,
+      "distance_sun_au": 19.467067,
+      "orbital_velocity_km_s": 6.7168,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        518.793377,
+        936.59869,
+        -3.248432
+      ]
+    },
+    "neptuno": {
+      "name": "Neptune",
+      "naif_id": "899",
+      "astronomy_json_key": "neptuno",
+      "position_km": [
+        4466804281.539,
+        138873315.386,
+        -105794802.982
+      ],
+      "velocity_km_s": [
+        -0.215956,
+        5.461679,
+        -0.107783
+      ],
+      "distance_sun_km": 4470214628.812,
+      "distance_sun_au": 29.881539,
+      "orbital_velocity_km_s": 5.467,
+      "julian_date": 2461171.211805556,
+      "reference_frame": "ICRF/Ecliptic J2000",
+      "center": "Sun (heliocentric)",
+      "position_threejs": [
+        1642.230831,
+        51.057093,
+        -38.895702
+      ]
+    }
+  }
+}

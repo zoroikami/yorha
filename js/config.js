@@ -1,13 +1,13 @@
 /**
  * ╔═══════════════════════════════════════════════════════════════╗
- * ║  ISPEP / YoRHa OS — Configuración Central                     ║
+ * ║  ISPEP / Vynas OS — Configuración Central                     ║
  * ║  Fuente única de verdad para metadata, motor y autenticación  ║
  * ╚═══════════════════════════════════════════════════════════════╝
  */
 
 export const PROJECT = {
     name: "ISPEP",
-    os: "YoRHa",
+    os: "Vynas",
     fullName: "ISPEP · Sistema de Contribución Científica",
     version: "v2.1.0",
     semester: "3er Semestre",
@@ -36,7 +36,7 @@ export const ENGINE = {
     camera: {
         fov: 45,
         near: 0.1,
-        far: 3000,
+        far: 500000,
         initialPos: [0, 350, 900]
     }
 };
@@ -54,6 +54,20 @@ export const UI = {
         returnDuration: 2.0,
         autopilotCycle: 10000,
         sessionTimeout: 900
+    }
+};
+
+export const APIS = {
+    nasaKey: '3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s',
+    noaaBase: 'https://services.swpc.noaa.gov/json',
+    nasaBase: 'https://api.nasa.gov',
+    cache: {
+        mars: 3600000,     // 1h
+        flares: 900000,    // 15 min
+        kp: 120000,        // 2 min
+        apod: 86400000,    // 24h
+        epic: 3600000,     // 1h
+        neo: 3600000       // 1h
     }
 };
 

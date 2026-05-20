@@ -1,0 +1,264 @@
+[2026-05-05 06:42:27,623] INFO — ═══════════════════════════════════════
+[2026-05-05 06:42:27,623] INFO — Pipeline iniciado: 2026-05-05T10:42:27.623786Z
+[2026-05-05 06:42:27,623] INFO — ═══════════════════════════════════════
+[2026-05-05 06:42:27,624] INFO — 
+▶ [1/3] ETL de datos astronómicos...
+[2026-05-05 06:42:28,771] INFO — ══ Iniciando ETL de datos astronómicos ══
+[2026-05-05 06:42:28,771] INFO —   ✓ Mercurio — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ Venus — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ Tierra — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ Marte — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ Júpiter — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ Saturno — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ Urano — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ Neptuno — datos NASA verificados inyectados
+[2026-05-05 06:42:28,772] INFO —   ✓ TRAPPIST-1 b — datos TRAPPIST-1 verificados
+[2026-05-05 06:42:28,772] INFO —   ✓ TRAPPIST-1 c — datos TRAPPIST-1 verificados
+[2026-05-05 06:42:28,772] INFO —   ✓ TRAPPIST-1 d — datos TRAPPIST-1 verificados
+[2026-05-05 06:42:28,772] INFO —   ✓ TRAPPIST-1 e — datos TRAPPIST-1 verificados
+[2026-05-05 06:42:28,773] INFO —   ✓ TRAPPIST-1 f — datos TRAPPIST-1 verificados
+[2026-05-05 06:42:28,773] INFO —   ✓ TRAPPIST-1 g — datos TRAPPIST-1 verificados
+[2026-05-05 06:42:28,773] INFO —   ✓ TRAPPIST-1 h — datos TRAPPIST-1 verificados
+[2026-05-05 06:42:28,773] INFO —   ✓ Sol — zona habitable: 0.9535 - 1.3736 AU
+[2026-05-05 06:42:28,773] INFO —   ✓ TRAPPIST-1 — zona habitable: 0.0218 - 0.0314 AU
+[2026-05-05 06:42:28,773] INFO —   ✓ Kepler-186 — zona habitable: 0.1907 - 0.2747 AU
+[2026-05-05 06:42:28,773] INFO —   ✓ Mercurio — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:42:28,773] INFO —   ✓ Venus — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:42:28,773] INFO —   ✓ Tierra — clasificación: ZONA_HABITABLE
+[2026-05-05 06:42:28,773] INFO —   ✓ Marte — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:28,773] INFO —   ✓ Júpiter — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:28,774] INFO —   ✓ Saturno — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:28,774] INFO —   ✓ Urano — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:28,774] INFO —   ✓ Neptuno — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:28,774] INFO —   ✓ TRAPPIST-1 b — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:42:28,774] INFO —   ✓ TRAPPIST-1 c — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:42:28,774] INFO —   ✓ TRAPPIST-1 d — clasificación: ZONA_HABITABLE
+[2026-05-05 06:42:28,774] INFO —   ✓ TRAPPIST-1 e — clasificación: ZONA_HABITABLE
+[2026-05-05 06:42:28,774] INFO —   ✓ TRAPPIST-1 f — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:28,774] INFO —   ✓ TRAPPIST-1 g — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:28,774] INFO —   ✓ TRAPPIST-1 h — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:42:33,439] INFO —   ✓ APOD: Orion over Mount Teide
+[2026-05-05 06:42:35,931] INFO —   ✓ NEOs cercanos hoy: 3
+[2026-05-05 06:42:35,934] INFO — ══ astronomy.json actualizado (C:\wamp64\www\ispep\data\astronomy.json) ══
+[2026-05-05 06:42:35,934] INFO — 
+▶ [2/3] Pre-cómputo de órbitas...
+[2026-05-05 06:42:35,938] INFO — ══ Iniciando pre-cómputo de órbitas ══
+[2026-05-05 06:42:35,955] INFO —   ✓ Mercurio — 360 puntos, e=0.205600
+[2026-05-05 06:42:35,956] INFO —   ✓ Venus — 360 puntos, e=0.006700
+[2026-05-05 06:42:35,958] INFO —   ✓ Tierra — 360 puntos, e=0.016700
+[2026-05-05 06:42:35,959] INFO —   ✓ Marte — 360 puntos, e=0.093500
+[2026-05-05 06:42:35,960] INFO —   ✓ Júpiter — 360 puntos, e=0.048900
+[2026-05-05 06:42:35,962] INFO —   ✓ Saturno — 360 puntos, e=0.056500
+[2026-05-05 06:42:35,964] INFO —   ✓ Urano — 360 puntos, e=0.045700
+[2026-05-05 06:42:35,966] INFO —   ✓ Neptuno — 360 puntos, e=0.011300
+[2026-05-05 06:42:35,969] INFO —   ✓ Cinturón de Asteroides — 360 puntos, e=0.050000
+[2026-05-05 06:42:35,971] INFO —   ✓ TRAPPIST-1 b — 360 puntos, e=0.006220
+[2026-05-05 06:42:35,974] INFO —   ✓ TRAPPIST-1 c — 360 puntos, e=0.006540
+[2026-05-05 06:42:35,977] INFO —   ✓ TRAPPIST-1 d — 360 puntos, e=0.008370
+[2026-05-05 06:42:35,979] INFO —   ✓ TRAPPIST-1 e — 360 puntos, e=0.005100
+[2026-05-05 06:42:35,981] INFO —   ✓ TRAPPIST-1 f — 360 puntos, e=0.010070
+[2026-05-05 06:42:35,984] INFO —   ✓ TRAPPIST-1 g — 360 puntos, e=0.002080
+[2026-05-05 06:42:35,985] INFO —   ✓ TRAPPIST-1 h — 360 puntos, e=0.005670
+[2026-05-05 06:42:35,987] INFO —   ✓ Kepler-186 f — 360 puntos, e=0.040000
+[2026-05-05 06:42:36,045] INFO — ══ 17 órbitas pre-computadas → C:\wamp64\www\ispep\data\precomputed_orbits.json ══
+[2026-05-05 06:42:36,046] INFO — 
+▶ [3/3] Monitor de clima espacial...
+[2026-05-05 06:42:36,050] INFO — ══ Iniciando monitor de clima espacial ══
+[2026-05-05 06:42:37,929] WARNING — Error fetching Kp index: 404 Client Error: Not Found for url: https://services.swpc.noaa.gov/planetary_k_index_1m.json
+[2026-05-05 06:42:40,630] INFO —   ✓ Llamaradas (7d): 6 total, 0X 4M 2C
+[2026-05-05 06:42:42,522] WARNING — Error fetching solar wind: 404 Client Error: Not Found for url: https://services.swpc.noaa.gov/rtsw/rtsw_wind_1m.json
+[2026-05-05 06:42:46,021] INFO —   ✓ CMEs (7d): 18 total, 0 hacia Tierra
+[2026-05-05 06:42:46,021] INFO —   ⚡ Nivel general: YELLOW
+[2026-05-05 06:42:46,022] INFO — ══ Clima espacial guardado → C:\wamp64\www\ispep\data\space_weather_live.json ══
+[2026-05-05 06:42:46,022] INFO — 
+═══════════════════════════════════════
+[2026-05-05 06:42:46,023] INFO — RESUMEN DEL PIPELINE:
+[2026-05-05 06:42:46,023] INFO —   ✓ OK — astronomy
+[2026-05-05 06:42:46,023] INFO —   ✓ OK — orbits
+[2026-05-05 06:42:46,023] INFO —   ✓ OK — weather
+[2026-05-05 06:42:46,023] INFO — Tiempo total: 18.4s
+[2026-05-05 06:42:46,023] INFO — ═══════════════════════════════════════
+
+[2026-05-05 06:43:23,251] INFO — ═══════════════════════════════════════
+[2026-05-05 06:43:23,251] INFO — Pipeline iniciado: 2026-05-05T10:43:23.251691Z
+[2026-05-05 06:43:23,251] INFO — ═══════════════════════════════════════
+[2026-05-05 06:43:23,251] INFO — 
+▶ [1/1] Monitor de clima espacial...
+[2026-05-05 06:43:23,508] INFO — ══ Iniciando monitor de clima espacial ══
+[2026-05-05 06:43:25,112] INFO —   ✓ Kp actual: 1 (QUIET)
+[2026-05-05 06:43:27,758] INFO —   ✓ Llamaradas (7d): 6 total, 0X 4M 2C
+[2026-05-05 06:43:30,733] INFO —   ✓ Viento solar: 405.1 km/s (NORMAL)
+[2026-05-05 06:43:34,386] INFO —   ✓ CMEs (7d): 18 total, 0 hacia Tierra
+[2026-05-05 06:43:34,386] INFO —   ⚡ Nivel general: YELLOW
+[2026-05-05 06:43:34,387] INFO — ══ Clima espacial guardado → C:\wamp64\www\ispep\data\space_weather_live.json ══
+[2026-05-05 06:43:34,387] INFO — 
+═══════════════════════════════════════
+[2026-05-05 06:43:34,388] INFO — RESUMEN DEL PIPELINE:
+[2026-05-05 06:43:34,388] INFO —   ✓ OK — weather
+[2026-05-05 06:43:34,388] INFO — Tiempo total: 11.1s
+[2026-05-05 06:43:34,388] INFO — ═══════════════════════════════════════
+
+[2026-05-05 06:52:07,543] INFO — ═══════════════════════════════════════
+[2026-05-05 06:52:07,543] INFO — Pipeline iniciado: 2026-05-05T10:52:07.543750Z
+[2026-05-05 06:52:07,543] INFO — ═══════════════════════════════════════
+[2026-05-05 06:52:07,543] INFO — 
+▶ [1/3] ETL de datos astronómicos...
+[2026-05-05 06:52:07,809] INFO — ══ Iniciando ETL de datos astronómicos ══
+[2026-05-05 06:52:07,810] INFO —   ✓ Mercurio — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ Venus — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ Tierra — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ Marte — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ Júpiter — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ Saturno — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ Urano — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ Neptuno — datos NASA verificados inyectados
+[2026-05-05 06:52:07,810] INFO —   ✓ TRAPPIST-1 b — datos TRAPPIST-1 verificados
+[2026-05-05 06:52:07,810] INFO —   ✓ TRAPPIST-1 c — datos TRAPPIST-1 verificados
+[2026-05-05 06:52:07,811] INFO —   ✓ TRAPPIST-1 d — datos TRAPPIST-1 verificados
+[2026-05-05 06:52:07,811] INFO —   ✓ TRAPPIST-1 e — datos TRAPPIST-1 verificados
+[2026-05-05 06:52:07,811] INFO —   ✓ TRAPPIST-1 f — datos TRAPPIST-1 verificados
+[2026-05-05 06:52:07,811] INFO —   ✓ TRAPPIST-1 g — datos TRAPPIST-1 verificados
+[2026-05-05 06:52:07,811] INFO —   ✓ TRAPPIST-1 h — datos TRAPPIST-1 verificados
+[2026-05-05 06:52:07,811] INFO —   ✓ Sol — zona habitable: 0.9535 - 1.3736 AU
+[2026-05-05 06:52:07,811] INFO —   ✓ TRAPPIST-1 — zona habitable: 0.0218 - 0.0314 AU
+[2026-05-05 06:52:07,811] INFO —   ✓ Kepler-186 — zona habitable: 0.1907 - 0.2747 AU
+[2026-05-05 06:52:07,812] INFO —   ✓ Mercurio — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:52:07,812] INFO —   ✓ Venus — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:52:07,812] INFO —   ✓ Tierra — clasificación: ZONA_HABITABLE
+[2026-05-05 06:52:07,812] INFO —   ✓ Marte — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:07,812] INFO —   ✓ Júpiter — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:07,812] INFO —   ✓ Saturno — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:07,812] INFO —   ✓ Urano — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:07,812] INFO —   ✓ Neptuno — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:07,813] INFO —   ✓ TRAPPIST-1 b — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:52:07,813] INFO —   ✓ TRAPPIST-1 c — clasificación: DEMASIADO_CALIENTE
+[2026-05-05 06:52:07,813] INFO —   ✓ TRAPPIST-1 d — clasificación: ZONA_HABITABLE
+[2026-05-05 06:52:07,813] INFO —   ✓ TRAPPIST-1 e — clasificación: ZONA_HABITABLE
+[2026-05-05 06:52:07,813] INFO —   ✓ TRAPPIST-1 f — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:07,813] INFO —   ✓ TRAPPIST-1 g — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:07,813] INFO —   ✓ TRAPPIST-1 h — clasificación: DEMASIADO_FRIO
+[2026-05-05 06:52:10,445] INFO —   ✓ APOD: Orion over Mount Teide
+[2026-05-05 06:52:12,839] INFO —   ✓ NEOs cercanos hoy: 3
+[2026-05-05 06:52:12,841] INFO — ══ astronomy.json actualizado (C:\wamp64\www\ispep\data\astronomy.json) ══
+[2026-05-05 06:52:12,841] INFO — 
+▶ [2/3] Pre-cómputo de órbitas...
+[2026-05-05 06:52:12,842] INFO — ══ Iniciando pre-cómputo de órbitas ══
+[2026-05-05 06:52:12,854] INFO —   ✓ Mercurio — 360 puntos, e=0.205600
+[2026-05-05 06:52:12,855] INFO —   ✓ Venus — 360 puntos, e=0.006700
+[2026-05-05 06:52:12,857] INFO —   ✓ Tierra — 360 puntos, e=0.016700
+[2026-05-05 06:52:12,858] INFO —   ✓ Marte — 360 puntos, e=0.093500
+[2026-05-05 06:52:12,859] INFO —   ✓ Júpiter — 360 puntos, e=0.048900
+[2026-05-05 06:52:12,861] INFO —   ✓ Saturno — 360 puntos, e=0.056500
+[2026-05-05 06:52:12,862] INFO —   ✓ Urano — 360 puntos, e=0.045700
+[2026-05-05 06:52:12,864] INFO —   ✓ Neptuno — 360 puntos, e=0.011300
+[2026-05-05 06:52:12,865] INFO —   ✓ Cinturón de Asteroides — 360 puntos, e=0.050000
+[2026-05-05 06:52:12,867] INFO —   ✓ TRAPPIST-1 b — 360 puntos, e=0.006220
+[2026-05-05 06:52:12,868] INFO —   ✓ TRAPPIST-1 c — 360 puntos, e=0.006540
+[2026-05-05 06:52:12,869] INFO —   ✓ TRAPPIST-1 d — 360 puntos, e=0.008370
+[2026-05-05 06:52:12,871] INFO —   ✓ TRAPPIST-1 e — 360 puntos, e=0.005100
+[2026-05-05 06:52:12,872] INFO —   ✓ TRAPPIST-1 f — 360 puntos, e=0.010070
+[2026-05-05 06:52:12,873] INFO —   ✓ TRAPPIST-1 g — 360 puntos, e=0.002080
+[2026-05-05 06:52:12,875] INFO —   ✓ TRAPPIST-1 h — 360 puntos, e=0.005670
+[2026-05-05 06:52:12,876] INFO —   ✓ Kepler-186 f — 360 puntos, e=0.040000
+[2026-05-05 06:52:12,930] INFO — ══ 17 órbitas pre-computadas → C:\wamp64\www\ispep\data\precomputed_orbits.json ══
+[2026-05-05 06:52:12,930] INFO — 
+▶ [3/3] Monitor de clima espacial...
+[2026-05-05 06:52:12,932] INFO — ══ Iniciando monitor de clima espacial ══
+[2026-05-05 06:52:14,635] INFO —   ✓ Kp actual: 1 (QUIET)
+[2026-05-05 06:52:19,098] INFO —   ✓ Llamaradas (7d): 6 total, 0X 4M 2C
+[2026-05-05 06:52:22,069] INFO —   ✓ Viento solar: 405.0 km/s (NORMAL)
+[2026-05-05 06:52:27,181] INFO —   ✓ CMEs (7d): 18 total, 0 hacia Tierra
+[2026-05-05 06:52:27,181] INFO —   ⚡ Nivel general: YELLOW
+[2026-05-05 06:52:27,182] INFO — ══ Clima espacial guardado → C:\wamp64\www\ispep\data\space_weather_live.json ══
+[2026-05-05 06:52:27,182] INFO — 
+▶ [BONUS] Procesamiento de imágenes satelitales...
+[2026-05-05 06:52:27,231] INFO — ══ Iniciando procesamiento de imágenes ══
+[2026-05-05 06:52:27,231] INFO —   Buscando fotos de curiosity...
+[2026-05-05 06:52:29,522] WARNING —   Error buscando fotos para 2026-05-05: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-05&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:31,764] WARNING —   Error buscando fotos para 2026-05-04: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-04&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:34,012] WARNING —   Error buscando fotos para 2026-05-03: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-03&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:36,280] WARNING —   Error buscando fotos para 2026-05-02: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-02&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:38,521] WARNING —   Error buscando fotos para 2026-05-01: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-05-01&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:40,774] WARNING —   Error buscando fotos para 2026-04-30: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-30&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:43,003] WARNING —   Error buscando fotos para 2026-04-29: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-29&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:45,251] WARNING —   Error buscando fotos para 2026-04-28: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-28&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:47,490] WARNING —   Error buscando fotos para 2026-04-27: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-27&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:49,745] WARNING —   Error buscando fotos para 2026-04-26: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-26&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:51,968] WARNING —   Error buscando fotos para 2026-04-25: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-25&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:54,255] WARNING —   Error buscando fotos para 2026-04-24: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-24&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:56,514] WARNING —   Error buscando fotos para 2026-04-23: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-23&api_key=DEMO_KEY&page=1
+[2026-05-05 06:52:58,797] WARNING —   Error buscando fotos para 2026-04-22: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-22&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:01,075] WARNING —   Error buscando fotos para 2026-04-21: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-21&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:03,321] WARNING —   Error buscando fotos para 2026-04-20: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-20&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:05,562] WARNING —   Error buscando fotos para 2026-04-19: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-19&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:07,844] WARNING —   Error buscando fotos para 2026-04-18: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-18&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:10,138] WARNING —   Error buscando fotos para 2026-04-17: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-17&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:12,656] WARNING —   Error buscando fotos para 2026-04-16: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-16&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:14,922] WARNING —   Error buscando fotos para 2026-04-15: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-15&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:17,174] WARNING —   Error buscando fotos para 2026-04-14: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-14&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:19,463] WARNING —   Error buscando fotos para 2026-04-13: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-13&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:21,739] WARNING —   Error buscando fotos para 2026-04-12: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-12&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:24,007] WARNING —   Error buscando fotos para 2026-04-11: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-11&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:26,232] WARNING —   Error buscando fotos para 2026-04-10: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-10&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:28,484] WARNING —   Error buscando fotos para 2026-04-09: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-09&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:30,713] WARNING —   Error buscando fotos para 2026-04-08: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-08&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:32,989] WARNING —   Error buscando fotos para 2026-04-07: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-07&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:35,235] WARNING —   Error buscando fotos para 2026-04-06: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2026-04-06&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:35,235] WARNING —   ✗ No se encontraron fotos de curiosity
+[2026-05-05 06:53:35,236] INFO —   Buscando fotos de perseverance...
+[2026-05-05 06:53:37,518] WARNING —   Error buscando fotos para 2026-05-05: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-05-05&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:39,797] WARNING —   Error buscando fotos para 2026-05-04: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-05-04&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:42,063] WARNING —   Error buscando fotos para 2026-05-03: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-05-03&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:44,304] WARNING —   Error buscando fotos para 2026-05-02: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-05-02&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:46,551] WARNING —   Error buscando fotos para 2026-05-01: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-05-01&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:48,787] WARNING —   Error buscando fotos para 2026-04-30: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-30&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:51,092] WARNING —   Error buscando fotos para 2026-04-29: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-29&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:53,346] WARNING —   Error buscando fotos para 2026-04-28: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-28&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:55,605] WARNING —   Error buscando fotos para 2026-04-27: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-27&api_key=DEMO_KEY&page=1
+[2026-05-05 06:53:57,886] WARNING —   Error buscando fotos para 2026-04-26: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-26&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:00,126] WARNING —   Error buscando fotos para 2026-04-25: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-25&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:02,387] WARNING —   Error buscando fotos para 2026-04-24: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-24&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:04,649] WARNING —   Error buscando fotos para 2026-04-23: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-23&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:06,917] WARNING —   Error buscando fotos para 2026-04-22: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-22&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:09,213] WARNING —   Error buscando fotos para 2026-04-21: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-21&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:11,457] WARNING —   Error buscando fotos para 2026-04-20: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-20&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:13,905] WARNING —   Error buscando fotos para 2026-04-19: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-19&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:16,159] WARNING —   Error buscando fotos para 2026-04-18: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-18&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:18,428] WARNING —   Error buscando fotos para 2026-04-17: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-17&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:20,687] WARNING —   Error buscando fotos para 2026-04-16: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-16&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:22,916] WARNING —   Error buscando fotos para 2026-04-15: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-15&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:25,145] WARNING —   Error buscando fotos para 2026-04-14: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-14&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:27,420] WARNING —   Error buscando fotos para 2026-04-13: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-13&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:29,665] WARNING —   Error buscando fotos para 2026-04-12: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-12&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:31,892] WARNING —   Error buscando fotos para 2026-04-11: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-11&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:34,123] WARNING —   Error buscando fotos para 2026-04-10: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-10&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:36,391] WARNING —   Error buscando fotos para 2026-04-09: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-09&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:38,676] WARNING —   Error buscando fotos para 2026-04-08: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-08&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:40,940] WARNING —   Error buscando fotos para 2026-04-07: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-07&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:43,195] WARNING —   Error buscando fotos para 2026-04-06: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2026-04-06&api_key=DEMO_KEY&page=1
+[2026-05-05 06:54:43,195] WARNING —   ✗ No se encontraron fotos de perseverance
+[2026-05-05 06:54:43,197] INFO —   ✓ Mars metadata → C:\wamp64\www\ispep\data\processed\mars_latest.json
+[2026-05-05 06:54:43,197] INFO —   Buscando imágenes EPIC...
+[2026-05-05 06:54:45,467] WARNING —   Error buscando EPIC para 2026-05-05: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-05-05?api_key=DEMO_KEY
+[2026-05-05 06:54:47,712] WARNING —   Error buscando EPIC para 2026-05-04: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-05-04?api_key=DEMO_KEY
+[2026-05-05 06:54:49,979] WARNING —   Error buscando EPIC para 2026-05-03: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-05-03?api_key=DEMO_KEY
+[2026-05-05 06:54:52,255] WARNING —   Error buscando EPIC para 2026-05-02: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-05-02?api_key=DEMO_KEY
+[2026-05-05 06:54:54,517] WARNING —   Error buscando EPIC para 2026-05-01: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-05-01?api_key=DEMO_KEY
+[2026-05-05 06:54:56,789] WARNING —   Error buscando EPIC para 2026-04-30: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-04-30?api_key=DEMO_KEY
+[2026-05-05 06:54:59,050] WARNING —   Error buscando EPIC para 2026-04-29: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-04-29?api_key=DEMO_KEY
+[2026-05-05 06:55:01,285] WARNING —   Error buscando EPIC para 2026-04-28: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-04-28?api_key=DEMO_KEY
+[2026-05-05 06:55:03,547] WARNING —   Error buscando EPIC para 2026-04-27: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-04-27?api_key=DEMO_KEY
+[2026-05-05 06:55:05,824] WARNING —   Error buscando EPIC para 2026-04-26: 429 Client Error: Too Many Requests for url: https://api.nasa.gov/EPIC/api/natural/date/2026-04-26?api_key=DEMO_KEY
+[2026-05-05 06:55:05,824] WARNING —   ✗ No se encontraron imágenes EPIC
+[2026-05-05 06:55:05,826] INFO —   ✓ EPIC metadata → C:\wamp64\www\ispep\data\processed\epic_latest.json
+[2026-05-05 06:55:05,826] INFO — ══ Procesamiento de imágenes completado ══
+[2026-05-05 06:55:05,826] INFO — 
+═══════════════════════════════════════
+[2026-05-05 06:55:05,826] INFO — RESUMEN DEL PIPELINE:
+[2026-05-05 06:55:05,826] INFO —   ✓ OK — astronomy
+[2026-05-05 06:55:05,826] INFO —   ✓ OK — orbits
+[2026-05-05 06:55:05,826] INFO —   ✓ OK — weather
+[2026-05-05 06:55:05,826] INFO —   ✓ OK — images
+[2026-05-05 06:55:05,826] INFO — Tiempo total: 178.3s
+[2026-05-05 06:55:05,826] INFO — ═══════════════════════════════════════
+

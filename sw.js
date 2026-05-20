@@ -1,9 +1,9 @@
 /**
- * YorHa Service Worker — Offline caching + PWA support
+ * Vynas Service Worker — Offline caching + PWA support
  * Feature 8.6: Progressive Web App
  */
 
-const CACHE_NAME = 'yorha-v2.1.0';
+const CACHE_NAME = 'vynas-v2.1.0';
 const STATIC_ASSETS = [
     '/ispep/',
     '/ispep/index.html',

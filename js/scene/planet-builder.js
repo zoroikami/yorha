@@ -99,6 +99,42 @@ function defaultAtmosphereFor(planetData) {
     return null;
 }
 
+/**
+ * ══ USGS DEM Displacement Map Support ══
+ * Configuración de desplazamiento topográfico por planeta.
+ * Los archivos DEM deben descargarse de USGS Astrogeology:
+ *   https://astrogeology.usgs.gov/search
+ * 
+ * Formato esperado: imágenes grayscale 16-bit convertidas a 8-bit PNG/JPG
+ * donde blanco = elevación máxima, negro = elevación mínima.
+ */
+const DEM_CONFIG = {
+    // Luna: Lunar Orbiter Laser Altimeter (LOLA)
+    luna: {
+        displacementScale: 0.08,    // Factor de desplazamiento relativo al radio
+        displacementBias: -0.04,    // Centrar el desplazamiento
+        segments: 256               // Alta resolución para topografía
+    },
+    // Marte: Mars Orbiter Laser Altimeter (MOLA)
+    marte: {
+        displacementScale: 0.06,    // Olympus Mons ~21km / radio 3389km ≈ 0.006, exagerado x10
+        displacementBias: -0.02,
+        segments: 256
+    },
+    // Mercurio: MESSENGER DEM
+    mercurio: {
+        displacementScale: 0.04,
+        displacementBias: -0.02,
+        segments: 192
+    },
+    // Tierra: ETOPO1 (terreno + batimetría)
+    tierra: {
+        displacementScale: 0.015,   // Everest ~8.8km / radio 6371km ≈ 0.0014, exagerado x10
+        displacementBias: -0.005,
+        segments: 256
+    }
+};
+
 function buildPlanetMesh(p) {
     const texture = textureLoader.load(p.texture);
     texture.anisotropy = 8;
@@ -123,20 +159,52 @@ function buildPlanetMesh(p) {
             matOpts.emissiveIntensity = 0.9;
         }
 
+        // ══ USGS DEM — Displacement Map (topografía real) ══
+        if (p.demTexture) {
+            const demTex = textureLoader.load(p.demTexture);
+            demTex.anisotropy = 8;
+            matOpts.displacementMap = demTex;
+
+            const demCfg = DEM_CONFIG[p.id] || { displacementScale: 0.03, displacementBias: -0.015 };
+            matOpts.displacementScale = p.radius * demCfg.displacementScale;
+            matOpts.displacementBias = p.radius * demCfg.displacementBias;
+            
+            // MEJORA VISUAL: Usar el mapa de elevación como Roughness Map
+            // Las zonas bajas (océanos = oscuras) serán reflectantes (smooth)
+            // Las zonas altas (continentes = claras) serán rugosas (rough)
+            matOpts.roughnessMap = demTex;
+            matOpts.roughness = 0.8; // Base
+            matOpts.metalness = 0.2; // Ligero tinte metálico para reflejos del sol en el agua
+        }
+
         material = new THREE.MeshStandardMaterial(matOpts);
 
-        // Normal map procedural asíncrono
-        const normalStrength = p.normalScale || 1.3;
-        generateProceduralNormal(p.texture, normalStrength).then((normalTex) => {
-            if (normalTex) {
-                material.normalMap = normalTex;
-                material.normalScale = new THREE.Vector2(normalStrength, normalStrength);
-                material.needsUpdate = true;
-            }
-        });
+        // Normal map: priorizar textura real, fallback a procedural
+        if (p.normalTexture) {
+            const normalTex = textureLoader.load(p.normalTexture);
+            normalTex.anisotropy = 8;
+            material.normalMap = normalTex;
+            material.normalScale = new THREE.Vector2(
+                p.normalScale || 1.3,
+                p.normalScale || 1.3
+            );
+        } else {
+            // Normal map procedural asíncrono (fallback)
+            const normalStrength = p.normalScale || 1.3;
+            generateProceduralNormal(p.texture, normalStrength).then((normalTex) => {
+                if (normalTex) {
+                    material.normalMap = normalTex;
+                    material.normalScale = new THREE.Vector2(normalStrength, normalStrength);
+                    material.needsUpdate = true;
+                }
+            });
+        }
     }
 
-    const geom = new THREE.SphereGeometry(p.radius, 96, 96);
+    // Usar mayor resolución de segmentos si tiene DEM
+    const demCfg = DEM_CONFIG[p.id];
+    const segments = (p.demTexture && demCfg) ? demCfg.segments : 96;
+    const geom = new THREE.SphereGeometry(p.radius, segments, segments);
     const mesh = new THREE.Mesh(geom, material);
     mesh.castShadow = !p.isStar;
     mesh.receiveShadow = !p.isStar;
@@ -145,20 +213,38 @@ function buildPlanetMesh(p) {
 
 function buildCloudLayer(p) {
     if (!p.cloudTexture) return null;
+    const tex = textureLoader.load(p.cloudTexture);
+    
+    // MEJORA VISUAL: Nubes proyectan sombra real sobre la superficie
     const cloudMat = new THREE.MeshStandardMaterial({
-        map: textureLoader.load(p.cloudTexture),
+        map: tex,
+        alphaMap: tex, // Usa la propia textura para recortar las sombras
+        alphaTest: 0.05,
         transparent: true,
-        opacity: 0.55,
+        opacity: 0.85,
         depthWrite: false,
         blending: THREE.NormalBlending,
         roughness: 1.0,
         metalness: 0.0
     });
-    const clouds = new THREE.Mesh(new THREE.SphereGeometry(p.radius * 1.012, 96, 96), cloudMat);
-    clouds.castShadow = false;
-    clouds.receiveShadow = false;
-    clouds.name = 'clouds';
-    return clouds;
+    
+    const cloudGrp = new THREE.Group();
+    cloudGrp.name = 'clouds';
+
+    // Capa principal
+    const clouds1 = new THREE.Mesh(new THREE.SphereGeometry(p.radius * 1.012, 96, 96), cloudMat);
+    clouds1.castShadow = true;
+    clouds1.receiveShadow = true;
+    
+    // Segunda capa ligeramente más alta para dar efecto volumétrico 3D
+    const cloudMat2 = cloudMat.clone();
+    cloudMat2.opacity = 0.4;
+    const clouds2 = new THREE.Mesh(new THREE.SphereGeometry(p.radius * 1.025, 96, 96), cloudMat2);
+    clouds2.castShadow = true;
+    clouds2.rotation.y = Math.PI / 4; // Desfase
+    
+    cloudGrp.add(clouds1, clouds2);
+    return cloudGrp;
 }
 
 /**
@@ -367,12 +453,60 @@ export function buildPlanet(planetData, scene, sceneState) {
     const rings = buildRings(p);
     if (rings) targetGrp.add(rings);
 
-    // Atmósfera
+    // Atmósfera — Rayleigh + Mie Scattering (composición química real)
     let atmosphere = null;
     const atmCfg = defaultAtmosphereFor(p);
     if (atmCfg && !p.isStar) {
+        atmCfg.planetData = p;  // Pasa datos del planeta para selección de preset químico
         atmosphere = buildAtmosphereMesh(p.radius, atmCfg);
         targetGrp.add(atmosphere);
+    }
+
+    // Lunas (satélites naturales)
+    const moonMeshes = [];
+    if (p.moons && p.moons.length > 0) {
+        p.moons.forEach((moon, i) => {
+            const moonGrp = new THREE.Group();
+            moonGrp.name = `moon-pivot-${moon.name}`;
+
+            const moonGeom = new THREE.SphereGeometry(moon.radius, 64, 64);
+            const matOpts = {
+                color: moon.color || 0xaaaaaa,
+                roughness: 0.9,
+                metalness: 0.05
+            };
+            
+            // Asignar textura DEM a la Luna de la Tierra
+            if (moon.name === 'Luna') {
+                const moonTex = textureLoader.load('img/ldem_3_8bit.jpg');
+                matOpts.map = moonTex;
+                matOpts.displacementMap = moonTex;
+                matOpts.displacementScale = moon.radius * 0.04;
+                matOpts.roughnessMap = moonTex;
+                matOpts.color = 0xffffff; // Resetear color si hay textura
+            } else if (moon.texture) {
+                matOpts.map = textureLoader.load(moon.texture);
+                matOpts.color = 0xffffff;
+            }
+
+            const moonMat = new THREE.MeshStandardMaterial(matOpts);
+            const moonMesh = new THREE.Mesh(moonGeom, moonMat);
+            moonMesh.castShadow = true;
+            moonMesh.receiveShadow = true;
+            moonMesh.position.set(moon.orbRadius, 0, 0);
+            moonMesh.userData = { isMoon: true, moonName: moon.name, parentPlanet: p.id };
+
+            moonGrp.add(moonMesh);
+            moonGrp.rotation.y = i * (Math.PI * 2 / p.moons.length); // Offset initial angle
+            targetGrp.add(moonGrp);
+
+            moonMeshes.push({
+                pivot: moonGrp,
+                mesh: moonMesh,
+                orbSpeed: moon.orbSpeed || 0.01,
+                data: moon
+            });
+        });
     }
 
     // Posicionar en el pivot con offset de sistema estelar
@@ -386,6 +520,7 @@ export function buildPlanet(planetData, scene, sceneState) {
         targetGrp,
         pMesh,
         atmosphere,
+        moonMeshes,
         pData: p
     };
 }

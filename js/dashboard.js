@@ -1,18 +1,19 @@
 /**
  * ╔═══════════════════════════════════════════════════════════════╗
- * ║  ISPEP / YoRHa OS — Dashboard Orchestrator                    ║
+ * ║  ISPEP / Vynas OS — Dashboard Orchestrator                    ║
  * ║  Módulo principal que importa y conecta todos los subsistemas ║
  * ║  engine, scene, shaders, hud, audio.                          ║
  * ╚═══════════════════════════════════════════════════════════════╝
  */
 
-import { getAstronomyData } from './api.js';
+import { getAstronomyData, fetchPrecomputedOrbits, fetchSpaceWeather, fetchProcessedImages, fetchJPLEphemeris } from './api.js';
 import { ENGINE } from './config.js';
-import { createRenderer, createCamera, attachResizeHandler } from './engine/renderer.js';
+import { createRenderer, createCamera, attachResizeHandler, createCSS2DRenderer } from './engine/renderer.js';
 import { createComposer } from './engine/composer.js';
 import { createControls } from './engine/camera-controls.js';
 import { setupLighting } from './scene/lighting.js';
 import { buildStarfield, animateStarfield, loadMilkyWayBackground } from './scene/stars.js';
+import { loadGaiaCatalog, animateGaiaCatalog, buildGaiaFallbackLayer } from './scene/gaia-stars.js';
 import { buildNebulas, animateNebulas } from './scene/nebulas.js';
 import { buildPlanet } from './scene/planet-builder.js';
 import { buildSun } from './scene/sun-builder.js';
@@ -36,10 +37,11 @@ import { initKeyboard } from './hud/keyboard.js';
 import { initTutorial } from './hud/tutorial.js';
 import { initNasaFeed } from './hud/nasa-feed.js';
 import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient-info.js';
+import { initScrollSections, enableInteractiveMode, disableInteractiveMode } from './hud/scroll-sections.js';
 
 (async function () {
     /* ── 0. PRELOADER ─────────────────────────────────────────── */
-    const preloader = document.getElementById('yorha-preloader');
+    const preloader = document.getElementById('vynas-preloader');
     const bBar = document.getElementById('preloader-bar');
     const bStatus = document.getElementById('preloader-status');
     const loadState = { assets: false, data: false, ready: false };
@@ -65,6 +67,7 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
     /* ── 1. MOTOR ─────────────────────────────────────────────── */
     const canvas = document.getElementById('three-canvas');
     const renderer = createRenderer(canvas);
+    const cssRenderer = createCSS2DRenderer();
     const camera = createCamera();
     const scene = new THREE.Scene();
     const { composer, bloom, filmPass, vignettePass } = createComposer(renderer, scene, camera);
@@ -77,11 +80,40 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
     const nebulas = buildNebulas(scene);
     const belt = buildAsteroidBelt(scene);
 
+    // ── Gaia DR3 Catalog (estrellas reales) ──
+    if (bStatus) bStatus.textContent = 'Cargando catálogo estelar Gaia DR3...';
+    const gaiaResult = await loadGaiaCatalog(scene, 'data/gaia_stars.bin', {
+        scale: 50.0,   // parsecs → units Three.js
+        offset: [0, 0, 0]
+    });
+    if (gaiaResult) {
+        console.log(`[Vynas] ✓ Gaia DR3: ${gaiaResult.count.toLocaleString()} estrellas cargadas`);
+    } else {
+        console.warn('[Vynas] Gaia DR3 no disponible — usando starfield procedural');
+    }
+    // Fallback: estrellas distantes fuera del rango de Gaia
+    const gaiaFallback = buildGaiaFallbackLayer(scene);
+
     /* ── 3. DATOS ─────────────────────────────────────────────── */
     if (bStatus) bStatus.textContent = 'Solicitando Topología Estelar...';
     const data = await getAstronomyData();
     const PD = data.PLANETS_DATA || {};
     const CD = data.CONSTELLATIONS_DATA || {};
+    
+    if (bStatus) bStatus.textContent = 'Calculando trayectorias...';
+    const precomputedOrbits = await fetchPrecomputedOrbits();
+
+    // ── JPL Horizons: posiciones reales en tiempo real ──
+    if (bStatus) bStatus.textContent = 'Sincronizando efemérides JPL Horizons...';
+    const jplEphemeris = await fetchJPLEphemeris();
+    if (jplEphemeris && jplEphemeris.ephemeris) {
+        console.log(`[Vynas] ✓ JPL Horizons: ${Object.keys(jplEphemeris.ephemeris).length} cuerpos sincronizados`);
+    }
+
+    if (bStatus) bStatus.textContent = 'Descargando telemetría ambiental...';
+    const spaceWeather = await fetchSpaceWeather();
+    const epicImages = await fetchProcessedImages('epic');
+    const marsImages = await fetchProcessedImages('mars');
 
     const systemGroups = { Sol: [belt], TRAPPIST: [], Kepler: [] };
     const planets = {};
@@ -145,7 +177,25 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
             if (rec.pivot) systemGroups[sys].push(rec.pivot);
             if (rec.orb) systemGroups[sys].push(rec.orb);
             if (rec.group) systemGroups[sys].push(rec.group);
-        } catch (e) { console.warn('[YoRHa] P-Err:', k, e); }
+        } catch (e) { console.warn('[Vynas] P-Err:', k, e); }
+    }
+
+    // ── Aplicar posiciones JPL Horizons (si disponibles) ──
+    if (jplEphemeris && jplEphemeris.ephemeris) {
+        for (const [key, ephData] of Object.entries(jplEphemeris.ephemeris)) {
+            const astroKey = ephData.astronomy_json_key;
+            if (planets[astroKey] && planets[astroKey].targetGrp && ephData.position_threejs) {
+                const [jx, jy, jz] = ephData.position_threejs;
+                // Aplicar como posición inicial (el Kepler solver mantiene el movimiento)
+                const p = planets[astroKey].pData;
+                if (p && p.orbRadius > 0) {
+                    p._jplInitialPos = ephData.position_threejs;
+                    p._jplVelocity = ephData.velocity_km_s;
+                    p._jplDistanceAU = ephData.distance_sun_au;
+                    console.log(`  [JPL] ${ephData.name}: ${ephData.distance_sun_au} AU`);
+                }
+            }
+        }
     }
 
     loadState.data = true;
@@ -166,12 +216,39 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
         enterDetailMode,
         isDetailed,
         btnInteraction: btnInt,
-        btnReturn: document.getElementById('btn-return')
+        btnReturn: document.getElementById('btn-return'),
+        scene
     });
     initSystemSelector({ systemGroups, camera, controls, scene });
 
-    // ── NEW: Orbital Trails ──
-    const orbitalTrails = buildOrbitalTrails(planets, scene);
+    // ── NEW: Etiquetas HUD Holográficas (CSS2D) ──
+    if (cssRenderer && typeof THREE.CSS2DObject !== 'undefined') {
+        for (const k in planets) {
+            const p = planets[k];
+            if (!p.targetGrp || !p.pData) continue;
+            
+            const div = document.createElement('div');
+            div.className = 'vynas-hud-label';
+            div.innerHTML = `<span class="symbol">${p.pData.symbol || '⚲'}</span> ${p.pData.name.toUpperCase()}`;
+            
+            // Añadir sub-etiquetas para lunas
+            if (p.moonMeshes && p.moonMeshes.length > 0) {
+                const sub = document.createElement('div');
+                sub.className = 'vynas-hud-sublabel';
+                sub.innerText = `${p.moonMeshes.length} Satélites`;
+                div.appendChild(sub);
+            }
+
+            const label = new THREE.CSS2DObject(div);
+            // Posicionar arriba del polo norte del planeta
+            label.position.set(0, (p.pData.radius || 1) * 1.5, 0);
+            p.targetGrp.add(label);
+        }
+    }
+
+    // Orbital Trails — DESACTIVADO (líneas de órbita)
+    // const orbitalTrails = buildOrbitalTrails(planets, scene, precomputedOrbits);
+    const orbitalTrails = [];
 
     // ── NEW: Comets ──
     const comets = buildComets(scene);
@@ -185,10 +262,13 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
     initTutorial();
 
     // ── NEW: NASA Live Feed ──
-    initNasaFeed();
+    initNasaFeed(spaceWeather);
 
     // ── NEW: Ambient Info (papers & facts) ──
-    initAmbientInfo();
+    initAmbientInfo(data);
+
+    // ── NEW: Scrollable Dashboard Sections ──
+    initScrollSections(PD, spaceWeather, epicImages, marsImages);
 
     // Audio
     initSynthWindows();
@@ -237,6 +317,8 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
                 duration: 2.5, x: 0, y: 150, z: 400, ease: 'power3.inOut',
                 onComplete: () => { controls.enabled = true; controls.autoRotate = false; }
             });
+
+            enableInteractiveMode();
         }
     };
 
@@ -260,6 +342,8 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
             controls.autoRotate = true;
 
             gsap.to(camera.position, { duration: 2.5, x: 0, y: 350, z: 900, ease: 'power3.inOut' });
+
+            disableInteractiveMode();
         }
     };
 
@@ -304,7 +388,7 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
         if (m) m.classList.remove('active');
     };
 
-    attachResizeHandler(camera, renderer, composer);
+    attachResizeHandler(camera, renderer, composer, cssRenderer);
 
     /* ── 7. ANIMATION LOOP ────────────────────────────────────── */
     const clock = new THREE.Clock();
@@ -315,7 +399,7 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
         const time = clock.getElapsedTime();
 
         // Film grain
-        filmPass.uniforms.time.value += 0.01;
+        if (filmPass) filmPass.uniforms.time.value += 0.01;
 
         // Planetas — órbita, rotación, shaders
         for (const k in planets) {
@@ -326,6 +410,11 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
             if (pMesh && pData.rotSpeed) pMesh.rotation.y += pData.rotSpeed * timescale;
             if (pData.cloudMesh) pData.cloudMesh.rotation.y += (pData.rotSpeed || 0) * 1.5 * timescale;
             if (pData.satelliteGroup && !paused) pData.satelliteGroup.rotation.y += 0.02 * timescale;
+
+            // Animar lunas
+            if (rec.moonMeshes && !paused) {
+                rec.moonMeshes.forEach(m => { m.pivot.rotation.y += m.orbSpeed * timescale; });
+            }
 
             // Mecánica orbital Kepleriana
             if (!paused && pData.orbRadius > 0) {
@@ -355,18 +444,22 @@ import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient
         animateConstellations(constels, timescale);
         if (belt) belt.rotation.y += 0.0002 * timescale;
 
+        // ── Gaia DR3 twinkle ──
+        animateGaiaCatalog(gaiaResult, time);
+
         // Cámara sigue al planeta si está en modo detalle
         if (!paused && !isTransitioning()) followTargetMesh();
 
         controls.update();
 
         // ── NEW: Orbital trails breathing ──
-        animateOrbitalTrails(orbitalTrails, time);
+        // animateOrbitalTrails(orbitalTrails, time); // DESACTIVADO
 
         // ── NEW: Comets ──
         animateComets();
 
         composer.render();
+        if (cssRenderer) cssRenderer.render(scene, camera);
     }
 
     animate();

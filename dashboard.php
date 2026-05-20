@@ -25,16 +25,16 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YorHa — Panel de Control Científico</title>
+    <title>Vynas — Panel de Control Científico</title>
     <meta name="description"
-        content="YorHa - Estación Terrestre La Serena. Panel de control científico de monitoreo satelital y simulación astronómica en tiempo real.">
+        content="Vynas - Estación Terrestre La Serena. Panel de control científico de monitoreo satelital y simulación astronómica en tiempo real.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://ispep.cl/dashboard.php">
     <link rel="icon" type="image/png" href="img/logo.png">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="YorHa — Panel de Control Científico">
+    <meta property="og:title" content="Vynas — Panel de Control Científico">
     <meta property="og:description"
         content="Simulación astronómica en tiempo real desde la Estación Terrestre La Serena.">
     <meta property="og:image" content="https://ispep.cl/img/logo.png">
@@ -43,7 +43,7 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@200;300;400;500;600&family=Bodoni+Moda:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cinzel:wght@400..900&family=Inter:wght@100..900&display=swap"
         rel="stylesheet">
 
     <!-- Styles -->
@@ -57,6 +57,8 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/objects/Lensflare.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/renderers/CSS2DRenderer.js"></script>
     <!-- Post-Processing Modules -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/postprocessing/EffectComposer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/postprocessing/RenderPass.js"></script>
@@ -71,9 +73,9 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
 <body>
 
     <!-- ══ PANTALLA DE CARGA (PRELOADER) ══ -->
-    <div id="yorha-preloader">
+    <div id="vynas-preloader">
         <div class="preloader-content">
-            <h2 class="preloader-title">INICIALIZANDO YORHA_OS...</h2>
+            <h2 class="preloader-title">INICIALIZANDO VYNAS_OS...</h2>
             <div class="progress-bar-container">
                 <div class="progress-bar-fill" id="preloader-bar"></div>
             </div>
@@ -90,7 +92,32 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
     <!-- ══ WARP EFFECT CANVAS ══ -->
     <canvas id="warp-canvas" style="position:fixed;inset:0;z-index:100;pointer-events:none;display:none;"></canvas>
 
-    <!-- ══ CAPA UI ══ -->
+    <!-- ══ NAVBAR FIJO ══ -->
+    <nav id="navbar">
+        <div class="brand">
+            <h1>VYNAS</h1>
+            <span>Estación Terrestre La Serena</span>
+        </div>
+
+        <div style="flex:1; display:flex; justify-content:center; align-items:center; gap: 15px;">
+            <div id="system-indicator"
+                style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 1rem; color: var(--theme-color); letter-spacing: 0.2em; text-transform: uppercase; text-shadow: 0 0 10px rgba(197,163,88,0.5);">
+                SISTEMA SOLAR</div>
+            <button id="btn-autopilot" class="clickable nav-action-btn danger">WAR ROOM</button>
+            <button id="btn-physics" class="clickable nav-action-btn gold">FUNDAMENTOS</button>
+        </div>
+
+        <a href="profile.php" class="user-area clickable" style="text-decoration: none;">
+            <div class="user-info">
+                <p>Bienvenido</p>
+                <p><?php echo htmlspecialchars($_SESSION['investigador_nombre']); ?></p>
+            </div>
+            <img src="<?php echo htmlspecialchars($user_img); ?>"
+                onerror="this.onerror=null; this.src='img/logodefault.png';" alt="Foto investigador">
+        </a>
+    </nav>
+
+    <!-- ══ CAPA UI (HERO) ══ -->
     <div id="ui-layer">
 
         <!-- Flechas de Navegación del Sistema -->
@@ -103,31 +130,6 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             </button>
         </div>
 
-        <!-- Navbar -->
-        <nav id="navbar">
-            <div class="brand">
-                <h1>YORHA</h1>
-                <span>Estación Terrestre La Serena</span>
-            </div>
-
-            <div style="flex:1; display:flex; justify-content:center; align-items:center; gap: 15px;">
-                <div id="system-indicator"
-                    style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 1rem; color: var(--theme-color); letter-spacing: 0.2em; text-transform: uppercase; text-shadow: 0 0 10px rgba(197,163,88,0.5);">
-                    SISTEMA SOLAR</div>
-                <button id="btn-autopilot" class="clickable nav-action-btn danger">WAR ROOM</button>
-                <button id="btn-physics" class="clickable nav-action-btn gold">FUNDAMENTOS</button>
-            </div>
-
-            <a href="profile.php" class="user-area clickable" style="text-decoration: none;">
-                <div class="user-info">
-                    <p>Bienvenido</p>
-                    <p><?php echo htmlspecialchars($_SESSION['investigador_nombre']); ?></p>
-                </div>
-                <img src="<?php echo htmlspecialchars($user_img); ?>"
-                    onerror="this.onerror=null; this.src='img/logodefault.png';" alt="Foto investigador">
-            </a>
-        </nav>
-
         <!-- Panel de Fundamentos de Física -->
         <div id="physics-panel" class="physics-panel clickable">
             <div class="physics-panel-header">
@@ -136,32 +138,46 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             </div>
             <div class="physics-scroll-area">
                 <div class="physics-intro">
-                    <p>La física no es solo fórmulas; es el lenguaje en el que está escrito el universo. Estas leyes fundamentales nos permiten simular y comprender la vasta complejidad de los sistemas estelares.</p>
+                    <p>La física no es solo fórmulas; es el lenguaje en el que está escrito el universo. Estas leyes
+                        fundamentales nos permiten simular y comprender la vasta complejidad de los sistemas estelares.
+                    </p>
                 </div>
                 <div class="physics-grid">
                     <div class="physics-card">
                         <h4>Masa y Gravedad</h4>
-                        <p>La fuerza fundamental que rige el universo. La gravedad determina las órbitas planetarias, la formación de galaxias y la curvatura del espacio-tiempo. En este simulador, las órbitas se calculan en base a la influencia gravitacional de la estrella central.</p>
+                        <p>La fuerza fundamental que rige el universo. La gravedad determina las órbitas planetarias, la
+                            formación de galaxias y la curvatura del espacio-tiempo. En este simulador, las órbitas se
+                            calculan en base a la influencia gravitacional de la estrella central.</p>
                     </div>
                     <div class="physics-card">
                         <h4>Termodinámica y Zona Habitable</h4>
-                        <p>La posición de un planeta respecto a su estrella dicta su temperatura. La "Zona Habitable" (o zona Ricitos de Oro) es la región donde las condiciones térmicas permiten la existencia de agua líquida en la superficie, esencial para la vida.</p>
+                        <p>La posición de un planeta respecto a su estrella dicta su temperatura. La "Zona Habitable" (o
+                            zona Ricitos de Oro) es la región donde las condiciones térmicas permiten la existencia de
+                            agua líquida en la superficie, esencial para la vida.</p>
                     </div>
                     <div class="physics-card">
                         <h4>Luz y Espectroscopía</h4>
-                        <p>Toda la información que recibimos del espacio profundo proviene de la luz. Analizando el espectro electromagnético, podemos determinar la composición química de atmósferas exoplanetarias a años luz de distancia.</p>
+                        <p>Toda la información que recibimos del espacio profundo proviene de la luz. Analizando el
+                            espectro electromagnético, podemos determinar la composición química de atmósferas
+                            exoplanetarias a años luz de distancia.</p>
                     </div>
                     <div class="physics-card">
                         <h4>Tiempo Espacial (Relatividad)</h4>
-                        <p>El universo opera en escalas de tiempo inimaginables. Desde los miles de millones de años de la vida de una estrella hasta los días que tarda un exoplaneta en completar su órbita. La simulación acelera estos procesos relativos para su observación.</p>
+                        <p>El universo opera en escalas de tiempo inimaginables. Desde los miles de millones de años de
+                            la vida de una estrella hasta los días que tarda un exoplaneta en completar su órbita. La
+                            simulación acelera estos procesos relativos para su observación.</p>
                     </div>
                     <div class="physics-card">
                         <h4>Mecánica Orbital (Leyes de Kepler)</h4>
-                        <p>Los planetas no orbitan en círculos perfectos, sino en elipses. La velocidad de un planeta cambia dependiendo de su distancia a la estrella. Cerca del perihelio se mueven más rápido, y en el afelio más lento.</p>
+                        <p>Los planetas no orbitan en círculos perfectos, sino en elipses. La velocidad de un planeta
+                            cambia dependiendo de su distancia a la estrella. Cerca del perihelio se mueven más rápido,
+                            y en el afelio más lento.</p>
                     </div>
                     <div class="physics-card">
                         <h4>Dinámica Planetaria</h4>
-                        <p>La interacción entre los diferentes cuerpos celestes, como resonancias orbitales o la influencia de gigantes gaseosos, moldea la arquitectura de un sistema planetario, brindándole estabilidad o desencadenando eventos caóticos.</p>
+                        <p>La interacción entre los diferentes cuerpos celestes, como resonancias orbitales o la
+                            influencia de gigantes gaseosos, moldea la arquitectura de un sistema planetario,
+                            brindándole estabilidad o desencadenando eventos caóticos.</p>
                     </div>
                 </div>
             </div>
@@ -174,20 +190,21 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             <div id="intro-title" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
                 <h2>¿Qué vamos a ver hoy? </h2>
                 <p>[ Modo Ambiente Activo ]</p>
+            </div>
 
-                <!-- Contenedor de Papers + Facts -->
-                <div id="ambient-info" class="ambient-info">
-                    <!-- Paper rotativo -->
-                    <div class="ambient-paper"></div>
-                    <!-- Dato curioso rotativo -->
-                    <div class="ambient-fact"></div>
-                </div>
-
+            <!-- Contenedor de Papers + Facts reubicado (HUD Lateral) -->
+            <div id="ambient-info" class="ambient-info"
+                style="position: fixed; bottom: 30px; left: 30px; max-width: 400px; text-align: left; background: rgba(0,0,0,0.6); border: 1px solid var(--theme-color); padding: 1.5rem; backdrop-filter: blur(8px); display: none;">
+                <!-- Paper rotativo -->
+                <div class="ambient-paper"></div>
+                <!-- Dato curioso rotativo -->
+                <div class="ambient-fact"></div>
             </div>
 
             <!-- Botones de Interacción -->
-            <button id="btn-toggle-interaction" class="clickable interaction-btn-main">INTERACTUAR</button>
-            <button id="btn-return-hub" class="clickable interaction-btn-main" style="display: none;">VOLVER AL HUB</button>
+            <button id="btn-toggle-interaction" class="clickable interaction-btn">INTERACTUAR</button>
+            <button id="btn-return-hub" class="clickable interaction-btn" style="display: none;">VOLVER AL
+                HUB</button>
 
 
             <!-- Hub del Planeta (Oculto hasta activarse) -->
@@ -315,6 +332,130 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
 
     </div><!-- /ui-layer -->
 
+    <!-- ══ SCROLL INDICATOR ══ -->
+    <div id="scroll-indicator" class="scroll-indicator clickable">
+        <span>EXPLORAR</span>
+        <div class="scroll-chevron">⌄</div>
+    </div>
+
+    <!-- ══ CONTENIDO SCROLLABLE ══ -->
+    <main id="scroll-content">
+        <div class="scroll-spacer"></div>
+
+        <!-- ═══ SECCIÓN: ESTADO DE LA MISIÓN ═══ -->
+        <section id="mission-section" class="dash-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <span class="section-tag">TELEMETRÍA EN VIVO</span>
+                    <h2 class="section-title">Estado de la Misión</h2>
+                </div>
+                <div class="metric-grid" id="metric-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ SECCIÓN: CATÁLOGO ESTELAR ═══ -->
+        <section id="catalog-section" class="dash-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <span class="section-tag">ARCHIVO ESTELAR</span>
+                    <h2 class="section-title">Catálogo de Cuerpos Celestes</h2>
+                </div>
+                <div class="system-group">
+                    <h3 class="system-label">☉ Sistema Solar</h3>
+                    <div class="planet-grid" id="catalog-solar"></div>
+                </div>
+                <div class="system-group">
+                    <h3 class="system-label">✦ Sistema TRAPPIST-1</h3>
+                    <div class="planet-grid" id="catalog-trappist"></div>
+                </div>
+                <div class="system-group">
+                    <h3 class="system-label">★ Sistema Kepler-186</h3>
+                    <div class="planet-grid" id="catalog-kepler"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ SECCIÓN: SUPERFICIE MARCIANA ═══ -->
+        <section id="mars-section" class="dash-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <span class="section-tag">ROVER FEED</span>
+                    <h2 class="section-title">Superficie Marciana</h2>
+                    <div class="mars-controls">
+                        <button class="mars-rover-btn active" data-rover="curiosity">☿ Curiosity</button>
+                        <button class="mars-rover-btn" data-rover="perseverance">♂ Perseverance</button>
+                    </div>
+                </div>
+                <div id="mars-gallery" class="mars-gallery"></div>
+                <p id="mars-status" class="mars-status">Contactando rover...</p>
+            </div>
+        </section>
+
+        <!-- ═══ SECCIÓN: CLIMA ESPACIAL ═══ -->
+        <section id="weather-section" class="dash-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <span class="section-tag">MONITOREO SOLAR</span>
+                    <h2 class="section-title">Clima Espacial</h2>
+                </div>
+                <div class="weather-grid">
+                    <div class="weather-card" id="kp-card">
+                        <h4 class="weather-card-title">Índice Kp Geomagnético</h4>
+                        <div id="kp-gauge" class="kp-gauge"></div>
+                        <p id="kp-label" class="kp-label">Cargando datos NOAA...</p>
+                    </div>
+                    <div class="weather-card" id="flare-card">
+                        <h4 class="weather-card-title">☀ Llamaradas Solares (7 días)</h4>
+                        <div id="flare-timeline" class="flare-timeline"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ SECCIÓN: VISTA DESDE EL ESPACIO ═══ -->
+        <section id="epic-section" class="dash-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <span class="section-tag">DSCOVR SATELLITE</span>
+                    <h2 class="section-title">Vista desde el Espacio</h2>
+                </div>
+                <div id="epic-container" class="epic-container">
+                    <p style="color:#666;text-align:center;font-size:0.7rem;letter-spacing:0.2em">CONTACTANDO DSCOVR...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ FOOTER EXPANDIDO ═══ -->
+        <footer id="scroll-footer" class="dash-section scroll-footer">
+            <div class="section-inner">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h4>VYNAS</h4>
+                        <p>Estación Terrestre La Serena</p>
+                        <p class="footer-version">v2.8.0 (Vynas Visual update #1)</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Fuentes de Datos</h4>
+                        <p><a href="https://api.nasa.gov" target="_blank">NASA Open APIs</a></p>
+                        <p><a href="https://services.swpc.noaa.gov" target="_blank">NOAA Space Weather</a></p>
+                        <p><a href="https://exoplanets.nasa.gov" target="_blank">NASA Exoplanet Archive</a></p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Hecho desde</h4>
+                        <p>La Serena, Chile 🇨🇱</p>
+                        <p>Monitoreo Satelital en Tiempo Real</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>ZOROIKAMI © 2026 — Todos los datos son proporcionados por agencias espaciales oficiales.</p>
+                </div>
+            </div>
+        </footer>
+
+    </main><!-- /scroll-content -->
 
     <!-- ══ NASA LIVE FEED ══ -->
     <div id="nasa-feed-panel" class="nasa-feed-panel" style="display:none;"></div>
@@ -333,7 +474,7 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             if (typeof window.playBeep === 'function') window.playBeep(800, 'triangle', 0.05, 0.03);
             Swal.fire({
                 title: '¿Desconectar Enlace Neuronal?',
-                text: "Saldrás de la red YoRHa y la simulación se detendrá.",
+                text: "Saldrás de la red Vynas and la simulación se detendrá.",
                 icon: 'warning',
                 showCancelButton: true,
                 background: 'rgba(10, 10, 12, 0.95)',
@@ -343,8 +484,8 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
                 confirmButtonText: 'DESCONECTAR',
                 cancelButtonText: 'CANCELAR',
                 customClass: {
-                    popup: 'yorha-swal-popup',
-                    title: 'yorha-swal-title',
+                    popup: 'vynas-swal-popup',
+                    title: 'vynas-swal-title',
                     confirmButton: 'swal2-confirm',
                     cancelButton: 'swal2-confirm'
                 }
@@ -368,8 +509,8 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
                     confirmButtonColor: '#c5a358',
                     confirmButtonText: 'CONTINUAR',
                     customClass: {
-                        popup: 'yorha-swal-popup',
-                        title: 'yorha-swal-title',
+                        popup: 'vynas-swal-popup',
+                        title: 'vynas-swal-title',
                         confirmButton: 'swal2-confirm'
                     }
                 });
@@ -377,6 +518,34 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
         });
+
+        // ══ SCRAMBLE EFFECT UTILITY (Efecto Táctico) ══
+        window.scrambleText = function (element, newText, duration = 800) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*[]{}<>';
+            const steps = duration / 30;
+            let step = 0;
+
+            if (typeof window.playBeep === 'function') window.playBeep(2000, 'square', 0.02, 0.01);
+
+            const interval = setInterval(() => {
+                let scrambled = '';
+                for (let i = 0; i < newText.length; i++) {
+                    if (newText[i] === ' ') {
+                        scrambled += ' ';
+                    } else if (i < (step / steps) * newText.length) {
+                        scrambled += newText[i];
+                    } else {
+                        scrambled += chars[Math.floor(Math.random() * chars.length)];
+                    }
+                }
+                element.innerText = scrambled;
+                step++;
+                if (step >= steps) {
+                    clearInterval(interval);
+                    element.innerText = newText;
+                }
+            }, 30);
+        };
     </script>
 
 </body>

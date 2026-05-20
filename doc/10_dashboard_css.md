@@ -45,7 +45,7 @@ Cada planeta tiene su propio esquema de color (verde para Tierra, rojo para Mart
 - Layout: flex, space-between, altura automática
 - Fondo: negro 25% con backdrop-blur 8px
 - Borde inferior: dorado translúcido
-- **Marca "YORHA":** Texto con gradiente dorado (`background-clip: text`)
+- **Marca "Vynas":** Texto con gradiente dorado (`background-clip: text`)
 - **Info de usuario:** Estilo italic dorado (Playfair Display), badge azul oscuro
 - **Foto de perfil:** 38×38px, circular, borde dorado con glow
 - **Botón logout:** Fondo rojo oscuro, hover más intenso
@@ -143,7 +143,7 @@ Los datos del HUD aparecen secuencialmente (escalonados via `animation-delay` in
 - Delay 0.1s, 0.2s, 0.3s, 0.4s... para cada grupo de datos
 - Efecto de "cascada" de información apareciendo
 
-### 10. Preloader YorHa (líneas 725–788)
+### 10. Preloader Vynas (líneas 725–788)
 - `z-index: 1000` — por encima de absolutamente todo
 - Transición de salida: opacity + visibility
 - Título: Cinzel, dorado, con pulso
@@ -186,3 +186,4 @@ Los datos del HUD aparecen secuencialmente (escalonados via `animation-delay` in
 - El archivo usa la función CSS `rgba(var(--theme-color-rgb), alpha)` extensivamente — esto funciona porque la variable almacena "197, 163, 88" sin `rgb()`, permitiendo interpolación directa
 - No hay media queries — el dashboard no es responsive (diseñado para desktop)
 - Hay dos definiciones de `@keyframes pulse` (líneas 184 y 784) con comportamientos distintos; la segunda sobreescribe a la primera
+

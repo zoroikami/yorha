@@ -145,3 +145,45 @@ export function updateSunEffects(sunGroup, time, camera) {
         });
     }
 }
+
+// ══ Texturas Procedurales para THREE.Lensflare ══
+export function createFlareTexture0() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512; canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+    grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    grad.addColorStop(0.2, 'rgba(255, 240, 200, 0.8)');
+    grad.addColorStop(0.5, 'rgba(255, 150, 50, 0.2)');
+    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 512, 512);
+    return new THREE.CanvasTexture(canvas);
+}
+
+export function createFlareTexture3() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256; canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    
+    // Anillo hexagonal
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const x = 128 + Math.cos(angle) * 100;
+        const y = 128 + Math.sin(angle) * 100;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.lineWidth = 15;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.arc(128, 128, 50, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.fill();
+
+    return new THREE.CanvasTexture(canvas);
+}

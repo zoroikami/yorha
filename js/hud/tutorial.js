@@ -5,11 +5,11 @@
  * ╚═══════════════════════════════════════════════════╝
  */
 
-const STORAGE_KEY = 'yorha_tutorial_done';
+const STORAGE_KEY = 'Vynas_tutorial_done';
 
 const STEPS = [
     {
-        title: 'Bienvenido a YorHa',
+        title: 'Bienvenido a Vynas',
         text: 'Plataforma de simulación astronómica en tiempo real. Este breve tutorial te mostrará los controles básicos.',
         icon: '🌌'
     },
@@ -145,3 +145,4 @@ function clearHighlight() {
 export function resetTutorial() {
     localStorage.removeItem(STORAGE_KEY);
 }
+

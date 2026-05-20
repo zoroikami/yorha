@@ -8,7 +8,7 @@
  * ╚═══════════════════════════════════════════════════════════════╝
  */
 
-import { createSunSurfaceMaterial, buildCoronaSprite, buildLensFlare } from '../shaders/sun-corona.js';
+import { createSunSurfaceMaterial, buildCoronaSprite, buildLensFlare, createFlareTexture0, createFlareTexture3 } from '../shaders/sun-corona.js';
 
 const textureLoader = new THREE.TextureLoader();
 
@@ -30,18 +30,35 @@ export function buildSun(planetData, scene) {
     surface.name = 'sun-surface';
     group.add(surface);
 
-    // Corona grande
-    const corona = buildCoronaSprite(p.radius, p.starColor || 0xffdd99);
-    group.add(corona);
+    // Corona grande — DESACTIVADO
+    // const corona = buildCoronaSprite(p.radius, p.starColor || 0xffdd99);
+    // group.add(corona);
 
-    // Corona interna más intensa
-    const innerCorona = buildCoronaSprite(p.radius * 0.6, p.starColor || 0xffeebb);
-    innerCorona.material.opacity = 0.9;
-    group.add(innerCorona);
+    // Corona interna más intensa — DESACTIVADO
+    // const innerCorona = buildCoronaSprite(p.radius * 0.6, p.starColor || 0xffeebb);
+    // innerCorona.material.opacity = 0.9;
+    // group.add(innerCorona);
 
-    // Lens flare (se actualiza por frame según posición de la cámara)
-    const flare = buildLensFlare(p.radius, p.starColor || 0xffeecc);
-    group.add(flare);
+    // ══ THREE.Lensflare Óptico Real ══
+    if (typeof THREE.Lensflare !== 'undefined') {
+        const texFlare0 = createFlareTexture0();
+        const texFlare3 = createFlareTexture3();
+        
+        // Creamos una PointLight dentro del sol para atar el lensflare
+        // Esta luz no ilumina la escena porque la iluminación general viene de lighting.js,
+        // pero la usamos para el efecto óptico
+        const light = new THREE.PointLight(p.starColor || 0xffffff, 1.5, 2000);
+        
+        const lensflare = new THREE.Lensflare();
+        lensflare.addElement(new THREE.LensflareElement(texFlare0, p.radius * 60, 0.0, new THREE.Color(p.starColor || 0xffffff)));
+        lensflare.addElement(new THREE.LensflareElement(texFlare3, p.radius * 15, 0.6));
+        lensflare.addElement(new THREE.LensflareElement(texFlare3, p.radius * 10, 0.7));
+        lensflare.addElement(new THREE.LensflareElement(texFlare3, p.radius * 25, 0.9));
+        lensflare.addElement(new THREE.LensflareElement(texFlare3, p.radius * 12, 1.0));
+        
+        light.add(lensflare);
+        group.add(light);
+    }
 
     if (p.systemOffset) group.position.fromArray(p.systemOffset);
     scene.add(group);

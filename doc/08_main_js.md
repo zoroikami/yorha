@@ -9,7 +9,7 @@
 
 ## Propósito
 
-Almacena las **metadatos estáticos** del proyecto YorHa y proporciona funciones utilitarias básicas. Este archivo fue parte de la iteración inicial del proyecto y actualmente **no es cargado por ninguna página** (ni `index.html`, ni `login.html`, ni `dashboard.php`).
+Almacena las **metadatos estáticos** del proyecto Vynas y proporciona funciones utilitarias básicas. Este archivo fue parte de la iteración inicial del proyecto y actualmente **no es cargado por ninguna página** (ni `index.html`, ni `login.html`, ni `dashboard.php`).
 
 ---
 
@@ -19,7 +19,7 @@ Almacena las **metadatos estáticos** del proyecto YorHa y proporciona funciones
 
 ```javascript
 const projectInfo = {
-    nombre: "YorHa",
+    nombre: "Vynas",
     sigla: "Sistema de Contribución Científica",
     version: "v1.0.3",
     semestre: "3er Semestre",
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ```javascript
 function saludar() {
-    alert("Bienvenido al sistema de investigación YorHa");
+    alert("Bienvenido al sistema de investigación Vynas");
 }
 ```
 
@@ -77,3 +77,4 @@ Función utilitaria simple, nunca invocada.
 - El archivo usa retornos de carro Windows (CRLF) a diferencia de otros archivos del proyecto
 - Contiene un comentario "exportar funciones para el Día 2" que indica que fue creado durante las primeras sesiones de desarrollo
 - La función `saludar()` fue probablemente un placeholder de prueba del entorno WAMP
+

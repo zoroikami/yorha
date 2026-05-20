@@ -27,7 +27,7 @@ Página de **autenticación dual** que permite al usuario ingresar a la platafor
 │                                                                │
 │  ┌─────────────────────┐          ┌──────────────────────────┐ │
 │  │                     │          │                          │ │
-│  │       YORHA          │          │    « Dato Estelar »      │ │
+│  │       Vynas          │          │    « Dato Estelar »      │ │
 │  │  Auth de Usuario     │          │                          │ │
 │  │                     │          │  "En Saturno llueven     │ │
 │  │  [Email          ]  │          │   diamantes y sus        │ │
@@ -41,7 +41,7 @@ Página de **autenticación dual** que permite al usuario ingresar a la platafor
 │  │  [  Google  ]       │          │                          │ │
 │  │  [  GitHub  ]       │          │                          │ │
 │  │                     │          │                          │ │
-│  │  YORHA ♱ 2026       │          │                          │ │
+│  │  Vynas ♱ 2026       │          │                          │ │
 │  └─────────────────────┘          └──────────────────────────┘ │
 └────────────────────────────────────────────────────────────────┘
 ```
@@ -135,3 +135,4 @@ Ambos formularios se alternan mediante la función `toggleForms()`.
 - **Inputs:** Fondo transparente con solo border-bottom que se anima a dorado en focus
 - **Labels flotantes:** Usando la técnica CSS `peer-focus` de Tailwind
 - **Botones:** Efecto de relleno dorado de abajo hacia arriba (translate-y full → 0)
+

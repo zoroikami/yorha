@@ -1,0 +1,165 @@
+{
+  "_metadata": {
+    "generated": "2026-05-05T10:52:27.181710Z",
+    "script": "space_weather_monitor.py",
+    "sources": [
+      "NOAA SWPC (Kp, Solar Wind)",
+      "NASA DONKI (Flares, CME)"
+    ]
+  },
+  "kp_index": {
+    "current": 1,
+    "average_6h": 1.57,
+    "max_6h": 3,
+    "storm_level": "QUIET",
+    "trend": "RISING",
+    "timestamp": "2026-05-05T10:48:00",
+    "aurora_visible": false,
+    "aurora_latitude": null
+  },
+  "solar_flares": {
+    "total": 6,
+    "x_class": 0,
+    "m_class": 4,
+    "c_class": 2,
+    "flares": [
+      {
+        "class": "M1.0",
+        "severity": "WARNING",
+        "begin": "2026-04-28T12:17Z",
+        "peak": "2026-04-28T12:23Z",
+        "end": "2026-04-28T12:29Z",
+        "source": "N14W39",
+        "linked_events": 0
+      },
+      {
+        "class": "M1.5",
+        "severity": "WARNING",
+        "begin": "2026-04-28T13:49Z",
+        "peak": "2026-04-28T13:53Z",
+        "end": "2026-04-28T13:55Z",
+        "source": "N16W38",
+        "linked_events": 0
+      },
+      {
+        "class": "M1.1",
+        "severity": "WARNING",
+        "begin": "2026-04-28T14:03Z",
+        "peak": "2026-04-28T14:07Z",
+        "end": "2026-04-28T14:09Z",
+        "source": "N16W40",
+        "linked_events": 0
+      },
+      {
+        "class": "C4.0",
+        "severity": "MODERATE",
+        "begin": "2026-05-02T10:44Z",
+        "peak": "2026-05-02T11:04Z",
+        "end": "2026-05-02T11:26Z",
+        "source": "N16W75",
+        "linked_events": 1
+      },
+      {
+        "class": "C8.7",
+        "severity": "MODERATE",
+        "begin": "2026-05-02T18:30Z",
+        "peak": "2026-05-02T18:38Z",
+        "end": "2026-05-02T18:42Z",
+        "source": "N16W90",
+        "linked_events": 1
+      },
+      {
+        "class": "M1.8",
+        "severity": "WARNING",
+        "begin": "2026-05-04T01:13Z",
+        "peak": "2026-05-04T01:33Z",
+        "end": "2026-05-04T01:44Z",
+        "source": "N17W80",
+        "linked_events": 0
+      }
+    ],
+    "period": "2026-04-28 → 2026-05-05"
+  },
+  "solar_wind": {
+    "speed_km_s": 405.0,
+    "density_p_cm3": 13.73,
+    "temperature_k": 75020,
+    "avg_speed_1h": 403.3,
+    "max_speed_1h": 417.8,
+    "avg_density_1h": 10.35,
+    "timestamp": "2026-05-04T10:53:00",
+    "classification": "NORMAL"
+  },
+  "cme_events": {
+    "total": 18,
+    "earth_directed": 0,
+    "events": [
+      {
+        "time": "2026-05-02T13:48Z",
+        "source": "",
+        "note": "Minor CME first seen to the NW in SOHO LASCO C2/C3 and GOES CCOR-1. It is not seen in STEREO A COR2.",
+        "earth_directed": false,
+        "instruments": [
+          "SOHO: LASCO/C2",
+          "SOHO: LASCO/C3",
+          "GOES: CCOR-1"
+        ]
+      },
+      {
+        "time": "2026-05-02T19:00Z",
+        "source": "N16W93",
+        "note": "Very faint CME seen to the NW in early SOHO LASCO C2 imagery and disappearing after several timestam",
+        "earth_directed": false,
+        "instruments": [
+          "SOHO: LASCO/C2"
+        ]
+      },
+      {
+        "time": "2026-05-03T03:28Z",
+        "source": "",
+        "note": "Narrow CME seen to the northeast in SOHO LASCO C2 and to the northwest in STEREO A COR2 which appear",
+        "earth_directed": false,
+        "instruments": [
+          "SOHO: LASCO/C2",
+          "SOHO: LASCO/C3",
+          "STEREO A: SECCHI/COR2"
+        ]
+      },
+      {
+        "time": "2026-05-04T01:36Z",
+        "source": "N14E68",
+        "note": "Lightbulb shaped CME with front and filamentary core structure seen to the east in SOHO C2/C3, GOES ",
+        "earth_directed": false,
+        "instruments": [
+          "SOHO: LASCO/C2",
+          "SOHO: LASCO/C3",
+          "STEREO A: SECCHI/COR2",
+          "GOES: CCOR-1"
+        ]
+      },
+      {
+        "time": "2026-05-04T21:24Z",
+        "source": "",
+        "note": "This CME is visible to the northeast in SOHO LASCO C2/C3 imagery. This event is blocked by the pylon",
+        "earth_directed": false,
+        "instruments": [
+          "SOHO: LASCO/C2",
+          "SOHO: LASCO/C3"
+        ]
+      }
+    ],
+    "period": "2026-04-28 → 2026-05-05"
+  },
+  "consolidated_alert": {
+    "overall_level": "YELLOW",
+    "alert_count": 1,
+    "alerts": [
+      {
+        "type": "SOLAR_FLARE",
+        "level": "YELLOW",
+        "message": "4 llamaradas clase M en los últimos 7 días",
+        "impact": "Actividad solar elevada"
+      }
+    ]
+  }
+}

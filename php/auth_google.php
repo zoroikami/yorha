@@ -1,6 +1,6 @@
 <?php
 /**
- * YorHa — Autenticación Google OAuth (PDO + Prepared Statements)
+ * Vynas — Autenticación Google OAuth (PDO + Prepared Statements)
  * Migrado de mysqli a PDO. Token validado server-side.
  */
 session_start();

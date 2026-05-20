@@ -87,9 +87,16 @@ let _currentFact = 0;
 let _interval = null;
 let _factInterval = null;
 
-export function initAmbientInfo() {
+export function initAmbientInfo(data) {
     _container = document.getElementById('ambient-info');
     if (!_container) return;
+
+    if (data && data.APOD) {
+        FACTS.unshift({ icon: '📸', text: `APOD: ${data.APOD.title}` });
+    }
+    if (data && data.NEO_TODAY) {
+        FACTS.unshift({ icon: '☄️', text: `Alerta: ${data.NEO_TODAY.count} asteroides cercanos detectados hoy (NASA NeoWs).` });
+    }
 
     renderPaper(0);
     renderFact(0);

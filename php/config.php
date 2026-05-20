@@ -1,15 +1,15 @@
 <?php
 /**
- * YorHa — Configuración Central Segura
+ * Vynas — Configuración Central Segura
  * Todas las credenciales sensibles centralizadas aquí.
  * En producción, mover estos valores a variables de entorno.
  */
 
 // ══ Entorno ══
 // Cambiar a false en producción
-define('YORHA_DEBUG', true);
+define('VYNAS_DEBUG', true);
 
-if (YORHA_DEBUG) {
+if (VYNAS_DEBUG) {
     error_reporting(E_ALL);
     ini_set('display_errors', 0); // Nunca mostrar errores al usuario
     ini_set('log_errors', 1);

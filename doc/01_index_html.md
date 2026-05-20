@@ -9,7 +9,7 @@
 
 ## Propósito
 
-Es el **punto de entrada público** de la plataforma YorHa. Funciona como una landing page cinematográfica que presenta el proyecto al visitante y lo dirige hacia la exploración del dashboard o hacia el sistema de autenticación.
+Es el **punto de entrada público** de la plataforma Vynas. Funciona como una landing page cinematográfica que presenta el proyecto al visitante y lo dirige hacia la exploración del dashboard o hacia el sistema de autenticación.
 
 ---
 
@@ -20,7 +20,7 @@ Es el **punto de entrada público** de la plataforma YorHa. Funciona como una la
 │  VIDEO DE FONDO (tierra.mp4, opacity 60%)    │
 │                                              │
 │         « Contribución Científica »          │
-│              YORHA PROJECT                   │
+│              Vynas PROJECT                   │
 │                                              │
 │     "Plataforma dedicada a la recolección    │
 │      de datos científicos..."                │
@@ -43,7 +43,7 @@ Es el **punto de entrada público** de la plataforma YorHa. Funciona como una la
 ### 2. Contenido Central (`<main>`)
 - Centrado vertical y horizontalmente con Flexbox (`flex h-screen items-center justify-center`)
 - **Subtítulo dorado:** "Contribución Científica" en `#c5a358` (color temático)
-- **Título principal:** "YORHA PROJECT" a 8xl con degradado texto blanco/gris
+- **Título principal:** "Vynas PROJECT" a 8xl con degradado texto blanco/gris
 - **Descripción:** Párrafo breve del propósito de la plataforma
 
 ### 3. Botones de Acción
@@ -84,3 +84,4 @@ Esto crea un **loop infinito sin cortes** visibles, ya que el video se reproduce
 - No tiene `<meta name="viewport">`, lo cual podría causar problemas en móviles
 - El enlace a `js/ola.js` produce un 404 (el archivo no existe)
 - El botón "EXPLORAR AHORA" enlaza directamente a `dashboard.php`, pero ese archivo requiere sesión activa — si no hay sesión, redirige a `login.html`
+

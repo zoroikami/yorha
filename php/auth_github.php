@@ -1,6 +1,6 @@
 <?php
 /**
- * YorHa — Autenticación GitHub OAuth (PDO + Prepared Statements)
+ * Vynas — Autenticación GitHub OAuth (PDO + Prepared Statements)
  * Migrado de mysqli a PDO. Credenciales movidas a config.php.
  */
 session_start();
@@ -33,7 +33,7 @@ if (isset($_GET['code'])) {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Authorization: token $access_token",
-            "User-Agent: ISPEP-YorHa-App"
+            "User-Agent: ISPEP-Vynas-App"
         ]);
 
         $user_data = json_decode(curl_exec($ch), true);

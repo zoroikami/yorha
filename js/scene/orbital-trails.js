@@ -5,7 +5,7 @@
  * ╚═══════════════════════════════════════════════════╝
  */
 
-export function buildOrbitalTrails(planets, scene) {
+export function buildOrbitalTrails(planets, scene, precomputedOrbits = null) {
     const trails = [];
 
     for (const key in planets) {
@@ -13,19 +13,31 @@ export function buildOrbitalTrails(planets, scene) {
         const p = rec.pData;
         if (p.isStar || !p.orbRadius || p.orbRadius <= 0) continue;
 
-        const a   = p.orbRadius;
-        const ecc = p.e || 0;
-        const b   = a * Math.sqrt(1 - ecc * ecc);
+        let points = [];
+        
+        // Use Python precomputed orbits if available
+        if (precomputedOrbits && precomputedOrbits.orbits && precomputedOrbits.orbits[key]) {
+            const orbitData = precomputedOrbits.orbits[key];
+            if (orbitData.positions && orbitData.positions.length > 0) {
+                points = orbitData.positions.map(pos => new THREE.Vector3(pos.x, 0, pos.z));
+            }
+        }
+        
+        // Fallback to basic math if no precomputed data
+        if (points.length === 0) {
+            const a   = p.orbRadius;
+            const ecc = p.e || 0;
+            const b   = a * Math.sqrt(1 - ecc * ecc);
 
-        const points = [];
-        const segments = 180;
-        for (let i = 0; i <= segments; i++) {
-            const theta = (i / segments) * Math.PI * 2;
-            points.push(new THREE.Vector3(
-                a * Math.cos(theta) - a * ecc,
-                0,
-                b * Math.sin(theta)
-            ));
+            const segments = 180;
+            for (let i = 0; i <= segments; i++) {
+                const theta = (i / segments) * Math.PI * 2;
+                points.push(new THREE.Vector3(
+                    a * Math.cos(theta) - a * ecc,
+                    0,
+                    b * Math.sin(theta)
+                ));
+            }
         }
 
         const geometry = new THREE.BufferGeometry().setFromPoints(points);

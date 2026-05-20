@@ -24,7 +24,7 @@ export async function getAstronomyData() {
         }
         return await response.json();
     } catch (error) {
-        console.error('YorHa Data Error:', error);
+        console.error('Vynas Data Error:', error);
         return { PLANETS_DATA: {}, CONSTELLATIONS_DATA: {} };
     }
 }
@@ -42,7 +42,7 @@ export async function getAstronomyData() {
 
 ### Flujo de Error (Fallback Seguro)
 Si falla la petición (red, JSON corrupto, 404):
-- Loguea el error a consola con prefijo `YorHa Data Error:`
+- Loguea el error a consola con prefijo `Vynas Data Error:`
 - Retorna un **objeto vacío pero estructuralmente válido**: `{ PLANETS_DATA: {}, CONSTELLATIONS_DATA: {} }`
 - Esto permite que `dashboard.js` inicie sin crashear (simplemente no habrá planetas)
 
@@ -91,3 +91,4 @@ const CONSTELLATIONS_DATA = data.CONSTELLATIONS_DATA;
 - El cache-buster previene que el navegador sirva datos desactualizados después de editar `astronomy.json`
 - No tiene dependencias externas
 - El fallback vacío es una decisión de **resiliencia**: la escena 3D arranca vacía en vez de lanzar un error no capturado
+

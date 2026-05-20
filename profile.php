@@ -29,7 +29,7 @@ $biografia = $user_data['biografia'] ?? '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil del Investigador — YorHa Project</title>
+    <title>Perfil del Investigador — Vynas Project</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" href="img/logo.png">
 
@@ -61,14 +61,14 @@ $biografia = $user_data['biografia'] ?? '';
                 Swal.fire({
                     icon: 'success',
                     title: 'Sincronización Exitosa',
-                    text: 'Los datos del investigador han sido actualizados en la red YoRHa.',
+                    text: 'Los datos del investigador han sido actualizados en la red Vynas.',
                     background: 'rgba(10, 10, 12, 0.95)',
                     color: '#fff',
                     confirmButtonColor: '#c5a358',
                     confirmButtonText: 'CONTINUAR',
                     customClass: {
-                        popup: 'yorha-swal-popup',
-                        title: 'yorha-swal-title',
+                        popup: 'vynas-swal-popup',
+                        title: 'vynas-swal-title',
                         confirmButton: 'swal2-confirm'
                     }
                 });
@@ -80,7 +80,7 @@ $biografia = $user_data['biografia'] ?? '';
             if (typeof window.playBeep === 'function') window.playBeep(800, 'triangle', 0.05, 0.03);
             Swal.fire({
                 title: '¿Desconectar Enlace Neuronal?',
-                text: "Saldrás de la red YoRHa y la simulación se detendrá.",
+                text: "Saldrás de la red Vynas y la simulación se detendrá.",
                 icon: 'warning',
                 showCancelButton: true,
                 background: 'rgba(10, 10, 12, 0.95)',
@@ -90,8 +90,8 @@ $biografia = $user_data['biografia'] ?? '';
                 confirmButtonText: 'DESCONECTAR',
                 cancelButtonText: 'CANCELAR',
                 customClass: {
-                    popup: 'yorha-swal-popup',
-                    title: 'yorha-swal-title',
+                    popup: 'vynas-swal-popup',
+                    title: 'vynas-swal-title',
                     confirmButton: 'swal2-confirm',
                     cancelButton: 'swal2-confirm'
                 }
@@ -111,7 +111,7 @@ $biografia = $user_data['biografia'] ?? '';
     <!-- Navbar -->
     <nav id="navbar">
         <div class="brand">
-            <h1>YORHA</h1>
+            <h1>VYNAS</h1>
             <span>Red Neuronal</span>
         </div>
         <div class="nav-actions">
@@ -176,12 +176,12 @@ $biografia = $user_data['biografia'] ?? '';
 
                 <!-- Right Column: Contributions (Mock) -->
                 <section class="profile-card">
-                    <h3 class="card-title">Aportaciones a YoRHa</h3>
+                    <h3 class="card-title">Aportaciones a Vynas</h3>
                     
                     <div class="contributions-empty">
                         <div class="icon-placeholder">✨</div>
                         <h4>Aún no hay descubrimientos</h4>
-                        <p>Pronto podrás integrar información estelar y expandir la base de datos de la red YoRHa.</p>
+                        <p>Pronto podrás integrar información estelar y expandir la base de datos de la red Vynas.</p>
                         <button type="button" class="interaction-btn disabled-btn" disabled>Aportar Datos (Próximamente)</button>
                     </div>
                 </section>

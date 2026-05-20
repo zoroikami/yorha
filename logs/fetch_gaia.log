@@ -1,0 +1,12 @@
+[2026-05-10 13:05:53,846] INFO — ══ Iniciando pipeline Gaia DR3 ══
+[2026-05-10 13:05:53,847] INFO — Consultando Gaia DR3 TAP — 100000 estrellas más brillantes...
+[2026-05-10 13:06:56,596] INFO —   Recibidas 100000 estrellas. Columnas: ['source_id', 'ra', 'dec', 'parallax', 'parallax_error', 'phot_g_mean_mag', 'bp_rp', 'radial_velocity']
+[2026-05-10 13:06:56,597] INFO — Procesando estrellas...
+[2026-05-10 13:06:56,980] INFO —   Procesadas: 100000 / 100000
+[2026-05-10 13:06:56,981] INFO —   Rango de temperatura: 2400K — 30000K
+[2026-05-10 13:06:56,981] INFO —   Rango de magnitud: 1.94 — 8.47
+[2026-05-10 13:06:56,981] INFO —   Distribución espectral: {'O': 0, 'B': 5642, 'A': 11075, 'F': 11659, 'G': 10790, 'K': 36486, 'M': 24348}
+[2026-05-10 13:06:56,982] INFO — Escribiendo buffer binario: C:\wamp64\www\ispep\data\gaia_stars.bin
+[2026-05-10 13:06:57,013] INFO —   Buffer escrito: 2.67 MB (100000 estrellas)
+[2026-05-10 13:06:57,029] INFO —   Catálogo JSON escrito: C:\wamp64\www\ispep\data\gaia_catalog.json
+[2026-05-10 13:06:57,029] INFO — ══ Pipeline Gaia DR3 completado: 100000 estrellas ══

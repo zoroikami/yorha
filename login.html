@@ -4,20 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión — YorHa Project</title>
-    <meta name="description" content="Accede a tu cuenta en YorHa Project. Autenticación segura con correo, Google o GitHub para explorar la simulación astronómica.">
+    <title>Iniciar Sesión — Vynas Project</title>
+    <meta name="description"
+        content="Accede a tu cuenta en Vynas Project. Autenticación segura con correo, Google o GitHub para explorar la simulación astronómica.">
     <link rel="canonical" href="https://ispep.cl/login.html">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Iniciar Sesión — YorHa Project">
+    <meta property="og:title" content="Iniciar Sesión — Vynas Project">
     <meta property="og:description" content="Accede a tu cuenta para explorar el sistema solar en tiempo real.">
     <meta property="og:image" content="https://ispep.cl/img/logo.png">
     <meta property="og:url" content="https://ispep.cl/login.html">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Iniciar Sesión — YorHa Project">
+    <meta name="twitter:title" content="Iniciar Sesión — Vynas Project">
     <meta name="twitter:description" content="Accede a tu cuenta para explorar el sistema solar en tiempo real.">
 
     <!-- PWA -->
@@ -35,6 +36,12 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- ColorThief -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+
+    <!-- Preload default background -->
+    <link rel="preload" href="img/bg/carina.jpg" as="image">
+
     <!-- Styles (SIN Tailwind CDN) -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -44,9 +51,11 @@
     <!-- Accesibilidad: Skip link -->
     <a href="#login-form" class="skip-link">Saltar al formulario</a>
 
-    <video id="bg-video-saturn" loop autoplay muted playsinline class="login-video-bg" aria-hidden="true">
-        <source src="img/saturn2.mp4" type="video/mp4">
-    </video>
+    <img id="bg-image" crossorigin="anonymous" src="" alt="Fondo Astronómico" class="login-video-bg"
+        style="object-fit: cover; opacity: 0; transition: opacity 2s ease; width: 100%; height: 100%;"
+        aria-hidden="true">
+
+    <canvas id="stardust-canvas" aria-hidden="true"></canvas>
 
     <div class="login-overlay" aria-hidden="true"></div>
 
@@ -54,33 +63,47 @@
 
         <section class="animate-entrance login-panel">
             <header class="login-header">
-                <h1 class="font-serif">ISPEP</h1>
+                <h1 class="font-serif">Vynas</h1>
                 <h2 id="form-subtitle">Autenticación de Usuario</h2>
             </header>
 
             <div id="forms-container" class="relative">
                 <!-- Formulario de Login -->
-                <form action="php/login_process.php" method="POST" class="space-y-10" id="login-form" aria-label="Formulario de inicio de sesión">
+                <form action="php/login_process.php" method="POST" class="space-y-10" id="login-form"
+                    aria-label="Formulario de inicio de sesión">
                     <!-- CSRF Token (inyectado por JS ya que es HTML estático) -->
                     <input type="hidden" name="csrf_token" id="csrf-login" value="">
 
                     <div class="form-group">
-                        <input type="email" name="email" required placeholder=" " id="login-email"
-                            class="form-input" autocomplete="email"
-                            aria-label="Correo electrónico institucional">
+                        <input type="email" name="email" required placeholder=" " id="login-email" class="form-input"
+                            autocomplete="email" aria-label="Correo electrónico institucional">
                         <label for="login-email" class="form-label">Correo Institucional</label>
+                        <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                     </div>
 
                     <div class="form-group">
                         <input type="password" name="password" required placeholder=" " id="login-password"
-                            class="form-input" autocomplete="current-password"
-                            aria-label="Contraseña">
+                            class="form-input" autocomplete="current-password" aria-label="Contraseña">
                         <label for="login-password" class="form-label">Contraseña</label>
+                        <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility(this)" aria-label="Mostrar contraseña">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Remember me + Forgot password -->
+                    <div class="remember-row">
+                        <label class="remember-label">
+                            <input type="checkbox" name="remember" class="remember-checkbox">
+                            Recuérdame
+                        </label>
+                        <a href="#" class="forgot-link" onclick="Swal.fire({title:'Recuperar Contraseña',text:'Contacta a soporte en contacto@ispep.cl',icon:'info',background:'rgba(10,10,12,0.95)',color:'#fff',confirmButtonColor:'#c5a358',confirmButtonText:'ENTENDIDO',customClass:{popup:'vynas-swal-popup',title:'vynas-swal-title'}});return false;">¿Olvidaste tu contraseña?</a>
                     </div>
 
                     <button type="submit" class="login-submit" aria-label="Iniciar sesión">
                         <span class="btn-text">Autenticar</span>
                         <div class="btn-fill" aria-hidden="true"></div>
+                        <div class="btn-spinner" aria-hidden="true"><div class="btn-spinner-ring"></div></div>
                     </button>
 
                     <div class="text-center mt-3 pt-2">
@@ -92,21 +115,22 @@
                 </form>
 
                 <!-- Formulario de Registro -->
-                <form action="php/register_process.php" method="POST" class="space-y-10 hidden" id="register-form" aria-label="Formulario de registro">
+                <form action="php/register_process.php" method="POST" class="space-y-10 hidden" id="register-form"
+                    aria-label="Formulario de registro">
                     <input type="hidden" name="csrf_token" id="csrf-register" value="">
 
                     <div class="form-group">
-                        <input type="text" name="nombre" required placeholder=" " id="reg-nombre"
-                            class="form-input" autocomplete="name"
-                            aria-label="Nombre completo">
+                        <input type="text" name="nombre" required placeholder=" " id="reg-nombre" class="form-input"
+                            autocomplete="name" aria-label="Nombre completo">
                         <label for="reg-nombre" class="form-label">Nombre Completo</label>
+                        <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" name="email" required placeholder=" " id="reg-email"
-                            class="form-input" autocomplete="email"
-                            aria-label="Correo electrónico">
+                        <input type="email" name="email" required placeholder=" " id="reg-email" class="form-input"
+                            autocomplete="email" aria-label="Correo electrónico">
                         <label for="reg-email" class="form-label">Correo Electrónico</label>
+                        <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                     </div>
 
                     <div class="form-group">
@@ -114,19 +138,37 @@
                             class="form-input" autocomplete="new-password" minlength="6"
                             aria-label="Contraseña (mínimo 6 caracteres)">
                         <label for="reg-password" class="form-label">Contraseña</label>
+                        <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility(this)" aria-label="Mostrar contraseña">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Strength Bar -->
+                    <div class="strength-container" id="strength-container">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strength-fill"></div>
+                        </div>
+                        <div class="strength-text" id="strength-text"></div>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" name="password_confirm" required placeholder=" " id="reg-password-confirm"
-                            class="form-input" autocomplete="new-password" minlength="6"
+                        <input type="password" name="password_confirm" required placeholder=" "
+                            id="reg-password-confirm" class="form-input" autocomplete="new-password" minlength="6"
                             aria-label="Confirmar Contraseña">
                         <label for="reg-password-confirm" class="form-label">Confirmar Contraseña</label>
+                        <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility(this)" aria-label="Mostrar contraseña">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
                     </div>
-                    <p id="password-error" style="color: #ef4444; font-size: 0.625rem; display: none;">Las contraseñas no coinciden.</p>
+                    <p id="password-error" style="color: #ef4444; font-size: 0.625rem; display: none;">Las contraseñas
+                        no coinciden.</p>
 
                     <button type="submit" class="login-submit" aria-label="Registrar nueva cuenta">
                         <span class="btn-text">Registrar Usuario</span>
                         <div class="btn-fill" aria-hidden="true"></div>
+                        <div class="btn-spinner" aria-hidden="true"><div class="btn-spinner-ring"></div></div>
                     </button>
 
                     <div class="text-center mt-4 pt-2">
@@ -146,8 +188,8 @@
             </div>
 
             <!-- Google Auth -->
-            <div id="google-auth-btn-container" class="google-auth-container"
-                aria-label="Iniciar sesión con Google"></div>
+            <div id="google-auth-btn-container" class="google-auth-container" aria-label="Iniciar sesión con Google">
+            </div>
 
             <!-- GitHub Auth -->
             <a href="https://github.com/login/oauth/authorize?client_id=Ov23lih8qMJVovBZZYbC&scope=user"
@@ -160,7 +202,7 @@
             </a>
 
             <footer class="login-footer" role="contentinfo">
-                <p>ISPEP ♱ zoroikami 2026</p>
+                <p>Vynas ♱ zoroikami 2026</p>
             </footer>
         </section>
 
@@ -178,12 +220,135 @@
                 </div>
             </div>
         </section>
+        
+        <!-- Panel "Qué estoy viendo" -->
+        <aside id="info-panel" class="info-panel" aria-label="Información de la imagen de fondo">
+            <button class="info-panel-toggle" onclick="document.getElementById('info-panel').classList.toggle('collapsed')" aria-label="Colapsar panel">▾</button>
+            <div class="info-label">¿Qué estoy viendo?</div>
+            <h4 id="info-title" class="info-title">Título de la imagen</h4>
+            <p id="info-desc" class="info-desc">Descripción de la imagen astronómica.</p>
+            <div class="info-source">Fuente: <strong id="info-source-text">NASA/ESA</strong></div>
+        </aside>
     </main>
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
+        // ══ Random Background and Palette Extraction ══
+        const spaceImagesData = [
+            {
+                url: "img/bg/carina.jpg",
+                title: "Nebulosa de la Quilla (Carina Nebula)",
+                desc: "Una vasta región de formación estelar. Las nubes de gas y polvo colapsan para formar nuevas estrellas, ionizando el gas circundante.",
+                source: "NASA/ESA - Telescopios Espaciales Hubble y Webb"
+            },
+            {
+                url: "img/bg/milky_way.jpg",
+                title: "Centro Galáctico de la Vía Láctea",
+                desc: "El núcleo de nuestra galaxia, hogar de Sagitario A*, un agujero negro supermasivo, rodeado por densos cúmulos de estrellas y polvo oscuro.",
+                source: "ESO/VISTA - Datos del Observatorio Paranal"
+            },
+            {
+                url: "img/bg/deep_space.jpg",
+                title: "Campo Profundo",
+                desc: "Una visión profunda del cosmos donde cada punto de luz no es una estrella, sino una galaxia entera con miles de millones de estrellas.",
+                source: "Observaciones de Campo Profundo (NASA/ESA)"
+            },
+            {
+                url: "img/bg/andromeda.jpg",
+                title: "Galaxia de Andrómeda (M31)",
+                desc: "Nuestra vecina galáctica más grande. Es una galaxia espiral que en unos 4.000 millones de años colisionará con la Vía Láctea.",
+                source: "Astrofotografía de dominio público / SDSS"
+            },
+            {
+                url: "img/bg/nebula_colorful.jpg",
+                title: "Remanente de Supernova",
+                desc: "Estructuras complejas en el medio interestelar creadas por gases eyectados a velocidades supersónicas tras la explosión de una estrella masiva.",
+                source: "Chandra X-ray Observatory (NASA)"
+            }
+        ];
+
+        function setDynamicBackgroundAndColors() {
+            const img = document.getElementById('bg-image');
+            const randomData = spaceImagesData[Math.floor(Math.random() * spaceImagesData.length)];
+            
+            img.src = randomData.url;
+
+            // Populate Info Panel
+            document.getElementById('info-title').textContent = randomData.title;
+            document.getElementById('info-desc').textContent = randomData.desc;
+            document.getElementById('info-source-text').textContent = randomData.source;
+
+            if (img.complete) {
+                applyColors(img);
+            } else {
+                img.addEventListener('load', function () {
+                    applyColors(img);
+                });
+            }
+        }
+
+        function applyColors(img) {
+            img.style.opacity = '0.35'; // fade in
+
+            try {
+                const colorThief = new ColorThief();
+                const palette = colorThief.getPalette(img, 5);
+                let bestColor = palette[0];
+                let maxSaturation = 0;
+
+                // Find the most vibrant color in the palette
+                palette.forEach(c => {
+                    let r = c[0], g = c[1], b = c[2];
+                    let max = Math.max(r, g, b);
+                    let min = Math.min(r, g, b);
+                    let saturation = max === 0 ? 0 : (max - min) / max;
+                    let brightness = (r + g + b) / 3;
+
+                    if (saturation > maxSaturation && brightness > 40 && brightness < 220) {
+                        maxSaturation = saturation;
+                        bestColor = c;
+                    }
+                });
+
+                // Fallback to dominant color if all colors are very dull, but lighten it
+                if (maxSaturation < 0.15) {
+                    let dom = colorThief.getColor(img);
+                    bestColor = [Math.min(dom[0] + 50, 255), Math.min(dom[1] + 50, 255), Math.min(dom[2] + 50, 255)];
+                }
+
+                const primaryRgb = `${bestColor[0]}, ${bestColor[1]}, ${bestColor[2]}`;
+                const primaryHex = `#${bestColor[0].toString(16).padStart(2, '0')}${bestColor[1].toString(16).padStart(2, '0')}${bestColor[2].toString(16).padStart(2, '0')}`;
+
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    .login-header h1, .form-input:focus ~ .form-label, .form-input:not(:placeholder-shown) ~ .form-label, .login-submit, .toggle-link:hover, .dato-label { color: ${primaryHex} !important; }
+                    .login-submit .btn-fill { background: ${primaryHex} !important; }
+                    .login-submit:hover { box-shadow: 0 0 30px rgba(${primaryRgb}, 0.2) !important; color: #000 !important; }
+                    .login-submit { border-color: rgba(${primaryRgb}, 0.4) !important; }
+                    .form-input:focus { border-bottom-color: ${primaryHex} !important; box-shadow: 0 10px 15px -3px rgba(${primaryRgb}, 0.1) !important; }
+                    .login-panel { border-right-color: rgba(${primaryRgb}, 0.2) !important; }
+                    #dato-estelar-texto { background-image: linear-gradient(to right, #ffffff, ${primaryHex}, #ffffff, ${primaryHex}) !important; }
+                    .dato-footer .dato-line { background: rgba(${primaryRgb}, 0.5) !important; }
+                    .skip-link { background: ${primaryHex} !important; }
+                    *:focus-visible { outline-color: ${primaryHex} !important; }
+                    .info-label { color: ${primaryHex} !important; }
+                    .info-panel { border-color: rgba(${primaryRgb}, 0.2) !important; }
+                `;
+                document.head.appendChild(style);
+
+                // Show info panel
+                document.getElementById('info-panel').classList.add('visible');
+            } catch (e) {
+                console.error("ColorThief failed: ", e);
+                // Fallback to show panel anyway
+                document.getElementById('info-panel').classList.add('visible');
+            }
+        }
+
         // ══ Google OAuth ══
         window.onload = function () {
+            setDynamicBackgroundAndColors();
+
             google.accounts.id.initialize({
                 client_id: "977516655506-vr13tt7l77ghiie2kbff4cqjo7645vb1.apps.googleusercontent.com",
                 callback: handleCredentialResponse
@@ -250,25 +415,115 @@
 
         setInterval(rotarDatos, 8000);
 
-        // ══ Toggle Login / Register ══
-        function toggleForms() {
-            const loginForm = document.getElementById('login-form');
-            const registerForm = document.getElementById('register-form');
-            const formSubtitle = document.getElementById('form-subtitle');
+        // ══ Toggle Password Visibility ══
+        function togglePasswordVisibility(btn) {
+            const group = btn.closest('.form-group');
+            const input = group.querySelector('.form-input');
+            const svg = btn.querySelector('svg');
 
-            if (loginForm.classList.contains('hidden')) {
-                registerForm.classList.add('hidden');
-                loginForm.classList.remove('hidden');
-                formSubtitle.textContent = "Autenticación de Usuario";
+            if (input.type === 'password') {
+                input.type = 'text';
+                svg.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
             } else {
-                loginForm.classList.add('hidden');
-                registerForm.classList.remove('hidden');
-                formSubtitle.textContent = "Crear Nueva Cuenta";
+                input.type = 'password';
+                svg.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
             }
         }
 
+        // ══ Password Strength Calculator ══
+        function calculateStrength(password) {
+            let score = 0;
+            if (password.length >= 6) score++;
+            if (password.length >= 10) score++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+            if (/\d/.test(password)) score++;
+            if (/[^a-zA-Z0-9]/.test(password)) score++;
+            return Math.min(score, 4);
+        }
+
+        const strengthConfig = [
+            { width: '0%', color: '#ef4444', hue: 0, label: '' },
+            { width: '25%', color: '#ef4444', hue: 0, label: 'Débil' },
+            { width: '50%', color: '#f59e0b', hue: 30, label: 'Media' },
+            { width: '75%', color: '#eab308', hue: 60, label: 'Buena' },
+            { width: '100%', color: '#22c55e', hue: 120, label: 'Fuerte' }
+        ];
+
+        const regPasswordInput = document.getElementById('reg-password');
+        const strengthFill = document.getElementById('strength-fill');
+        const strengthText = document.getElementById('strength-text');
+        const overlay = document.querySelector('.login-overlay');
+
+        regPasswordInput.addEventListener('input', function () {
+            const score = calculateStrength(this.value);
+            const cfg = strengthConfig[score];
+
+            strengthFill.style.width = cfg.width;
+            strengthFill.style.background = cfg.color;
+            strengthFill.style.boxShadow = `0 0 8px ${cfg.color}`;
+            strengthText.textContent = cfg.label;
+            strengthText.style.color = cfg.color;
+
+            // Update nebula overlay hue
+            if (overlay.classList.contains('nebula-mode')) {
+                overlay.style.setProperty('--nebula-hue', cfg.hue);
+            }
+        });
+
+        // ══ Toggle Login / Register (Warp Transition) ══
+        let isTransitioning = false;
+
+        function toggleForms() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const formSubtitle = document.getElementById('form-subtitle');
+            const overlay = document.querySelector('.login-overlay');
+
+            const showingLogin = !loginForm.classList.contains('hidden');
+            const outgoing = showingLogin ? loginForm : registerForm;
+            const incoming = showingLogin ? registerForm : loginForm;
+
+            // Fade out subtitle
+            formSubtitle.classList.add('subtitle-fade');
+
+            // Warp out the current form
+            outgoing.classList.add('form-warp-out');
+
+            setTimeout(() => {
+                outgoing.classList.add('hidden');
+                outgoing.classList.remove('form-warp-out');
+
+                incoming.classList.remove('hidden');
+                incoming.classList.add('form-warp-in');
+
+                if (showingLogin) {
+                    formSubtitle.textContent = "Crear Nueva Cuenta";
+                    overlay.classList.add('nebula-mode');
+                    overlay.style.setProperty('--nebula-hue', 0);
+                    // Reset strength bar
+                    strengthFill.style.width = '0%';
+                    strengthText.textContent = '';
+                } else {
+                    formSubtitle.textContent = "Autenticación de Usuario";
+                    overlay.classList.remove('nebula-mode');
+                }
+
+                // Fade subtitle back in
+                formSubtitle.classList.remove('subtitle-fade');
+
+                // Clean up warp-in class after animation
+                setTimeout(() => {
+                    incoming.classList.remove('form-warp-in');
+                    isTransitioning = false;
+                }, 700);
+            }, 500);
+        }
+
         // ══ Register Validation ══
-        document.getElementById('register-form').addEventListener('submit', function(e) {
+        document.getElementById('register-form').addEventListener('submit', function (e) {
             const pass = document.getElementById('reg-password').value;
             const confirm = document.getElementById('reg-password-confirm').value;
             const err = document.getElementById('password-error');
@@ -307,8 +562,8 @@
                     confirmButtonColor: '#c5a358',
                     confirmButtonText: 'ENTENDIDO',
                     customClass: {
-                        popup: 'yorha-swal-popup',
-                        title: 'yorha-swal-title',
+                        popup: 'vynas-swal-popup',
+                        title: 'vynas-swal-title',
                         confirmButton: 'swal2-confirm'
                     }
                 });
@@ -319,19 +574,84 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Registro Exitoso',
-                    text: 'Usuario registrado correctamente en la red YoRHa. Ahora puedes iniciar sesión.',
+                    text: 'Usuario registrado correctamente en la red Vynas. Ahora puedes iniciar sesión.',
                     background: 'rgba(10, 10, 12, 0.95)',
                     color: '#fff',
                     confirmButtonColor: '#c5a358',
                     confirmButtonText: 'INICIAR SESIÓN',
                     customClass: {
-                        popup: 'yorha-swal-popup',
-                        title: 'yorha-swal-title',
+                        popup: 'vynas-swal-popup',
+                        title: 'vynas-swal-title',
                         confirmButton: 'swal2-confirm'
                     }
                 });
             }
         });
+        // ══ Form Submit Loading States ══
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                const btn = form.querySelector('.login-submit');
+                if (btn && !btn.classList.contains('is-loading')) {
+                    btn.classList.add('is-loading');
+                }
+            });
+        });
+    </script>
+
+    <!-- Star Dust Particle System -->
+    <script>
+        (function () {
+            const canvas = document.getElementById('stardust-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const PARTICLE_COUNT = 80;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function createParticle() {
+                return {
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5 + 0.3,
+                    dx: (Math.random() - 0.5) * 0.15,
+                    dy: (Math.random() - 0.5) * 0.1 - 0.05,
+                    opacity: Math.random() * 0.6 + 0.2,
+                    pulse: Math.random() * Math.PI * 2
+                };
+            }
+
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(createParticle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.dx;
+                    p.y += p.dy;
+                    p.pulse += 0.01;
+                    const o = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
+
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${o})`;
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
     </script>
 </body>
 

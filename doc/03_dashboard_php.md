@@ -9,7 +9,7 @@
 
 ## Propósito
 
-Es la **vista principal del dashboard** de YorHa. Define la estructura HTML completa del panel de control científico, incluyendo el canvas 3D, el HUD superpuesto, la navegación, el hub de información planetaria y el sistema de control temporal. **Toda la lógica 3D se delega a `dashboard.js`**.
+Es la **vista principal del dashboard** de Vynas. Define la estructura HTML completa del panel de control científico, incluyendo el canvas 3D, el HUD superpuesto, la navegación, el hub de información planetaria y el sistema de control temporal. **Toda la lógica 3D se delega a `dashboard.js`**.
 
 ---
 
@@ -41,7 +41,7 @@ $user_img = $_SESSION['investigador_foto'] ?: 'img/logo2.jpg';
 
 ```
 <body>
-├── #yorha-preloader          → Pantalla de carga animada
+├── #Vynas-preloader          → Pantalla de carga animada
 ├── #cinematic-overlay        → CRT scanlines + vignette
 ├── #three-canvas             → Canvas WebGL (Three.js)
 └── #ui-layer                 → Capa de interfaz (pointer-events: none)
@@ -59,9 +59,9 @@ $user_img = $_SESSION['investigador_foto'] ?: 'img/logo2.jpg';
 
 ## Componentes Detallados
 
-### 1. Preloader (`#yorha-preloader`)
+### 1. Preloader (`#Vynas-preloader`)
 - Pantalla negra fullscreen con z-index 1000
-- Muestra: título "INICIALIZANDO YORHA_OS...", barra de progreso, estado
+- Muestra: título "INICIALIZANDO Vynas_OS...", barra de progreso, estado
 - Se actualiza dinámicamente desde `dashboard.js` según la carga de texturas
 - Desaparece con `fade-out` cuando Three.js termina de cargar todo
 
@@ -77,7 +77,7 @@ $user_img = $_SESSION['investigador_foto'] ?: 'img/logo2.jpg';
 - Controlado completamente desde `dashboard.js`
 
 ### 4. Navbar (`#navbar`)
-- **Izquierda:** Logo "YORHA" con gradiente dorado + subtítulo "Estación Terrestre La Serena"
+- **Izquierda:** Logo "Vynas" con gradiente dorado + subtítulo "Estación Terrestre La Serena"
 - **Derecha:** Información del usuario logueado:
   - "Investigador Activo"
   - Nombre del usuario (PHP: `$_SESSION['investigador_nombre']`)
@@ -156,3 +156,4 @@ Panel completo de información que aparece al hacer clic en un planeta:
 - El preloader está hardcodeado en el HTML inicial para mostrarse inmediatamente antes de que JS cargue
 - Los valores de `animation-delay` están inline en el HTML para escalonar las animaciones del HUD
 - Class `clickable` marca elementos que deben recibir eventos de mouse (el layer UI tiene `pointer-events: none` por defecto)
+

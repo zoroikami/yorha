@@ -1,6 +1,6 @@
 <?php
 /**
- * YorHa — Proceso de Login (PDO + Prepared Statements)
+ * Vynas — Proceso de Login (PDO + Prepared Statements)
  * Migrado de mysqli a PDO para prevenir SQL injection.
  */
 session_start();
@@ -56,3 +56,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 ?>
+

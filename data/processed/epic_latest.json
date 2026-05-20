@@ -1,0 +1,117 @@
+{
+  "_metadata": {
+    "generated": "2026-05-10T17:34:50.063121Z",
+    "script": "process_images.py"
+  },
+  "count": 6,
+  "images": [
+    {
+      "name": "epic_1b_20260508002713",
+      "date": "2026-05-08 00:22:24",
+      "caption": "This image was taken by NASA's EPIC camera onboard the NOAA DSCOVR spacecraft",
+      "centroid": {
+        "lat": 17.490234,
+        "lon": 159.960938
+      },
+      "sun_position": {
+        "x": 102805383.614758,
+        "y": 101430647.6174,
+        "z": 43967381.695619
+      },
+      "original_url": "https://epic.gsfc.nasa.gov/archive/natural/2026/05/08/png/epic_1b_20260508002713.png",
+      "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508002713.jpg",
+      "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508002713_thumb.jpg",
+      "processed": true
+    },
+    {
+      "name": "epic_1b_20260508034334",
+      "date": "2026-05-08 03:38:46",
+      "caption": "This image was taken by NASA's EPIC camera onboard the NOAA DSCOVR spacecraft",
+      "centroid": {
+        "lat": 17.490234,
+        "lon": 110.874023
+      },
+      "sun_position": {
+        "x": 102553908.150635,
+        "y": 101650922.666563,
+        "z": 44062878.324888
+      },
+      "original_url": "https://epic.gsfc.nasa.gov/archive/natural/2026/05/08/png/epic_1b_20260508034334.png",
+      "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508034334.jpg",
+      "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508034334_thumb.jpg",
+      "processed": true
+    },
+    {
+      "name": "epic_1b_20260508065956",
+      "date": "2026-05-08 06:55:08",
+      "caption": "This image was taken by NASA's EPIC camera onboard the NOAA DSCOVR spacecraft",
+      "centroid": {
+        "lat": 17.53418,
+        "lon": 61.831055
+      },
+      "sun_position": {
+        "x": 102301884.606754,
+        "y": 101870652.931246,
+        "z": 44158140.533308
+      },
+      "original_url": "https://epic.gsfc.nasa.gov/archive/natural/2026/05/08/png/epic_1b_20260508065956.png",
+      "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508065956.jpg",
+      "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508065956_thumb.jpg",
+      "processed": true
+    },
+    {
+      "name": "epic_1b_20260508101618",
+      "date": "2026-05-08 10:11:29",
+      "caption": "This image was taken by NASA's EPIC camera onboard the NOAA DSCOVR spacecraft",
+      "centroid": {
+        "lat": 17.53418,
+        "lon": 12.744141
+      },
+      "sun_position": {
+        "x": 102049329.466655,
+        "y": 102089829.299928,
+        "z": 44253161.933338
+      },
+      "original_url": "https://epic.gsfc.nasa.gov/archive/natural/2026/05/08/png/epic_1b_20260508101618.png",
+      "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508101618.jpg",
+      "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508101618_thumb.jpg",
+      "processed": true
+    },
+    {
+      "name": "epic_1b_20260508133239",
+      "date": "2026-05-08 13:27:51",
+      "caption": "This image was taken by NASA's EPIC camera onboard the NOAA DSCOVR spacecraft",
+      "centroid": {
+        "lat": 17.578125,
+        "lon": -36.386719
+      },
+      "sun_position": {
+        "x": 101796201.200031,
+        "y": 102308481.276199,
+        "z": 44347955.579229
+      },
+      "original_url": "https://epic.gsfc.nasa.gov/archive/natural/2026/05/08/png/epic_1b_20260508133239.png",
+      "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508133239.jpg",
+      "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508133239_thumb.jpg",
+      "processed": true
+    },
+    {
+      "name": "epic_1b_20260508164901",
+      "date": "2026-05-08 16:44:13",
+      "caption": "This image was taken by NASA's EPIC camera onboard the NOAA DSCOVR spacecraft",
+      "centroid": {
+        "lat": 17.62207,
+        "lon": -85.429688
+      },
+      "sun_position": {
+        "x": 101542527.052434,
+        "y": 102526583.583331,
+        "z": 44442512.000007
+      },
+      "original_url": "https://epic.gsfc.nasa.gov/archive/natural/2026/05/08/png/epic_1b_20260508164901.png",
+      "local_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508164901.jpg",
+      "thumb_path": "C:\\wamp64\\www\\ispep\\data\\cache\\epic\\epic_epic_1b_20260508164901_thumb.jpg",
+      "processed": true
+    }
+  ]
+}

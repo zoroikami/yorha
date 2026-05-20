@@ -1,6 +1,6 @@
 <?php
 /**
- * YorHa — Actualizar Perfil con Avatar y Banner (PDO)
+ * Vynas — Actualizar Perfil con Avatar y Banner (PDO)
  */
 session_start();
 require_once __DIR__ . '/config.php';
@@ -95,3 +95,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 ?>
+

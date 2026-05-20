@@ -67,7 +67,7 @@ export function buildTelemetryRings(planetRadius, color = 0xffd966) {
             width: planetRadius * 0.05,
             tilt: 0.7,
             speed: 0.0015,
-            labels: ['YORHA_SCAN_ACTIVE', 'DATA_LINK_OK', 'BUFFER  12%', 'CRC  00000000', 'YORHA_SCAN_ACTIVE', 'DATA_LINK_OK', 'BUFFER  12%', 'CRC  00000000'],
+            labels: ['Vynas_SCAN_ACTIVE', 'DATA_LINK_OK', 'BUFFER  12%', 'CRC  00000000', 'Vynas_SCAN_ACTIVE', 'DATA_LINK_OK', 'BUFFER  12%', 'CRC  00000000'],
             axis: 'z'
         }
     ];
@@ -190,11 +190,11 @@ export function updateTelemetryRings(group, time, planetData) {
                 const crc = Math.floor((Math.sin(t * 0.1) * 0.5 + 0.5) * 0xffffffff).toString(16).padStart(8, '0').toUpperCase();
                 const buf = Math.floor(10 + Math.abs(Math.sin(t * 0.2)) * 85);
                 dynLabels = [
-                    'YORHA_SCAN_ACTIVE',
+                    'Vynas_SCAN_ACTIVE',
                     'DATA_LINK_OK',
                     `BUFFER  ${buf}%`,
                     `CRC ${crc}`,
-                    'YORHA_SCAN_ACTIVE',
+                    'Vynas_SCAN_ACTIVE',
                     'DATA_LINK_OK',
                     `BUFFER  ${buf}%`,
                     `CRC ${crc}`
@@ -207,3 +207,4 @@ export function updateTelemetryRings(group, time, planetData) {
         }
     });
 }
+

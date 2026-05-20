@@ -10,6 +10,7 @@ export function createRenderer(canvas) {
         canvas,
         antialias: true,
         alpha: true,
+        logarithmicDepthBuffer: true,
         powerPreference: 'high-performance'
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, ENGINE.pixelRatioMax));
@@ -23,18 +24,32 @@ export function createRenderer(canvas) {
     return renderer;
 }
 
+export function createCSS2DRenderer() {
+    if (typeof THREE.CSS2DRenderer === 'undefined') return null;
+    const labelRenderer = new THREE.CSS2DRenderer();
+    labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    labelRenderer.domElement.style.position = 'absolute';
+    labelRenderer.domElement.style.top = '0px';
+    labelRenderer.domElement.style.pointerEvents = 'none'; // Evitar que bloquee clicks al canvas WebGL
+    labelRenderer.domElement.id = 'hud-labels-layer';
+    document.body.appendChild(labelRenderer.domElement);
+    return labelRenderer;
+}
+
 export function createCamera() {
     const { fov, near, far, initialPos } = ENGINE.camera;
     const camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, near, far);
     camera.position.set(initialPos[0], initialPos[1], initialPos[2]);
+    camera.layers.enableAll();
     return camera;
 }
 
-export function attachResizeHandler(camera, renderer, composer) {
+export function attachResizeHandler(camera, renderer, composer, cssRenderer = null) {
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
         if (composer) composer.setSize(window.innerWidth, window.innerHeight);
+        if (cssRenderer) cssRenderer.setSize(window.innerWidth, window.innerHeight);
     });
 }

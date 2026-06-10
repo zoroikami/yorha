@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Swal from 'sweetalert2';
 
 interface User {
@@ -85,14 +85,16 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onLoginSuccess
   const [infoCollapsed, setInfoCollapsed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Background and Fact rotation setup
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Background, Fact rotation, CSRF token, Google Auth & Stardust canvas
   useEffect(() => {
     // Select random background on load
     const randomBg = spaceImagesData[Math.floor(Math.random() * spaceImagesData.length)];
     setBgData(randomBg);
 
     // Rotate space facts
-    const interval = setInterval(() => {
+    const factInterval = setInterval(() => {
       setFactIndex((prev) => (prev + 1) % spaceFacts.length);
     }, 8000);
 
@@ -103,12 +105,214 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onLoginSuccess
         const data = await response.json();
         setCsrfToken(data.token);
       } catch (e) {
-        console.warn('CSRF token fetch failed, using fallback in development');
+        console.warn('CSRF token fetch failed (dev mode)');
       }
     };
     getCsrf();
 
-    return () => clearInterval(interval);
+    // 1. Google OAuth Initialization
+    const initGoogleSignIn = () => {
+      const google = (window as any).google;
+      if (google && google.accounts) {
+        google.accounts.id.initialize({
+          client_id: "977516655506-vr13tt7l77ghiie2kbff4cqjo7645vb1.apps.googleusercontent.com",
+          callback: (response: any) => {
+            window.location.href = "php/auth_google.php?token=" + response.credential;
+          }
+        });
+
+        const container = document.getElementById('google-auth-btn-container');
+        if (container) {
+          google.accounts.id.renderButton(container, {
+            theme: "filled_black",
+            size: "large",
+            type: "standard",
+            width: 450, // Match the panel content width perfectly (550px panel - 96px padding)
+            text: "continue_with"
+          });
+        }
+      }
+    };
+
+    let googleScriptElement: HTMLScriptElement | null = null;
+    if ((window as any).google) {
+      initGoogleSignIn();
+    } else {
+      googleScriptElement = document.createElement('script');
+      googleScriptElement.src = "https://accounts.google.com/gsi/client";
+      googleScriptElement.async = true;
+      googleScriptElement.defer = true;
+      googleScriptElement.onload = initGoogleSignIn;
+      document.head.appendChild(googleScriptElement);
+    }
+
+    // 2. Interactive 2D Constellation Stardust Canvas
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        let animationId: number;
+        let width = (canvas.width = window.innerWidth);
+        let height = (canvas.height = window.innerHeight);
+
+        const particles: any[] = [];
+        const maxParticles = 90;
+        const connectionDist = 100;
+        const mouse = { x: null as number | null, y: null as number | null, radius: 150 };
+
+        const handleResize = () => {
+          if (canvas) {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+          }
+        };
+        window.addEventListener('resize', handleResize);
+
+        const handleMouseMove = (e: MouseEvent) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+
+        const handleMouseLeave = () => {
+          mouse.x = null;
+          mouse.y = null;
+        };
+        window.addEventListener('mouseleave', handleMouseLeave);
+
+        class Particle {
+          x = 0;
+          y = 0;
+          size = 0;
+          speedY = 0;
+          speedX = 0;
+          opacity = 0;
+          pulse = 0;
+          pulseSpeed = 0;
+          isGold = false;
+          currentOpacity = 0;
+
+          constructor() {
+            this.reset(true);
+          }
+
+          reset(initial = false) {
+            this.x = Math.random() * width;
+            this.y = initial ? Math.random() * height : height + 10;
+            this.size = Math.random() * 1.5 + 0.4;
+            this.speedY = -(Math.random() * 0.4 + 0.1);
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.5 + 0.1;
+            this.pulse = Math.random() * Math.PI * 2;
+            this.pulseSpeed = Math.random() * 0.02 + 0.005;
+            this.isGold = Math.random() < 0.18; // 18% Gold stars
+          }
+
+          update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            this.pulse += this.pulseSpeed;
+
+            this.currentOpacity = this.opacity + Math.sin(this.pulse) * 0.08;
+            this.currentOpacity = Math.max(0.05, Math.min(0.7, this.currentOpacity));
+
+            if (mouse.x !== null && mouse.y !== null) {
+              const dx = mouse.x - this.x;
+              const dy = mouse.y - this.y;
+              const distance = Math.hypot(dx, dy);
+
+              if (distance < mouse.radius) {
+                const force = (mouse.radius - distance) / mouse.radius;
+                this.x += dx * force * 0.02;
+                this.y += dy * force * 0.02;
+              }
+            }
+
+            if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+              this.reset(false);
+            }
+          }
+
+          draw() {
+            ctx!.beginPath();
+            ctx!.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+            if (this.isGold) {
+              ctx!.fillStyle = `rgba(197, 163, 88, ${this.currentOpacity})`;
+              ctx!.shadowColor = 'rgba(197, 163, 88, 0.4)';
+              ctx!.shadowBlur = 5;
+            } else {
+              ctx!.fillStyle = `rgba(255, 255, 255, ${this.currentOpacity})`;
+              ctx!.shadowColor = 'rgba(255, 255, 255, 0.2)';
+              ctx!.shadowBlur = 3;
+            }
+
+            ctx!.fill();
+            ctx!.shadowBlur = 0;
+          }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < maxParticles; i++) {
+          particles.push(new Particle());
+        }
+
+        const drawConnections = () => {
+          let index = 0;
+          for (const p1 of particles) {
+            index++;
+            const remaining = particles.slice(index);
+            for (const p2 of remaining) {
+              const dx = p1.x - p2.x;
+              const dy = p1.y - p2.y;
+              const distance = Math.hypot(dx, dy);
+
+              if (distance < connectionDist) {
+                const alpha = (1 - distance / connectionDist) * 0.12;
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+
+                if (p1.isGold || p2.isGold) {
+                  ctx.strokeStyle = `rgba(197, 163, 88, ${alpha})`;
+                } else {
+                  ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                }
+
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+          }
+        };
+
+        const animate = () => {
+          ctx.clearRect(0, 0, width, height);
+          particles.forEach((p) => {
+            p.update();
+            p.draw();
+          });
+          drawConnections();
+          animationId = requestAnimationFrame(animate);
+        };
+
+        animate();
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+          window.removeEventListener('mousemove', handleMouseMove);
+          window.removeEventListener('mouseleave', handleMouseLeave);
+          cancelAnimationFrame(animationId);
+        };
+      }
+    }
+
+    return () => {
+      clearInterval(factInterval);
+      if (googleScriptElement) {
+        googleScriptElement.remove();
+      }
+    };
   }, []);
 
   // Update password strength
@@ -254,7 +458,13 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onLoginSuccess
     .login-submit { border-color: rgba(${bgData.colorRgb}, 0.4) !important; }
     .form-input:focus { border-bottom-color: ${bgData.colorHex} !important; box-shadow: 0 10px 15px -3px rgba(${bgData.colorRgb}, 0.1) !important; }
     .login-panel { border-right-color: rgba(${bgData.colorRgb}, 0.2) !important; }
-    #dato-estelar-texto-dynamic { background-image: linear-gradient(to right, #ffffff, ${bgData.colorHex}, #ffffff, ${bgData.colorHex}) !important; }
+    #dato-estelar-texto { 
+      background-image: linear-gradient(to right, #ffffff, ${bgData.colorHex}, #ffffff, ${bgData.colorHex}) !important; 
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      color: transparent !important;
+      display: inline-block !important;
+    }
     .dato-footer .dato-line { background: rgba(${bgData.colorRgb}, 0.5) !important; }
     .info-label { color: ${bgData.colorHex} !important; }
     .info-panel { border-color: rgba(${bgData.colorRgb}, 0.2) !important; }
@@ -264,18 +474,21 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onLoginSuccess
     <div className="login-body" style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
       <style>{dynamicStyles}</style>
 
-      {/* Background image */}
+      {/* Dynamic star dust animation canvas */}
+      <canvas id="stardust-canvas" ref={canvasRef} aria-hidden="true" style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none' }}></canvas>
+
+      {/* Background image (preserves Ken Burns animation from CSS) */}
       <img
         src={bgData.url}
         alt="Fondo Astronómico"
         className="login-video-bg"
-        style={{ objectFit: 'cover', opacity: 0.35, transition: 'opacity 2s ease', width: '100%', height: '100%', position: 'fixed', inset: 0, zIndex: 0 }}
       />
 
-      <div className={`login-overlay ${!isLogin ? 'nebula-mode' : ''}`} style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none' }} />
+      <div className={`login-overlay ${!isLogin ? 'nebula-mode' : ''}`} style={{ position: 'fixed', inset: 0, zIndex: 10, pointerEvents: 'none' }} />
 
-      <main className="login-main" style={{ position: 'relative', zIndex: 2, display: 'flex', minHeight: '100vh' }}>
-        <section className="animate-entrance login-panel" style={{ width: '40%', minWidth: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <main className="login-main" style={{ position: 'relative', zIndex: 20 }}>
+        {/* Login/Register Panel (layout managed strictly by style.css class) */}
+        <section className="animate-entrance login-panel">
           <header className="login-header">
             <h1 className="font-serif" style={{ cursor: 'pointer' }} onClick={() => onNavigate('landing')}>Vynas</h1>
             <h2 id="form-subtitle">{isLogin ? "Autenticación de Usuario" : "Crear Nueva Cuenta"}</h2>
@@ -486,6 +699,9 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onLoginSuccess
             <div className="line"></div>
           </div>
 
+          {/* Google Auth Container */}
+          <div id="google-auth-btn-container" className="google-auth-container" aria-label="Iniciar sesión con Google"></div>
+
           {/* GitHub Auth */}
           <a href="php/github_redirect.php" className="github-btn" style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', fill: '#fff', marginRight: '10px' }}>
@@ -500,10 +716,10 @@ export const LoginView: React.FC<LoginViewProps> = ({ onNavigate, onLoginSuccess
         </section>
 
         {/* Fact Section */}
-        <section className="dato-section animate-entrance" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <section className="dato-section animate-entrance">
           <div>
             <h3 className="dato-label">Dato Estelar</h3>
-            <p id="dato-estelar-texto-dynamic" className="dato-text" style={{ fontSize: '1.5rem', lineHeight: '2rem', transition: 'all 0.5s ease' }}>
+            <p id="dato-estelar-texto" className="dato-text">
               {spaceFacts[factIndex]}
             </p>
             <div className="dato-footer">

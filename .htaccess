@@ -21,4 +21,16 @@ ErrorDocument 404 /Vynas/404.html
     
     # Block access to backups
     RewriteRule ^_backup/ - [F,L]
+
+    # ══ Redirección Interna para Vite React SPA ══
+    # No reescribir peticiones directas a carpetas de API, datos o imágenes
+    RewriteRule ^(css|js|img|data|php|public)/ - [L]
+
+    # Servir la raíz del sitio desde dist/index.html
+    RewriteRule ^$ dist/index.html [L]
+
+    # Si la petición no es un archivo o carpeta real en la raíz, buscarla dentro de dist/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ dist/$1 [L]
 </IfModule>

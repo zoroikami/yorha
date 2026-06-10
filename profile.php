@@ -145,6 +145,7 @@ $biografia = $user_data['biografia'] ?? '';
         </header>
 
         <form action="php/update_profile.php" method="POST" enctype="multipart/form-data" id="profile-form">
+            <?php echo csrf_field(); ?>
             <input type="file" name="banner" id="banner-upload" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="previewImage(this, 'banner-preview')">
             <input type="file" name="avatar" id="avatar-upload" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="previewImage(this, 'avatar-preview')">
 

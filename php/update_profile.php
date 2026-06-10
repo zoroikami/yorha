@@ -13,6 +13,12 @@ if (!isset($_SESSION['investigador_email'])) {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    // Verificar CSRF
+    if (!csrf_verify()) {
+        header("Location: ../profile.php?error=csrf_failed");
+        exit();
+    }
+
     $email = $_SESSION['investigador_email'];
     $nombre = trim($_POST['nombre'] ?? '');
     $biografia = trim($_POST['biografia'] ?? '');

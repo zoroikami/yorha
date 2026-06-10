@@ -1,5 +1,27 @@
+# ═══════════════════════════════════════════
+#  Vynas — Git Ignore
+# ═══════════════════════════════════════════
+
+# Backups
 _backup/
 *.zip
+
+# Media (large files)
 img/videoplayback.mp4
+
+# Python cache
 __pycache__/
 *.pyc
+
+# Entorno y Logs
+.env
+logs/*.log
+
+# Caché de datos (generado por nasa_proxy.php)
+data/cache/
+
+# Dev artifacts
+.implementation-state.md
+node_modules/
+.DS_Store
+Thumbs.db

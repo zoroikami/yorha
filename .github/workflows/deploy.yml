@@ -29,3 +29,13 @@ jobs:
           .github/**
           README.md
           _backup/**
+          .env
+          .env.example
+          .implementation-state.md
+          php/config.ini
+          doc/**
+          scripts/**
+          task.md
+          walkthrough.md
+          implementation_plan.md
+          vynas_recommendations.md

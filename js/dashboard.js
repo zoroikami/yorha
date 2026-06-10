@@ -1,6 +1,6 @@
 /**
  * ╔═══════════════════════════════════════════════════════════════╗
- * ║  ISPEP / Vynas OS — Dashboard Orchestrator                    ║
+ * ║  Vynas — Dashboard Orchestrator                          ║
  * ║  Módulo principal que importa y conecta todos los subsistemas ║
  * ║  engine, scene, shaders, hud, audio.                          ║
  * ╚═══════════════════════════════════════════════════════════════╝
@@ -38,6 +38,7 @@ import { initTutorial } from './hud/tutorial.js';
 import { initNasaFeed } from './hud/nasa-feed.js';
 import { initAmbientInfo, showAmbientInfo, hideAmbientInfo } from './hud/ambient-info.js';
 import { initScrollSections, enableInteractiveMode, disableInteractiveMode } from './hud/scroll-sections.js';
+import { TelemetryUI } from './ui/telemetry-charts.js';
 
 (async function () {
     /* ── 0. PRELOADER ─────────────────────────────────────────── */
@@ -49,7 +50,11 @@ import { initScrollSections, enableInteractiveMode, disableInteractiveMode } fro
     function sync() {
         if (loadState.assets && loadState.data && !loadState.ready) {
             loadState.ready = true;
-            if (bStatus) bStatus.textContent = 'Enlace Neuronal Completo.';
+            if (bStatus) bStatus.innerText = "¡Sincronización Completada!";
+            
+            // Iniciar Telemetría de Agencias Espaciales
+            TelemetryUI.init();
+
             setTimeout(() => {
                 if (preloader) {
                     preloader.classList.add('fade-out');
@@ -142,9 +147,8 @@ import { initScrollSections, enableInteractiveMode, disableInteractiveMode } fro
     }
 
     // Construir planetas y soles
-    for (const k in PD) {
+    for (const [k, p] of Object.entries(PD)) {
         try {
-            const p = PD[k];
             const rec = p.isStar ? buildSun(p, scene) : buildPlanet(p, scene);
             planets[k] = rec;
             activeMshes.push(rec.pMesh);
@@ -223,19 +227,23 @@ import { initScrollSections, enableInteractiveMode, disableInteractiveMode } fro
 
     // ── NEW: Etiquetas HUD Holográficas (CSS2D) ──
     if (cssRenderer && typeof THREE.CSS2DObject !== 'undefined') {
-        for (const k in planets) {
-            const p = planets[k];
+        for (const [k, p] of Object.entries(planets)) {
             if (!p.targetGrp || !p.pData) continue;
             
             const div = document.createElement('div');
             div.className = 'vynas-hud-label';
-            div.innerHTML = `<span class="symbol">${p.pData.symbol || '⚲'}</span> ${p.pData.name.toUpperCase()}`;
+            
+            const symbolSpan = document.createElement('span');
+            symbolSpan.className = 'symbol';
+            symbolSpan.textContent = p.pData.symbol || '⚲';
+            div.appendChild(symbolSpan);
+            div.appendChild(document.createTextNode(' ' + p.pData.name.toUpperCase()));
             
             // Añadir sub-etiquetas para lunas
             if (p.moonMeshes && p.moonMeshes.length > 0) {
                 const sub = document.createElement('div');
                 sub.className = 'vynas-hud-sublabel';
-                sub.innerText = `${p.moonMeshes.length} Satélites`;
+                sub.textContent = `${p.moonMeshes.length} Satélites`;
                 div.appendChild(sub);
             }
 
@@ -402,8 +410,7 @@ import { initScrollSections, enableInteractiveMode, disableInteractiveMode } fro
         if (filmPass) filmPass.uniforms.time.value += 0.01;
 
         // Planetas — órbita, rotación, shaders
-        for (const k in planets) {
-            const rec = planets[k];
+        for (const [k, rec] of Object.entries(planets)) {
             const { pMesh, targetGrp, pData, atmosphere } = rec;
 
             // Rotación propia
@@ -439,8 +446,9 @@ import { initScrollSections, enableInteractiveMode, disableInteractiveMode } fro
         }
 
         // Scene-level animations
-        animateStarfield(starLayers, Date.now());
-        animateNebulas(nebulas, Date.now());
+        const timeMs = time * 1000;
+        animateStarfield(starLayers, timeMs);
+        animateNebulas(nebulas, timeMs);
         animateConstellations(constels, timescale);
         if (belt) belt.rotation.y += 0.0002 * timescale;
 

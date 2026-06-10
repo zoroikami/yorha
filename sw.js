@@ -5,14 +5,14 @@
 
 const CACHE_NAME = 'vynas-v2.1.0';
 const STATIC_ASSETS = [
-    '/ispep/',
-    '/ispep/index.html',
-    '/ispep/login.html',
-    '/ispep/css/style.css',
-    '/ispep/css/dashboard.css',
-    '/ispep/img/logo.png',
-    '/ispep/img/logodefault.png',
-    '/ispep/img/8k_stars_milky_way.jpg'
+    './',
+    './index.html',
+    './login.html',
+    './css/style.css',
+    './css/dashboard.css',
+    './img/logo.png',
+    './img/logodefault.png',
+    './img/8k_stars_milky_way.jpg'
 ];
 
 self.addEventListener('install', (e) => {

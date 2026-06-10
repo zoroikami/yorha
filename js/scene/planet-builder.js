@@ -19,51 +19,90 @@ import { buildAtmosphereMesh } from '../shaders/atmosphere.js';
 const textureLoader = new THREE.TextureLoader();
 
 /**
- * Genera un normal map procedural a partir de una textura color.
- * Útil cuando no hay normalMap real disponible.
+ * Genera un normal map procedural mediante un Web Worker en segundo plano.
+ * Cuenta con fallback síncrono/asíncrono en hilo principal si no hay soporte.
  */
 function generateProceduralNormal(sourceUrl, strength = 1.2) {
     return new Promise((resolve) => {
         const img = new Image();
         img.crossOrigin = 'anonymous';
-        img.onload = () => {
+        img.onload = async () => {
             const w = Math.min(img.width, 1024);
             const h = Math.min(img.height, 1024);
-            const canvas = document.createElement('canvas');
-            canvas.width = w; canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, w, h);
-            const src = ctx.getImageData(0, 0, w, h);
-            const dst = ctx.createImageData(w, h);
-            const getLum = (x, y) => {
-                x = Math.max(0, Math.min(w - 1, x));
-                y = Math.max(0, Math.min(h - 1, y));
-                const i = (y * w + x) * 4;
-                return (src.data[i] + src.data[i + 1] + src.data[i + 2]) / 3 / 255;
-            };
-            for (let y = 0; y < h; y++) {
-                for (let x = 0; x < w; x++) {
-                    const dx = getLum(x + 1, y) - getLum(x - 1, y);
-                    const dy = getLum(x, y + 1) - getLum(x, y - 1);
-                    const nx = -dx * strength;
-                    const ny = -dy * strength;
-                    const nz = 1.0;
-                    const len = Math.sqrt(nx*nx + ny*ny + nz*nz);
-                    const i = (y * w + x) * 4;
-                    dst.data[i]     = (nx/len * 0.5 + 0.5) * 255;
-                    dst.data[i + 1] = (ny/len * 0.5 + 0.5) * 255;
-                    dst.data[i + 2] = (nz/len * 0.5 + 0.5) * 255;
-                    dst.data[i + 3] = 255;
+
+            // Intentar usar Web Worker + OffscreenCanvas
+            if (window.Worker && typeof OffscreenCanvas !== 'undefined') {
+                try {
+                    const worker = new Worker('js/workers/normal-generator.js');
+                    // Generar ImageBitmap para transferencia de datos eficiente
+                    const bitmap = await createImageBitmap(img, 0, 0, img.width, img.height, {
+                        resizeWidth: w,
+                        resizeHeight: h
+                    });
+
+                    worker.onmessage = (e) => {
+                        const outBitmap = e.data.bitmap;
+                        const tex = new THREE.Texture(outBitmap);
+                        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+                        tex.needsUpdate = true;
+                        worker.terminate();
+                        resolve(tex);
+                    };
+
+                    worker.onerror = (err) => {
+                        console.warn('[Vynas WebWorker] Error en el Worker, ejecutando fallback en hilo principal.', err);
+                        worker.terminate();
+                        fallbackMainThread(img, w, h, strength, resolve);
+                    };
+
+                    // Enviar bitmap como objeto transferible
+                    worker.postMessage({ bitmap, strength }, [bitmap]);
+                    return;
+                } catch (err) {
+                    console.warn('[Vynas WebWorker] Fallo al iniciar el Worker. Corriendo fallback.', err);
                 }
             }
-            ctx.putImageData(dst, 0, 0);
-            const tex = new THREE.CanvasTexture(canvas);
-            tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-            resolve(tex);
+
+            // Fallback tradicional si no hay Web Workers o falla el inicio
+            fallbackMainThread(img, w, h, strength, resolve);
         };
         img.onerror = () => resolve(null);
         img.src = sourceUrl;
     });
+}
+
+function fallbackMainThread(img, w, h, strength, resolve) {
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, w, h);
+    const src = ctx.getImageData(0, 0, w, h);
+    const dst = ctx.createImageData(w, h);
+    const getLum = (x, y) => {
+        x = Math.max(0, Math.min(w - 1, x));
+        y = Math.max(0, Math.min(h - 1, y));
+        const i = (y * w + x) * 4;
+        return (src.data[i] + src.data[i + 1] + src.data[i + 2]) / 3 / 255;
+    };
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            const dx = getLum(x + 1, y) - getLum(x - 1, y);
+            const dy = getLum(x, y + 1) - getLum(x, y - 1);
+            const nx = -dx * strength;
+            const ny = -dy * strength;
+            const nz = 1.0;
+            const len = Math.sqrt(nx*nx + ny*ny + nz*nz);
+            const i = (y * w + x) * 4;
+            dst.data[i]     = (nx/len * 0.5 + 0.5) * 255;
+            dst.data[i + 1] = (ny/len * 0.5 + 0.5) * 255;
+            dst.data[i + 2] = (nz/len * 0.5 + 0.5) * 255;
+            dst.data[i + 3] = 255;
+        }
+    }
+    ctx.putImageData(dst, 0, 0);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    resolve(tex);
 }
 
 function defaultAtmosphereFor(planetData) {

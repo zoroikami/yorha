@@ -1,8 +1,8 @@
 {
-    "name": "Vynas - ISPEP",
+    "name": "Vynas",
     "short_name": "Vynas",
     "description": "Plataforma de simulación astronómica en tiempo real - Estación Terrestre La Serena",
-    "start_url": "/ispep/index.html",
+    "start_url": "/Vynas/index.html",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#c5a358",

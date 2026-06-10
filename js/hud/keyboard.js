@@ -5,21 +5,23 @@
  * ╚═══════════════════════════════════════════════════╝
  */
 
+import { escapeHTML } from '../utils/sanitize.js';
+
 let _renderer = null;
 let _scene = null;
 let _camera = null;
 let _deps = {};
 
-const SHORTCUTS = {
-    'Space':     { desc: 'Pausar / Reanudar tiempo',      action: 'togglePause' },
-    'KeyF':      { desc: 'Pantalla completa',              action: 'fullscreen' },
-    'KeyP':      { desc: 'Captura de pantalla',            action: 'screenshot' },
-    'KeyM':      { desc: 'Mostrar / Ocultar mini-mapa',    action: 'toggleMinimap' },
-    'KeyH':      { desc: 'Mostrar atajos de teclado',      action: 'toggleHelp' },
-    'Escape':    { desc: 'Volver a órbita / Cerrar',       action: 'escape' },
-    'ArrowLeft': { desc: 'Sistema anterior',               action: 'prevSystem' },
-    'ArrowRight':{ desc: 'Sistema siguiente',              action: 'nextSystem' }
-};
+const SHORTCUTS = new Map([
+    ['Space',      { desc: 'Pausar / Reanudar tiempo',   action: 'togglePause' }],
+    ['KeyF',       { desc: 'Pantalla completa',           action: 'fullscreen' }],
+    ['KeyP',       { desc: 'Captura de pantalla',         action: 'screenshot' }],
+    ['KeyM',       { desc: 'Mostrar / Ocultar mini-mapa', action: 'toggleMinimap' }],
+    ['KeyH',       { desc: 'Mostrar atajos de teclado',   action: 'toggleHelp' }],
+    ['Escape',     { desc: 'Volver a órbita / Cerrar',    action: 'escape' }],
+    ['ArrowLeft',  { desc: 'Sistema anterior',            action: 'prevSystem' }],
+    ['ArrowRight', { desc: 'Sistema siguiente',           action: 'nextSystem' }]
+]);
 
 export function initKeyboard(deps) {
     _renderer = deps.renderer;
@@ -34,7 +36,7 @@ function handleKey(e) {
     // Don't intercept if user is typing in an input
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-    const shortcut = SHORTCUTS[e.code];
+    const shortcut = SHORTCUTS.get(e.code);
     if (!shortcut) return;
 
     e.preventDefault();
@@ -113,7 +115,7 @@ function takeScreenshot() {
 
     // Download
     const link = document.createElement('a');
-    link.download = `YorHa_${Date.now()}.png`;
+    link.download = `Vynas_${Date.now()}.png`;
     link.href = dataUrl;
     link.click();
 
@@ -128,6 +130,8 @@ function toggleHelpOverlay() {
         return;
     }
 
+
+
     // Build help panel
     panel = document.createElement('div');
     panel.id = 'keyboard-help';
@@ -136,9 +140,9 @@ function toggleHelpOverlay() {
         <div class="kbh-inner">
             <h3>⌨ Atajos de Teclado</h3>
             <div class="kbh-grid">
-                ${Object.entries(SHORTCUTS).map(([key, s]) => `
-                    <div class="kbh-key">${formatKey(key)}</div>
-                    <div class="kbh-desc">${s.desc}</div>
+                ${Array.from(SHORTCUTS.entries()).map(([key, s]) => `
+                    <div class="kbh-key">${escapeHTML(formatKey(key))}</div>
+                    <div class="kbh-desc">${escapeHTML(s.desc)}</div>
                 `).join('')}
             </div>
             <p class="kbh-close">Presiona <strong>H</strong> o <strong>Esc</strong> para cerrar</p>
@@ -149,17 +153,25 @@ function toggleHelpOverlay() {
 }
 
 function formatKey(code) {
-    const map = {
-        'Space': 'ESPACIO', 'KeyF': 'F', 'KeyP': 'P', 'KeyM': 'M', 'KeyH': 'H',
-        'Escape': 'ESC', 'ArrowLeft': '←', 'ArrowRight': '→',
-        'Digit1': '1', 'Digit2': '2', 'Digit3': '3'
-    };
-    return map[code] || code;
+    const map = new Map([
+        ['Space', 'ESPACIO'],
+        ['KeyF', 'F'],
+        ['KeyP', 'P'],
+        ['KeyM', 'M'],
+        ['KeyH', 'H'],
+        ['Escape', 'ESC'],
+        ['ArrowLeft', '←'],
+        ['ArrowRight', '→'],
+        ['Digit1', '1'],
+        ['Digit2', '2'],
+        ['Digit3', '3']
+    ]);
+    return map.has(code) ? map.get(code) : code;
 }
 
 function showToast(msg) {
     const toast = document.createElement('div');
-    toast.className = 'yorha-toast';
+    toast.className = 'vynas-toast';
     toast.textContent = msg;
     document.body.appendChild(toast);
     requestAnimationFrame(() => toast.classList.add('show'));

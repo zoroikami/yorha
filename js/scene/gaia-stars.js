@@ -84,14 +84,23 @@ export async function loadGaiaCatalog(scene, binUrl = 'data/gaia_stars.bin', opt
 
     let buffer;
     try {
-        const response = await fetch(binUrl + '?t=' + Date.now());
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const response = await fetch(binUrl + '?t=' + Date.now(), { signal: controller.signal });
+        clearTimeout(timeoutId);
+
         if (!response.ok) {
             console.warn('[Vynas/Gaia] Catálogo no encontrado. Ejecuta: python scripts/fetch_gaia_catalog.py');
             return null;
         }
         buffer = await response.arrayBuffer();
     } catch (e) {
-        console.warn('[Vynas/Gaia] Error cargando catálogo:', e);
+        if (e.name === 'AbortError') {
+            console.warn('[Vynas/Gaia] La descarga del catálogo Gaia excedió el tiempo límite de 5s y fue abortada.');
+        } else {
+            console.warn('[Vynas/Gaia] Error cargando catálogo:', e);
+        }
         return null;
     }
 

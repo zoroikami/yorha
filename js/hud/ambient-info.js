@@ -5,6 +5,8 @@
  * ╚═══════════════════════════════════════════════════╝
  */
 
+import { escapeHTML, sanitizeURL } from '../utils/sanitize.js';
+
 const PAPERS = [
     {
         category: 'DESCUBRIMIENTO',
@@ -124,16 +126,16 @@ function renderPaper(index) {
 
     setTimeout(() => {
         paperEl.innerHTML = `
-            <div class="ap-category">${p.category}</div>
-            <h3 class="ap-title">${p.title}</h3>
-            <p class="ap-authors">${p.authors}</p>
-            <p class="ap-journal">${p.journal} (${p.year})</p>
-            <p class="ap-abstract">${p.abstract}</p>
+            <div class="ap-category">${escapeHTML(p.category)}</div>
+            <h3 class="ap-title">${escapeHTML(p.title)}</h3>
+            <p class="ap-authors">${escapeHTML(p.authors)}</p>
+            <p class="ap-journal">${escapeHTML(p.journal)} (${escapeHTML(p.year)})</p>
+            <p class="ap-abstract">${escapeHTML(p.abstract)}</p>
             <div class="ap-footer">
-                <a href="${p.doi}" target="_blank" class="ap-doi">DOI ↗</a>
-                <span class="ap-impact">${p.impact}</span>
+                <a href="${sanitizeURL(p.doi)}" target="_blank" rel="noopener noreferrer" class="ap-doi">DOI ↗</a>
+                <span class="ap-impact">${escapeHTML(p.impact)}</span>
             </div>
-            <div class="ap-counter">${index + 1} / ${PAPERS.length}</div>
+            <div class="ap-counter">${escapeHTML(index + 1)} / ${escapeHTML(PAPERS.length)}</div>
         `;
         paperEl.style.opacity = '1';
         paperEl.style.transform = 'translateY(0)';
@@ -148,8 +150,8 @@ function renderFact(index) {
     factEl.style.opacity = '0';
     setTimeout(() => {
         factEl.innerHTML = `
-            <span class="af-icon">${f.icon}</span>
-            <span class="af-text">${f.text}</span>
+            <span class="af-icon">${escapeHTML(f.icon)}</span>
+            <span class="af-text">${escapeHTML(f.text)}</span>
         `;
         factEl.style.opacity = '1';
     }, 300);

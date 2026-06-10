@@ -8,6 +8,7 @@
 import { setTelemetryRingsActive, buildTelemetryRings } from './telemetry-rings.js';
 import { startPlanetTelemetry, stopPlanetTelemetry } from './telemetry.js';
 import { triggerWarp, triggerReturnWarp } from '../engine/warp-effect.js';
+import { escapeHTML } from '../utils/sanitize.js';
 import { hideNavArrows, showNavArrows } from './system-selector.js';
 
 let _detailed = false;
@@ -64,7 +65,7 @@ function populateUI(p) {
         (p.eras || []).forEach(e => {
             const div = document.createElement('div');
             div.className = 'era-item';
-            div.innerHTML = `<div class="era-name">${e.name}</div><div class="era-desc">${e.desc}</div>`;
+            div.innerHTML = `<div class="era-name">${escapeHTML(e.name)}</div><div class="era-desc">${escapeHTML(e.desc)}</div>`;
             div.onclick = () => window.openEraModal && window.openEraModal(e);
             _ui.eras.appendChild(div);
         });

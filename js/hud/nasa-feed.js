@@ -5,41 +5,52 @@
  * ╚═══════════════════════════════════════════════════╝
  */
 
-const NASA_KEY = 'DEMO_KEY';
-const APOD_URL = `https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`;
-const NEO_URL  = `https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=${NASA_KEY}`;
+import { escapeHTML } from '../utils/sanitize.js';
+
+const APOD_URL = 'php/nasa_proxy.php?endpoint=apod';
+const NEO_URL  = 'php/nasa_proxy.php?endpoint=neo';
 const ISS_URL  = 'http://api.open-notify.org/iss-now.json';
 const SPACEX_URL = 'https://api.spacexdata.com/v4/launches/upcoming';
 
 let _panel = null;
 
-export async function initNasaFeed() {
+export function initNasaFeed() {
     _panel = document.getElementById('nasa-feed-panel');
     if (!_panel) return;
 
-    // Load APOD
-    try {
-        const apod = await fetchJson(APOD_URL);
-        if (apod) renderAPOD(apod);
-    } catch (e) { console.warn('[YoRHa Feed] APOD failed:', e); }
+    const deferFetch = () => {
+        (async () => {
+            // Load APOD
+            try {
+                const apod = await fetchJson(APOD_URL);
+                if (apod) renderAPOD(apod);
+            } catch (e) { console.warn('[Vynas Feed] APOD failed:', e); }
 
-    // Load NEO
-    try {
-        const neo = await fetchJson(NEO_URL);
-        if (neo) renderNEO(neo);
-    } catch (e) { console.warn('[YoRHa Feed] NEO failed:', e); }
+            // Load NEO
+            try {
+                const neo = await fetchJson(NEO_URL);
+                if (neo) renderNEO(neo);
+            } catch (e) { console.warn('[Vynas Feed] NEO failed:', e); }
 
-    // Load ISS
-    try {
-        const iss = await fetchJson(ISS_URL);
-        if (iss) renderISS(iss);
-    } catch (e) { console.warn('[YoRHa Feed] ISS failed:', e); }
+            // Load ISS
+            try {
+                const iss = await fetchJson(ISS_URL);
+                if (iss) renderISS(iss);
+            } catch (e) { console.warn('[Vynas Feed] ISS failed:', e); }
 
-    // Load SpaceX
-    try {
-        const sx = await fetchJson(SPACEX_URL);
-        if (sx && sx.length > 0) renderSpaceX(sx[0]);
-    } catch (e) { console.warn('[YoRHa Feed] SpaceX failed:', e); }
+            // Load SpaceX
+            try {
+                const sx = await fetchJson(SPACEX_URL);
+                if (sx && sx.length > 0) renderSpaceX(sx[0]);
+            } catch (e) { console.warn('[Vynas Feed] SpaceX failed:', e); }
+        })();
+    };
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => deferFetch(), { timeout: 2000 });
+    } else {
+        setTimeout(deferFetch, 200);
+    }
 }
 
 async function fetchJson(url) {
@@ -48,6 +59,8 @@ async function fetchJson(url) {
     return res.json();
 }
 
+
+
 function renderAPOD(data) {
     if (!_panel) return;
     const el = document.createElement('div');
@@ -55,14 +68,14 @@ function renderAPOD(data) {
     el.innerHTML = `
         <div class="nasa-header">
             <span class="nasa-badge">NASA APOD</span>
-            <span class="nasa-date">${data.date || ''}</span>
+            <span class="nasa-date">${escapeHTML(data.date)}</span>
         </div>
-        <h4 class="nasa-title">${data.title || 'Imagen del Día'}</h4>
+        <h4 class="nasa-title">${escapeHTML(data.title || 'Imagen del Día')}</h4>
         ${data.media_type === 'image'
-            ? `<img src="${data.url}" alt="${data.title}" class="nasa-img" loading="lazy">`
+            ? `<img src="${escapeHTML(data.url)}" alt="${escapeHTML(data.title)}" class="nasa-img" loading="lazy">`
             : ''
         }
-        <p class="nasa-explanation">${(data.explanation || '').slice(0, 150)}...</p>
+        <p class="nasa-explanation">${escapeHTML((data.explanation || '').slice(0, 150))}...</p>
     `;
     _panel.appendChild(el);
     _panel.style.display = 'block';
@@ -75,11 +88,11 @@ function renderNEO(data) {
     el.innerHTML = `
         <div class="nasa-header">
             <span class="nasa-badge neo">NEO TODAY</span>
-            <span class="nasa-count">${data.element_count} obj</span>
+            <span class="nasa-count">${escapeHTML(data.element_count)} obj</span>
         </div>
         <div class="neo-alert">
             <span class="neo-icon">☄️</span>
-            <span>${data.element_count} asteroides cercanos hoy</span>
+            <span>${escapeHTML(data.element_count)} asteroides cercanos hoy</span>
         </div>
     `;
     _panel.appendChild(el);
@@ -96,7 +109,7 @@ function renderISS(data) {
         </div>
         <div class="neo-alert" style="background: rgba(30, 58, 138, 0.2); border-color: rgba(30, 58, 138, 0.5);">
             <span class="neo-icon">🛰️</span>
-            <span>Lat: ${parseFloat(data.iss_position.latitude).toFixed(4)} | Lng: ${parseFloat(data.iss_position.longitude).toFixed(4)}</span>
+            <span>Lat: ${escapeHTML(parseFloat(data.iss_position.latitude).toFixed(4))} | Lng: ${escapeHTML(parseFloat(data.iss_position.longitude).toFixed(4))}</span>
         </div>
     `;
     _panel.appendChild(el);
@@ -110,11 +123,11 @@ function renderSpaceX(data) {
     el.innerHTML = `
         <div class="nasa-header">
             <span class="nasa-badge" style="background: #374151; color: #d1d5db;">SPACEX</span>
-            <span class="nasa-count">${date}</span>
+            <span class="nasa-count">${escapeHTML(date)}</span>
         </div>
         <div class="neo-alert" style="background: rgba(55, 65, 81, 0.2); border-color: rgba(55, 65, 81, 0.5);">
             <span class="neo-icon">🚀</span>
-            <span>Misión: ${data.name}</span>
+            <span>Misión: ${escapeHTML(data.name)}</span>
         </div>
     `;
     _panel.appendChild(el);

@@ -1,14 +1,14 @@
 /**
  * ╔═══════════════════════════════════════════════════════════════╗
- * ║  ISPEP / Vynas OS — Configuración Central                     ║
+ * ║  Vynas — Configuración Central                           ║
  * ║  Fuente única de verdad para metadata, motor y autenticación  ║
  * ╚═══════════════════════════════════════════════════════════════╝
  */
 
 export const PROJECT = {
-    name: "ISPEP",
+    name: "Vynas",
     os: "Vynas",
-    fullName: "ISPEP · Sistema de Contribución Científica",
+    fullName: "Vynas · Plataforma de Simulación Astronómica",
     version: "v2.1.0",
     semester: "3er Semestre",
     institution: "INACAP",
@@ -20,7 +20,7 @@ export const PROJECT = {
 
 export const AUTH = {
     googleClientId: "977516655506-vr13tt7l77ghiie2kbff4cqjo7645vb1.apps.googleusercontent.com",
-    githubAuthUrl: "https://github.com/login/oauth/authorize?client_id=Ov23lih8qMJVovBZZYbC&scope=user"
+    githubAuthUrl: "php/github_redirect.php"
 };
 
 export const ENGINE = {
@@ -58,9 +58,8 @@ export const UI = {
 };
 
 export const APIS = {
-    nasaKey: '3ol2YCqcIrPdfz8CBltbb9i2m84mfpkaXESaGc6s',
+    proxy: 'php/nasa_proxy.php',
     noaaBase: 'https://services.swpc.noaa.gov/json',
-    nasaBase: 'https://api.nasa.gov',
     cache: {
         mars: 3600000,     // 1h
         flares: 900000,    // 15 min

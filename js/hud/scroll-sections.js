@@ -6,8 +6,9 @@
  */
 
 import { APIS } from '../config.js';
+import { escapeHTML } from '../utils/sanitize.js';
 
-const NASA_KEY = APIS.nasaKey;
+const PROXY = 'php/nasa_proxy.php';
 const CACHE_PREFIX = 'Vynas_cache_';
 
 // ── Cache helpers ──
@@ -159,7 +160,7 @@ function buildMetricCards(pd) {
 
 async function fetchNEOCount() {
     const data = await fetchCached(
-        `https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false&api_key=${NASA_KEY}`,
+        `${PROXY}?endpoint=neo_feed`,
         'neo_today', 3600000
     );
     if (data && data.element_count) {
@@ -195,8 +196,7 @@ function buildCatalog(pd) {
     const trappistGrid = document.getElementById('catalog-trappist');
     const keplerGrid = document.getElementById('catalog-kepler');
 
-    for (const k in pd) {
-        const p = pd[k];
+    for (const [k, p] of Object.entries(pd)) {
         if (p.isConstellation) continue;
 
         let grid = solarGrid;
@@ -209,11 +209,11 @@ function buildCatalog(pd) {
         card.style.borderColor = `${p.theme}15`;
 
         card.innerHTML = `
-            <span class="pc-symbol" style="color:${p.theme}">${p.symbol || '●'}</span>
-            <div class="pc-name" style="color:${p.theme}">${p.name}</div>
-            <div class="pc-sector">${p.sector || ''}</div>
-            <div class="pc-desc">${p.unique || p.desc || ''}</div>
-            ${p.alert ? `<span class="pc-alert" style="background:${p.theme}20;color:${p.theme};border:1px solid ${p.theme}40">${p.alertText || 'Alerta'}</span>` : ''}
+            <span class="pc-symbol" style="color:${escapeHTML(p.theme)}">${escapeHTML(p.symbol || '●')}</span>
+            <div class="pc-name" style="color:${escapeHTML(p.theme)}">${escapeHTML(p.name)}</div>
+            <div class="pc-sector">${escapeHTML(p.sector || '')}</div>
+            <div class="pc-desc">${escapeHTML(p.unique || p.desc || '')}</div>
+            ${p.alert ? `<span class="pc-alert" style="background:${escapeHTML(p.theme)}20;color:${escapeHTML(p.theme)};border:1px solid ${escapeHTML(p.theme)}40">${escapeHTML(p.alertText || 'Alerta')}</span>` : ''}
         `;
 
         card.addEventListener('mouseenter', () => {
@@ -258,7 +258,7 @@ async function loadMarsPhotos(rover, preloadedData = null) {
     // Try to use Python processed data first
     if (preloadedData && preloadedData[rover] && preloadedData[rover].photos && preloadedData[rover].photos.length > 0) {
         photos = preloadedData[rover].photos.map(p => ({
-            img_src: p.thumb_path ? p.thumb_path.replace('c:\\wamp64\\www\\ispep\\', '') : p.original_url,
+            img_src: p.thumb_path ? p.thumb_path.replace('c:\\wamp64\\www\\ispep\\', '').replace('c:\\wamp64\\www\\Vynas\\', '').replace(/\\/g, '/') : p.original_url,
             camera: p.camera,
             sol: p.sol,
             earth_date: p.earth_date,
@@ -296,9 +296,9 @@ async function loadMarsPhotos(rover, preloadedData = null) {
         const div = document.createElement('div');
         div.className = 'mars-photo';
         div.innerHTML = `
-            <img src="${photo.img_src.replace(/\\/g, '/')}" alt="Mars - ${photo.camera.name || photo.camera.full_name}" loading="lazy">
+            <img src="${escapeHTML(photo.img_src.replace(/\\/g, '/'))}" alt="Mars - ${escapeHTML(photo.camera.name || photo.camera.full_name)}" loading="lazy">
             <div class="mp-info">
-                <span class="mp-cam">${photo.camera.name || ''}</span> · Sol ${photo.sol || ''} · ${photo.earth_date || ''}
+                <span class="mp-cam">${escapeHTML(photo.camera.name || '')}</span> · Sol ${escapeHTML(photo.sol || '')} · ${escapeHTML(photo.earth_date || '')}
             </div>
         `;
         div.addEventListener('click', () => window.open(photo.original_url || photo.img_src, '_blank'));
@@ -344,7 +344,7 @@ async function loadKpIndex(spaceWeather = null) {
 
     const latestKp = Math.round(kpVal);
     if (label) {
-        label.innerHTML = `<strong style="color:${kpColors[latestKp]}">Kp ${latestKp}</strong> — ${kpStatus[latestKp] || 'Desconocido'} ${kpTrend ? `(${kpTrend})` : ''} · Condiciones de observación: ${latestKp <= 2 ? '✅ Óptimas' : latestKp <= 4 ? '⚠️ Aceptables' : '🔴 Degradadas'}`;
+        label.innerHTML = `<strong style="color:${kpColors[latestKp]}">${escapeHTML('Kp ' + latestKp)}</strong> — ${escapeHTML(kpStatus[latestKp] || 'Desconocido')} ${kpTrend ? `(${escapeHTML(kpTrend)})` : ''} · Condiciones de observación: ${latestKp <= 2 ? '✅ Óptimas' : latestKp <= 4 ? '⚠️ Aceptables' : '🔴 Degradadas'}`;
     }
 }
 
@@ -360,10 +360,9 @@ async function loadSolarFlares(spaceWeather = null) {
     if (spaceWeather && spaceWeather.solar_flares && spaceWeather.solar_flares.flares) {
         flaresData = spaceWeather.solar_flares.flares;
     } else {
-        const end = new Date().toISOString().split('T')[0];
-        const start = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
+        // Fechas calculadas en el proxy server-side
         const data = await fetchCached(
-            `https://api.nasa.gov/DONKI/FLR?startDate=${start}&endDate=${end}&api_key=${NASA_KEY}`,
+            `${PROXY}?endpoint=donki_flares`,
             'donki_flr_7d', 900000
         );
         if (data) flaresData = data;
@@ -390,10 +389,10 @@ async function loadSolarFlares(spaceWeather = null) {
         item.className = 'flare-item';
         item.style.borderColor = color;
         item.innerHTML = `
-            <span class="flare-class" style="color:${color}">${cls}</span>
+            <span class="flare-class" style="color:${color}">${escapeHTML(cls)}</span>
             <div class="flare-details">
-                <div class="fd-time">${peakTime}</div>
-                <div class="fd-region">${flare.sourceLocation || flare.source || '—'}</div>
+                <div class="fd-time">${escapeHTML(peakTime)}</div>
+                <div class="fd-region">${escapeHTML(flare.sourceLocation || flare.source || '—')}</div>
             </div>
             ${hasCME ? '<span class="flare-badge" style="background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3)">CME</span>' : ''}
         `;
@@ -413,10 +412,10 @@ async function loadEpicEarth(epicImages = null) {
 
     if (epicImages && epicImages.images && epicImages.images.length > 0) {
         latest = epicImages.images[0];
-        imgUrl = latest.thumb_path ? latest.thumb_path.replace('c:\\wamp64\\www\\ispep\\', '').replace(/\\/g, '/') : latest.original_url;
+        imgUrl = latest.thumb_path ? latest.thumb_path.replace('c:\\wamp64\\www\\ispep\\', '').replace('c:\\wamp64\\www\\Vynas\\', '').replace(/\\/g, '/') : latest.original_url;
     } else {
         const data = await fetchCached(
-            `${APIS.nasaBase}/EPIC/api/natural/images?api_key=${NASA_KEY}`,
+            `${PROXY}?endpoint=epic_images`,
             'epic_latest', APIS.cache.epic
         );
 
@@ -434,10 +433,10 @@ async function loadEpicEarth(epicImages = null) {
 
     container.innerHTML = `
         <div class="epic-photo">
-            <img src="${imgUrl}" alt="Tierra desde DSCOVR" loading="lazy">
+            <img src="${escapeHTML(imgUrl)}" alt="Tierra desde DSCOVR" loading="lazy">
             <div class="epic-info">
-                <div class="epic-date">${new Date(latest.date).toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                <div class="epic-caption">Satélite DSCOVR · ${latest.caption || 'Imagen de color natural'}</div>
+                <div class="epic-date">${escapeHTML(new Date(latest.date).toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric' }))}</div>
+                <div class="epic-caption">Satélite DSCOVR · ${escapeHTML(latest.caption || 'Imagen de color natural')}</div>
             </div>
         </div>
     `;

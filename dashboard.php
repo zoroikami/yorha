@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/php/config.php';
 session_start();
 
 if (!isset($_SESSION['investigador_nombre'])) {
@@ -68,6 +69,7 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -103,17 +105,17 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             <div id="system-indicator"
                 style="font-family: 'Cinzel', serif; font-weight: 700; font-size: 1rem; color: var(--theme-color); letter-spacing: 0.2em; text-transform: uppercase; text-shadow: 0 0 10px rgba(197,163,88,0.5);">
                 SISTEMA SOLAR</div>
-            <button id="btn-autopilot" class="clickable nav-action-btn danger">WAR ROOM</button>
-            <button id="btn-physics" class="clickable nav-action-btn gold">FUNDAMENTOS</button>
+            <button id="btn-autopilot" class="clickable nav-action-btn danger" aria-label="Activar piloto automático - War Room">WAR ROOM</button>
+            <button id="btn-physics" class="clickable nav-action-btn gold" aria-label="Ver fundamentos físicos del cosmos">FUNDAMENTOS</button>
         </div>
 
-        <a href="profile.php" class="user-area clickable" style="text-decoration: none;">
+        <a href="profile.php" class="user-area clickable" style="text-decoration: none;" aria-label="Ir al perfil de <?php echo htmlspecialchars($_SESSION['investigador_nombre']); ?>">
             <div class="user-info">
                 <p>Bienvenido</p>
                 <p><?php echo htmlspecialchars($_SESSION['investigador_nombre']); ?></p>
             </div>
             <img src="<?php echo htmlspecialchars($user_img); ?>"
-                onerror="this.onerror=null; this.src='img/logodefault.png';" alt="Foto investigador">
+                onerror="this.onerror=null; this.src='img/logodefault.png';" alt="Foto de perfil del investigador">
         </a>
     </nav>
 
@@ -134,7 +136,7 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
         <div id="physics-panel" class="physics-panel clickable">
             <div class="physics-panel-header">
                 <h3>FUNDAMENTOS DEL COSMOS</h3>
-                <button id="btn-close-physics" class="physics-close clickable">×</button>
+                <button id="btn-close-physics" class="physics-close clickable" aria-label="Cerrar panel de fundamentos del cosmos">×</button>
             </div>
             <div class="physics-scroll-area">
                 <div class="physics-intro">
@@ -202,8 +204,8 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             </div>
 
             <!-- Botones de Interacción -->
-            <button id="btn-toggle-interaction" class="clickable interaction-btn">INTERACTUAR</button>
-            <button id="btn-return-hub" class="clickable interaction-btn" style="display: none;">VOLVER AL
+            <button id="btn-toggle-interaction" class="clickable interaction-btn" aria-label="Iniciar modo interactivo y exploración 3D libre">INTERACTUAR</button>
+            <button id="btn-return-hub" class="clickable interaction-btn" style="display: none;" aria-label="Volver al panel principal del Hub">VOLVER AL
                 HUB</button>
 
 
@@ -270,7 +272,7 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
                             </div>
                         </div>
 
-                        <button id="btn-return" class="clickable">Volver a Órbita</button>
+                        <button id="btn-return" class="clickable" aria-label="Volver a la vista de órbita planetaria">Volver a Órbita</button>
                     </div>
                 </div>
 
@@ -303,7 +305,7 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             <div id="era-info-modal" class="era-modal">
                 <div class="era-modal-header">
                     <h3 id="era-modal-title">Título de la Era</h3>
-                    <button class="era-modal-close clickable" onclick="closeEraModal()">×</button>
+                    <button class="era-modal-close clickable" onclick="closeEraModal()" aria-label="Cerrar ventana de detalles de la era">×</button>
                 </div>
                 <div class="era-modal-body">
                     <p id="era-modal-desc">Descripción extendida de la era.</p>
@@ -428,6 +430,28 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
             </div>
         </section>
 
+        <!-- ═══ SECCIÓN: OBSERVATORIO (SDO) ═══ -->
+        <section id="observatory-section" class="dash-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <span class="section-tag">TELESCOPIOS EN VIVO</span>
+                    <h2 class="section-title">Observatorio Solar (SDO)</h2>
+                </div>
+                <div class="observatory-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div class="obs-card" style="background: rgba(20,20,25,0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 15px; text-align: center;">
+                        <h4 style="color: #c5a358; margin-bottom: 10px; font-family: 'Cinzel', serif;">AIA 193 Å</h4>
+                        <img id="sdo-193" src="" alt="SDO AIA 193" style="width: 100%; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); transition: opacity 0.5s;">
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">Corona solar y erupciones (Tiempo Real)</p>
+                    </div>
+                    <div class="obs-card" style="background: rgba(20,20,25,0.8); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 15px; text-align: center;">
+                        <h4 style="color: #c5a358; margin-bottom: 10px; font-family: 'Cinzel', serif;">AIA 304 Å</h4>
+                        <img id="sdo-304" src="" alt="SDO AIA 304" style="width: 100%; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); transition: opacity 0.5s;">
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">Cromosfera y filamentos (Tiempo Real)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ═══ FOOTER EXPANDIDO ═══ -->
         <footer id="scroll-footer" class="dash-section scroll-footer">
             <div class="section-inner">
@@ -466,7 +490,7 @@ $user_img = (isset($_SESSION['investigador_foto']) && !empty($_SESSION['investig
     <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/ispep/sw.js').catch(() => { });
+            navigator.serviceWorker.register('/Vynas/sw.js').catch(() => { });
         }
 
         // ══ SweetAlert2 Logic ══

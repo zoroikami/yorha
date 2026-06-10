@@ -8,12 +8,22 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/db.php';
 
 if (isset($_GET['code'])) {
+    // Validar state para prevenir CSRF
+    $state = $_GET['state'] ?? '';
+    $expected_state = $_SESSION['oauth_github_state'] ?? '';
+    unset($_SESSION['oauth_github_state']); // Consumir el token (one-time use)
+
+    if (empty($state) || !hash_equals($expected_state, $state)) {
+        header("Location: ../login.html?error=csrf_failed");
+        exit();
+    }
+
     $code = $_GET['code'];
 
     // 1. Intercambio de código por Token
     $ch = curl_init("https://github.com/login/oauth/access_token");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Solo para localhost/dev
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, !VYNAS_DEBUG); // true en producción, false solo en localhost/dev
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
         'client_id' => GITHUB_CLIENT_ID,
         'client_secret' => GITHUB_CLIENT_SECRET,
@@ -30,10 +40,10 @@ if (isset($_GET['code'])) {
         // 2. Obtener datos del usuario
         $ch = curl_init("https://api.github.com/user");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, !VYNAS_DEBUG);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Authorization: token $access_token",
-            "User-Agent: ISPEP-Vynas-App"
+            "User-Agent: Vynas-App/2.1.0"
         ]);
 
         $user_data = json_decode(curl_exec($ch), true);

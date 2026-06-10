@@ -33,8 +33,8 @@ export function initAutopilot(ctx) {
             confirmButtonText: 'INICIAR',
             cancelButtonText: 'CANCELAR',
             customClass: {
-                popup: 'yorha-swal-popup',
-                title: 'yorha-swal-title',
+                popup: 'vynas-swal-popup',
+                title: 'vynas-swal-title',
                 confirmButton: 'swal2-confirm',
                 cancelButton: 'swal2-confirm'
             }

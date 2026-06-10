@@ -14,7 +14,7 @@ if (isset($_GET['code'])) {
     unset($_SESSION['oauth_github_state']); // Consumir el token (one-time use)
 
     if (empty($state) || !hash_equals($expected_state, $state)) {
-        header("Location: ../login.html?error=csrf_failed");
+        header("Location: ../?error=csrf_failed");
         exit();
     }
 
@@ -88,16 +88,16 @@ if (isset($_GET['code'])) {
             $_SESSION['investigador_foto'] = $foto;
             $_SESSION['last_activity'] = time();
 
-            header("Location: ../dashboard.php");
+            header("Location: ../?success=login");
             exit();
         }
     }
 
     // Cualquier fallo redirige al login
-    header("Location: ../login.html?error=invalid_credentials");
+    header("Location: ../?error=invalid_credentials");
     exit();
 } else {
-    header("Location: ../login.html?error=invalid_credentials");
+    header("Location: ../?error=invalid_credentials");
     exit();
 }
 ?>

@@ -1,37 +1,45 @@
 <?php
 /**
- * Vynas — Proceso de Registro (PDO + Prepared Statements)
- * Migrado de mysqli a PDO para prevenir SQL injection.
+ * Vynas — Proceso de Registro (API JSON)
+ * Retorna respuestas en formato JSON para el frontend React.
  */
 session_start();
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/db.php';
 
+header('Content-Type: application/json');
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Verificar CSRF
     if (!csrf_verify()) {
-        header("Location: ../login.html?error=csrf_failed");
+        http_response_code(400);
+        echo json_encode(["error" => "csrf_failed", "message" => "Validación de token de seguridad fallida."]);
         exit();
     }
 
-    $nombre = trim($_POST['nombre'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password_plain = $_POST['password'] ?? '';
+    // Permitir tanto POST tradicional como JSON
+    $input = json_decode(file_get_contents('php://input'), true);
+    $nombre = trim($_POST['nombre'] ?? $input['nombre'] ?? '');
+    $email = trim($_POST['email'] ?? $input['email'] ?? '');
+    $password_plain = $_POST['password'] ?? $input['password'] ?? '';
 
     // Validaciones básicas
     if (empty($nombre) || empty($email) || empty($password_plain)) {
-        header("Location: ../login.html?error=invalid_credentials");
+        http_response_code(400);
+        echo json_encode(["error" => "invalid_credentials", "message" => "Completa todos los campos obligatorios."]);
         exit();
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../login.html?error=invalid_credentials");
+        http_response_code(400);
+        echo json_encode(["error" => "invalid_email", "message" => "Formato de correo electrónico no válido."]);
         exit();
     }
 
     if (strlen($password_plain) < 6) {
-        header("Location: ../login.html?error=invalid_credentials");
+        http_response_code(400);
+        echo json_encode(["error" => "password_too_short", "message" => "La contraseña debe tener al menos 6 caracteres."]);
         exit();
     }
 
@@ -40,7 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->execute(['email' => $email]);
 
     if ($stmt->fetch()) {
-        header("Location: ../login.html?error=email_exists");
+        http_response_code(400);
+        echo json_encode(["error" => "email_exists", "message" => "El correo electrónico ya se encuentra registrado."]);
         exit();
     }
 
@@ -68,8 +77,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['investigador_banner'] = 'img/default_banner.jpg';
     $_SESSION['last_activity'] = time();
 
-    header("Location: ../dashboard.php");
+    echo json_encode([
+        "success" => true,
+        "user" => [
+            "nombre" => $nombre,
+            "email" => $email,
+            "foto" => $foto_default,
+            "banner" => 'img/default_banner.jpg'
+        ]
+    ]);
+    exit();
+} else {
+    http_response_code(405);
+    echo json_encode(["error" => "method_not_allowed"]);
     exit();
 }
 ?>
-
